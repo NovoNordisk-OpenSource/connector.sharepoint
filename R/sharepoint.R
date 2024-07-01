@@ -1,7 +1,36 @@
+#' @title Connector Object for Sharepoint
+#' @description This object is used to interact with Sharepoint, adding the ability to list, read, write, download, upload, create directories and remove files.
+#'
+#' @importFrom R6 R6Class
+#' @importFrom AzureAuth is_azure_token
+#' @importFrom Microsoft365R get_sharepoint_site
+#'
+#' @param site_url The URL of the Sharepoint site
+#' @param token The Azure token
+#' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents"
+#'
+#' @details
+#' About the token, you can retrieve it by following the guideline in your entreprise.
+#'
+#'
+#' @export
+#'
+#' @examplesIf FALSE
+#' # To retrieve the token, follow the guideline in your entreprise
+#' token <- readRDS("~/token_connect_only_sharepoint.rds")
+#' drive <- Connector_sharepoint$new(
+#'   site_url = "https://novonordisk.sharepoint.com/sites/Amace-Document-Storage/",
+#'   token = token
+#'  )
+#' drive$list_content()
 Connector_sharepoint <- R6::R6Class( # nolint
   "Connector_sharepoint",
   public = list(
-    #' @description Initializes the connector_databricks_volumes class
+    #' @description Initializes the Connector_sharepoint class
+    #' @param site_url The URL of the Sharepoint site
+    #' @param token The Azure token
+    #' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents"
+    #' @return A [Connector_sharepoint] object
     initialize = function(site_url,
                          token,
                          path_of_folder = NULL) {
@@ -26,36 +55,65 @@ Connector_sharepoint <- R6::R6Class( # nolint
      private$folder <- folder
 
     },
-    list_content = function() {
+    #' @description List the content of the folder
+    #' @param ... Additional parameters to pass to the cnt_list_content method
+    #' @return A data.frame with the content of the folder
+    #'
+    list_content = function(...) {
       self %>%
-        list_content()
+        cnt_list_content(...)
     },
+    #' @description Read the content of a file
+    #' @param name The name of the file to read
+    #' @param ... Additional parameters to pass to the cnt_read method
+    #' @return The content of the file
     read = function(name, ...) {
       self %>%
-        read(name, ...)
+        cnt_read(name, ...)
     },
+    #' @description Write a file
+    #' @param x The content to write
+    #' @param file The name of the file to write
+    #' @param ... Additional parameters to pass to the cnt_write method
+    #' @return The content of the file
     write = function(x, file, ...) {
       self %>%
-        write(x, file, ...)
+        cnt_write(x, file, ...)
     },
+    #' @description Download a file
+    #' @param name The name of the file to download
+    #' @param ... Additional parameters to pass to the cnt_download_content method
+    #' @return The file downloaded
     download = function(name, ...) {
       self %>%
-        download_content(name, ...)
+        cnt_download_content(name, ...)
     },
+    #' @description Upload a file
+    #' @param name The name of the file to upload
+    #' @param ... Additional parameters to pass to the cnt_upload_content method
+    #' @return The file uploaded
     upload = function(name, ...) {
       self %>%
-        upload_content(name, ...)
+        cnt_upload_content(name, ...)
     },
+    #' @description Get the connection
+    #' @return The connection
     get_conn = function() {
       private$folder
     },
+    #' @description Create a directory
+    #' @param name The name of the directory to create
+    #' @param ... Additional parameters to pass to the cnt_create_directory method
+    #' @return The directory created
     create_directory = function(name, ...) {
       self %>%
-        create_directory(name, ...)
+        cnt_create_directory(name, ...)
     },
+    #' @description Remove a file or a directory
+    #' @param name The name of the file or directory to remove
     remove = function(name) {
       self %>%
-        remove(name)
+        cnt_remove(name)
     }
   ),
   private = list(
@@ -66,105 +124,3 @@ Connector_sharepoint <- R6::R6Class( # nolint
   cloneable = FALSE
 )
 
-download_content <- function(connector_object, name, dest, ...) {
-  connector_object$get_conn()$get_item(name)$download(dest, ...)
-}
-
-upload_content <- function(connector_object, src, dest, ..., recursive = FALSE) {
-  drive <- connector_object$get_conn()
-
-  if(is.dir(src)){
-    if(inherits(drive, "ms_drive")){
-      drive$upload_folder(src, dest, ..., recursive = recursive)
-    }else{
-      drive$upload(src, dest, ..., recursive = recursive)
-    }
-  }else{
-    upload_on_drive_or_folder(drive, src, dest)
-  }
-
-}
-
-create_directory <- function(connector_object, name, ...) {
-  connector_object$get_conn()$create_folder(name, ...)
-}
-
-remove.Connector_sharepoint <- function(connector_object, name) {
-  connector_object$get_conn()$get_item(name)$delete()
-}
-
-list_content.Connector_sharepoint <- function(connector_object) {
-
-  connector_object$get_conn()$list_items()
-}
-
-read.Connector_sharepoint <- function(connector_object, name, ...) {
-
-  connector_object$get_conn() %>%
-    read_microsoft_file(name, ...)
-}
-
-write.Connector_sharepoint <- function(connector_object, x, file, ...) {
-
-  connector_object$get_conn() %>%
-    write_microsoft_file(x, file, ...)
-}
-
-read_microsoft_file <- function(ms_object, name, ...) {
-
-  file <- ms_object$get_item(name)
-
-  if(file$is_folder()){
-    stop("The file provided is a folder, please use download_folder instead of read")
-  }
-
-  find_ext <- tools::file_ext(name)
-
-  temp_file <- tempfile(fileext = paste0(".", find_ext))
-
-  file$download(dest = temp_file)
-
-  # Read the downloaded file
-  x <- connector::read_file(temp_file, ...)
-
-  # delete the temporary file
-  unlink(temp_file)
-
-  return(x)
-}
-
-
-upload_on_drive_or_folder <- function(ms_object, src, dest) {
-
-  if(inherits(ms_object, "ms_drive")){
-    return(ms_object$upload_file(src, dest))
-  } else {
-    return(ms_object$upload(src, dest))
-  }
-}
-
-write_microsoft_file <- function(ms_object, x, file, ...) {
-
-  if(is.character(x)){
-    stop("The object provided is a character, please provide a data frame or a R object. For files or folders, use the appropriate functions")
-  }
-
-  # Find extension of file
-  find_ext <- tools::file_ext(file)
-
-  # Create temporary file as a placeholder
-  temp_file <- tempfile(fileext = paste0(".", find_ext))
-
-  # Write the file to a temporary file
-  connector::write_file(x, temp_file, ...)
-
-  # Upload the file to sahrepoint
-  res <- upload_on_drive_or_folder(ms_object, temp_file, file)
-
-  # delete the temporary file
-  unlink(temp_file)
-
-  # Return the file name
-  return(res$get_path())
-
-}
