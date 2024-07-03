@@ -79,7 +79,7 @@ library(Microsoft365R)
 
 tok <- readr::read_rds("~/token_connect.rds")
 
-my_share <- Microsoft365R::get_sharepoint_site(site_url = "https://novonordisk.sharepoint.com/sites/Amace-Document-Storage/", token = tok)
+my_share <- Microsoft365R::get_sharepoint_site(site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"), token = tok)
 
 doc <- my_share$get_drive()
 
@@ -102,7 +102,7 @@ my_share$get_lists()
 
 
 test <- Connector_sharepoint$new(
-  site_url = "https://novonordisk.sharepoint.com/sites/Amace-Document-Storage/",
+  site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
   token = tok)
 
 something <- test

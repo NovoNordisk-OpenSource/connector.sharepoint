@@ -1,3 +1,54 @@
+#' Create sharepoint connector object
+#'
+#' @description Create a new sharepoint connector object. See [Connector_sharepoint] for details.
+#'
+#' @param site_url The URL of the Sharepoint site
+#' @param token The Azure token. By default, it will be retrieve by [get_token]
+#' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents"
+#' @param ... Additional parameters to pass to the [Connector_sharepoint] object
+#' @param extra_class [character] Extra class added to the object. See details.
+#'
+#' @return A new [Connector_sharepoint] object
+#'
+#' @details
+#' The `extra_class` parameter allows you to create a subclass of the `Connector_sharepoint` object.
+#' This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
+#' while still inheriting the methods from the `Connector_sharepoint` object.
+#'
+#' @examplesIf not_on_ci()
+#'
+#' # Connect
+#'
+#' my_drive <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"))
+#'
+#' # List content
+#' my_drive$list_content()
+#' # Write a file
+#' my_drive$write(iris, "iris.csv")
+#' # Read a file
+#' my_drive$read("iris.csv")
+#' # Create a directory
+#' my_drive$create_directory("new_directory")
+#' # Remove a file or directory
+#' my_drive$remove("iris.csv", confirm = FALSE)
+#' my_drive$remove("new_directory")
+#'
+#' @export
+connector_sharepoint <- function(site_url,
+                                 token = connector.sharepoint::get_token(),
+                                 ...,
+                                 path_of_folder = NULL,
+                                 extra_class = NULL) {
+  layer <- Connector_sharepoint$new(site_url = site_url, token = token, path_of_folder = path_of_folder, ...)
+  if (!is.null(extra_class)) {
+    # TODO: not sure about paste and so on
+    # extra_class <- paste(class(layer), extra_class, sep = "_")
+    class(layer) <- c(extra_class, class(layer))
+  }
+  return(layer)
+}
+
+
 #' @title Connector Object for Sharepoint
 #' @description This object is used to interact with Sharepoint, adding the ability to list, read, write, download, upload, create directories and remove files.
 #'
@@ -5,24 +56,22 @@
 #' @importFrom AzureAuth is_azure_token
 #' @importFrom Microsoft365R get_sharepoint_site
 #'
-#' @param site_url The URL of the Sharepoint site
-#' @param token The Azure token
-#' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents"
-#'
 #' @details
 #' About the token, you can retrieve it by following the guideline in your entreprise.
 #'
 #'
 #' @export
 #'
-#' @examplesIf FALSE
+#' @name Connector_sharepoint_object
+#'
+#' @examplesIf not_on_ci()
 #' # To retrieve the token, follow the guideline in your entreprise
-#' token <- readRDS("~/token_connect_only_sharepoint.rds")
-#' drive <- Connector_sharepoint$new(
-#'   site_url = "https://novonordisk.sharepoint.com/sites/Amace-Document-Storage/",
+#' token <- get_token()
+#' my_drive <- Connector_sharepoint$new(
+#'   site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
 #'   token = token
-#'  )
-#' drive$list_content()
+#' )
+#' my_drive$list_content()
 Connector_sharepoint <- R6::R6Class( # nolint
   "Connector_sharepoint",
   public = list(
@@ -30,30 +79,33 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @param site_url The URL of the Sharepoint site
     #' @param token The Azure token
     #' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents"
+    #' @param ... Additional parameters to pass to the [get_sharepoint_site] function
     #' @return A [Connector_sharepoint] object
+    #'
+    #' @details
+    #' Additional details...
+    #'
     initialize = function(site_url,
-                         token,
-                         path_of_folder = NULL) {
-
-
-      if(!AzureAuth::is_azure_token(token)){
+                          token,
+                          path_of_folder = NULL,
+                          ...) {
+      if (!AzureAuth::is_azure_token(token)) {
         stop("The token provided is not a valid Azure token")
       }
 
       private$token <- token
       private$site_url <- site_url
 
-      folder <- Microsoft365R::get_sharepoint_site(site_url = site_url, token = token)$get_drive()
+      folder <- Microsoft365R::get_sharepoint_site(site_url = site_url, token = token, ...)$get_drive()
 
-      if(!is.null(path_of_folder)){
+      if (!is.null(path_of_folder)) {
         folder <- folder$get_item(path_of_folder)
-        if(!folder$is_folder()){
+        if (!folder$is_folder()) {
           stop("The path provided is not a folder")
         }
       }
 
-     private$folder <- folder
-
+      private$folder <- folder
     },
     #' @description List the content of the folder
     #' @param ... Additional parameters to pass to the cnt_list_content method
@@ -111,9 +163,10 @@ Connector_sharepoint <- R6::R6Class( # nolint
     },
     #' @description Remove a file or a directory
     #' @param name The name of the file or directory to remove
-    remove = function(name) {
+    #' @param ... Additional parameters to pass to the cnt_remove method
+    remove = function(name, ...) {
       self %>%
-        cnt_remove(name)
+        cnt_remove(name, ...)
     }
   ),
   private = list(
@@ -123,4 +176,3 @@ Connector_sharepoint <- R6::R6Class( # nolint
   ),
   cloneable = FALSE
 )
-

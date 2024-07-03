@@ -5,7 +5,7 @@
 \alias{cnt_list_content.Connector_sharepoint}
 \alias{cnt_read.Connector_sharepoint}
 \alias{cnt_write.Connector_sharepoint}
-\title{The remove method for the sharepoint class}
+\title{Methods for the sharepoint class}
 \usage{
 \method{cnt_remove}{Connector_sharepoint}(connector_object, name, ...)
 
@@ -20,12 +20,12 @@
 
 \item{name}{The name of the file to read}
 
-\item{...}{Additional parameters to pass to the cnt_write method}
+\item{...}{Additional parameters to pass to the write_microsoft_file function}
 
 \item{x}{The content to write}
 
 \item{file}{The name of the file to write}
 }
 \description{
-The remove method for the sharepoint class
+Methods for the sharepoint class
 }

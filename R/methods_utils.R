@@ -33,16 +33,15 @@ cnt_download_content <- function(connector_object, name, dest, ...) {
 cnt_upload_content <- function(connector_object, src, dest, ..., recursive = FALSE) {
   drive <- connector_object$get_conn()
 
-  if(dir.exists(src)){
-    if(inherits(drive, "ms_drive")){
+  if (dir.exists(src)) {
+    if (inherits(drive, "ms_drive")) {
       drive$upload_folder(src, dest, ..., recursive = recursive)
-    }else{
+    } else {
       drive$upload(src, dest, ..., recursive = recursive)
     }
-  }else{
+  } else {
     upload_on_drive_or_folder(drive, src, dest)
   }
-
 }
 
 #' Create a directory
@@ -70,10 +69,9 @@ cnt_create_directory <- function(connector_object, name, ...) {
 #'
 #' @return The content of the file in R
 read_microsoft_file <- function(ms_object, name, ...) {
-
   file <- ms_object$get_item(name)
 
-  if(file$is_folder()){
+  if (file$is_folder()) {
     stop("The file provided is a folder, please use download_folder instead of read")
   }
 
@@ -103,8 +101,7 @@ read_microsoft_file <- function(ms_object, name, ...) {
 #'
 #' @return A file or folder uploaded
 upload_on_drive_or_folder <- function(ms_object, src, dest) {
-
-  if(inherits(ms_object, "ms_drive")){
+  if (inherits(ms_object, "ms_drive")) {
     return(ms_object$upload_file(src, dest))
   } else {
     return(ms_object$upload(src, dest))
@@ -120,8 +117,7 @@ upload_on_drive_or_folder <- function(ms_object, src, dest) {
 #'
 #' @return The file path
 write_microsoft_file <- function(ms_object, x, file, ...) {
-
-  if(is.character(x)){
+  if (is.character(x)) {
     stop("The object provided is a character, please provide a data frame or a R object. For files or folders, use the appropriate functions")
   }
 
@@ -142,5 +138,4 @@ write_microsoft_file <- function(ms_object, x, file, ...) {
 
   # Return the file name
   return(res$get_path())
-
 }

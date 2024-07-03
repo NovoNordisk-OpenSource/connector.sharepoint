@@ -4,19 +4,19 @@
 \name{connector.sharepoint-package}
 \alias{connector.sharepoint}
 \alias{connector.sharepoint-package}
-\title{connector.sharepoint: Template repository for new ATMOS R packages}
+\title{connector.sharepoint: Connect to Microsoft SharePoint easily}
 \description{
 Defines common standards, workflows, and actions for new R packages.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://jubilant-adventure-yr95p3g.pages.github.io/}
+  \item \url{https://jubilant-carnival-p8y68vm.pages.github.io/}
 }
 
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Cervan Girard \email{cgid@novonordisk.com}
 
 Other contributors:
 \itemize{
