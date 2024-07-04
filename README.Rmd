@@ -42,4 +42,7 @@ yaml <- connector::read_yaml_config(system.file("config", "example_yaml.yaml", p
 connector <- connector::connect_from_yaml(yaml)
 
 connector$amace$list_content()
+connector$amace$get_conn()
+connector$amace$read("Test/iris.csv")
+
 ```
