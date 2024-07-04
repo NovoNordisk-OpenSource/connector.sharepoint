@@ -53,7 +53,7 @@ jobs:
 
 
           install.packages(c("attachment", "rcmdcheck", "remotes"), Ncpus = parallel::detectCores()-1)
-          remotes::install_github("NN-OpenSource/connector@2ea1db665")
+          remotes::install_github("NN-OpenSource/connector")
 
           attachment::att_from_description(field = c("Depends", "Imports", "Suggests")) |>
             install.packages(Ncpus = parallel::detectCores()-1)
