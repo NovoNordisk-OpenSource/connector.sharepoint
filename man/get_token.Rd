@@ -2,16 +2,16 @@
 % Please edit documentation in R/token.R
 \name{get_token}
 \alias{get_token}
-\title{Retrive a token from the AzureAuth package}
+\title{Retrieve a token from the AzureAuth package}
 \usage{
-get_token(hash = Sys.getenv("AZURE_HASH"))
+get_token(hash = get_default_hash())
 }
 \arguments{
-\item{hash}{The hash of the token to use, if not provided, the first one will be used}
+\item{hash}{The hash of the token to use. By default, use this function to retrieve it \link{get_default_hash}. If not found, use the first token found.}
 }
 \value{
 A token
 }
 \description{
-Retrive a token from the AzureAuth package
+Retrieve a token from the AzureAuth package
 }

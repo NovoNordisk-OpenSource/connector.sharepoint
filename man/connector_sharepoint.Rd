@@ -52,5 +52,14 @@ my_drive$create_directory("new_directory")
 # Remove a file or directory
 my_drive$remove("iris.csv", confirm = FALSE)
 my_drive$remove("new_directory")
+
+### For a specific folder
+test_folder <- connector_sharepoint(
+  Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
+  path_of_folder = "Test"
+)
+test_folder$list_content()
+test_folder$write(iris, "iris.csv")
+test_folder$read("iris.csv")
 \dontshow{\}) # examplesIf}
 }

@@ -6,7 +6,7 @@
 \alias{connector.sharepoint-package}
 \title{connector.sharepoint: Connect to Microsoft SharePoint easily}
 \description{
-Defines common standards, workflows, and actions for new R packages.
+Help users manipulating sharepoint files and folders. Give them the same experience as the connector package.
 }
 \seealso{
 Useful links:
