@@ -8,16 +8,15 @@
 This object is used to interact with Sharepoint, adding the ability to list, read, write, download, upload, create directories and remove files.
 }
 \details{
-About the token, you can retrieve it by following the guideline in your entreprise.
+About the token, you can retrieve it by following the guideline in your enterprise.
 }
 \examples{
 \dontshow{if (not_on_ci()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# To retrieve the token, follow the guideline in your entreprise
-token <- get_token()
+# Connect to Sharepoint
 my_drive <- Connector_sharepoint$new(
-  site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
-  token = token
+  site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com")
 )
+
 my_drive$list_content()
 \dontshow{\}) # examplesIf}
 }
@@ -41,7 +40,12 @@ my_drive$list_content()
 \subsection{Method \code{new()}}{
 Initializes the Connector_sharepoint class
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$new(site_url, token, path_of_folder = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$new(
+  site_url,
+  token = get_token(),
+  path_of_folder = NULL,
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -49,7 +53,7 @@ Initializes the Connector_sharepoint class
 \describe{
 \item{\code{site_url}}{The URL of the Sharepoint site}
 
-\item{\code{token}}{The Azure token}
+\item{\code{token}}{The Azure token. By default, it will be retrieve by \link{get_token}}
 
 \item{\code{path_of_folder}}{The path of the folder to interact with, if you don't want to interact with the root folder "Documents"}
 
@@ -57,10 +61,6 @@ Initializes the Connector_sharepoint class
 }
 \if{html}{\out{</div>}}
 }
-\subsection{Details}{
-Additional details...
-}
-
 \subsection{Returns}{
 A \link{Connector_sharepoint} object
 }

@@ -10,10 +10,12 @@ License: Apache License (>= 2)
 URL: https://jubilant-carnival-p8y68vm.pages.github.io/
 Imports: 
     AzureAuth,
+    checkmate,
     cli,
     connector,
     magrittr,
     Microsoft365R,
+    options,
     R6,
     tools
 Suggests: 

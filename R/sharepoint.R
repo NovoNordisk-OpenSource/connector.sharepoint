@@ -44,10 +44,15 @@
 #'
 #' @export
 connector_sharepoint <- function(site_url,
-                                 token = connector.sharepoint::get_token(),
+                                 token = get_token(),
                                  ...,
                                  path_of_folder = NULL,
                                  extra_class = NULL) {
+  # check extra class
+  if (!is.null(extra_class)) {
+    checkmate::assert_character(extra_class)
+  }
+
   layer <- Connector_sharepoint$new(site_url = site_url, token = token, path_of_folder = path_of_folder, ...)
   if (!is.null(extra_class)) {
     # TODO: not sure about paste and so on
@@ -66,7 +71,7 @@ connector_sharepoint <- function(site_url,
 #' @importFrom Microsoft365R get_sharepoint_site
 #'
 #' @details
-#' About the token, you can retrieve it by following the guideline in your entreprise.
+#' About the token, you can retrieve it by following the guideline in your enterprise.
 #'
 #'
 #' @export
@@ -74,43 +79,54 @@ connector_sharepoint <- function(site_url,
 #' @name Connector_sharepoint_object
 #'
 #' @examplesIf not_on_ci()
-#' # To retrieve the token, follow the guideline in your entreprise
-#' token <- get_token()
+#' # Connect to Sharepoint
 #' my_drive <- Connector_sharepoint$new(
-#'   site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
-#'   token = token
+#'   site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com")
 #' )
+#'
 #' my_drive$list_content()
 Connector_sharepoint <- R6::R6Class( # nolint
   "Connector_sharepoint",
   public = list(
     #' @description Initializes the Connector_sharepoint class
     #' @param site_url The URL of the Sharepoint site
-    #' @param token The Azure token
+    #' @param token The Azure token. By default, it will be retrieve by [get_token]
     #' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents"
     #' @param ... Additional parameters to pass to the [get_sharepoint_site] function
     #' @return A [Connector_sharepoint] object
     #'
-    #' @details
-    #' Additional details...
     #'
     initialize = function(site_url,
-                          token,
+                          token = get_token(),
                           path_of_folder = NULL,
-                          ...) {
+                          ...
+                          ) {
+      # Check params
       if (!AzureAuth::is_azure_token(token)) {
-        stop("The token provided is not a valid Azure token")
+        cli::cli_abort("The token provided is not a valid Azure token")
       }
 
+      checkmate::assert_character(site_url)
+
+      if(!grepl(pattern = "^http|^https", x = site_url)){
+        cli::cli_abort("site_url must be a valid URL")
+      }
+
+
+      ## set up the private variables
+      zephyr::msg_debug("Setting up the private variables")
       private$token <- token
       private$site_url <- site_url
 
+      # define the path of the folder
+      zephyr::msg_debug("Define the path of the folder")
       folder <- Microsoft365R::get_sharepoint_site(site_url = site_url, token = token, ...)$get_drive()
 
       if (!is.null(path_of_folder)) {
+        zephyr::msg_debug("Setting up subfolder path define by path_of_folder")
         folder <- folder$get_item(path_of_folder)
         if (!folder$is_folder()) {
-          stop("The path provided is not a folder")
+          cli::cli_abort("The path provided is not a folder")
         }
       }
 

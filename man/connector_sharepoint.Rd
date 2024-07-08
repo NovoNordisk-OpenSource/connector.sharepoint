@@ -6,7 +6,7 @@
 \usage{
 connector_sharepoint(
   site_url,
-  token = connector.sharepoint::get_token(),
+  token = get_token(),
   ...,
   path_of_folder = NULL,
   extra_class = NULL

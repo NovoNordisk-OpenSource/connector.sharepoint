@@ -12,3 +12,4 @@ not_on_ci <- function() {
     )
   )
 }
+

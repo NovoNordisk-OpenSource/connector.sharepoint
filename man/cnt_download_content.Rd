@@ -23,6 +23,11 @@ It use the download method from the sharepoint object
 }
 \examples{
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# my_drive is a sharepoint object
+my_drive \%>\%
+  cnt_download_content("file.csv", "file.csv")
+
+# This function is used by the method download_content
 my_drive$download_content("file.csv", "file.csv")
 \dontshow{\}) # examplesIf}
 }

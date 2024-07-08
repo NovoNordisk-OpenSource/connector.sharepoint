@@ -11,7 +11,13 @@
 #' @export
 #'
 #' @examplesIf FALSE
+#' # my_drive is a sharepoint object
+#' my_drive %>%
+#'   cnt_download_content("file.csv", "file.csv")
+#'
+#' # This function is used by the method download_content
 #' my_drive$download_content("file.csv", "file.csv")
+#'
 cnt_download_content <- function(connector_object, name, dest, ...) {
   connector_object$get_conn()$get_item(name)$download(dest, ...)
 }
@@ -29,6 +35,10 @@ cnt_download_content <- function(connector_object, name, dest, ...) {
 #' @export
 #'
 #' @examplesIf FALSE
+#' # my_drive is a sharepoint object
+#' my_drive %>%
+#'  cnt_upload_content("file.csv", "file.csv")
+#' # This function is used by the method upload_content
 #' my_drive$upload_content("file.csv", "file.csv")
 cnt_upload_content <- function(connector_object, src, dest, ..., recursive = FALSE) {
   drive <- connector_object$get_conn()
@@ -54,6 +64,10 @@ cnt_upload_content <- function(connector_object, src, dest, ..., recursive = FAL
 #' @export
 #'
 #' @examplesIf FALSE
+#' # my_drive is a sharepoint object
+#' my_drive %>%
+#'  cnt_create_directory("folder")
+#' # This function is used by the method create_directory
 #' my_drive$create_directory("folder")
 cnt_create_directory <- function(connector_object, name, ...) {
   connector_object$get_conn()$create_folder(name, ...)
@@ -72,7 +86,7 @@ read_microsoft_file <- function(ms_object, name, ...) {
   file <- ms_object$get_item(name)
 
   if (file$is_folder()) {
-    stop("The file provided is a folder, please use download_folder instead of read")
+    cli::cli_abort("The file provided is a folder, please use download_folder instead of read")
   }
 
   find_ext <- tools::file_ext(name)
@@ -89,7 +103,6 @@ read_microsoft_file <- function(ms_object, name, ...) {
 
   return(x)
 }
-
 
 #' Util function to upload on drive or folder
 #'
@@ -118,7 +131,7 @@ upload_on_drive_or_folder <- function(ms_object, src, dest) {
 #' @return The file path
 write_microsoft_file <- function(ms_object, x, file, ...) {
   if (is.character(x)) {
-    stop("The object provided is a character, please provide a data frame or a R object. For files or folders, use the appropriate functions")
+    cli::cli_abort("The object provided is a character, please provide a data frame or a R object. For files or folders, use the appropriate functions")
   }
 
   # Find extension of file
