@@ -1,0 +1,15 @@
+# A example of the configuration file for FS and Database
+metadata:
+  trial: "Document-Storage"
+  extra_class: "test2"
+  url: "https://myorg.sharepoint.com/sites"
+
+connections:
+  - con: "myteam"
+    backend:
+        type: "connector.sharepoint::connector_sharepoint"
+        site_url: "{metadata.url}/{metadata.trial}"
+        extra_class: "{metadata.extra_class}"
+datasources:
+  - name: "myteam"
+    con: "myteam"
