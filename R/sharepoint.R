@@ -48,10 +48,8 @@ connector_sharepoint <- function(site_url,
                                  ...,
                                  path_of_folder = NULL,
                                  extra_class = NULL) {
-  # check extra class
-  if (!is.null(extra_class)) {
-    checkmate::assert_character(extra_class)
-  }
+
+  checkmate::assert_character(extra_class, null.ok = TRUE)
 
   layer <- Connector_sharepoint$new(site_url = site_url, token = token, path_of_folder = path_of_folder, ...)
   if (!is.null(extra_class)) {
