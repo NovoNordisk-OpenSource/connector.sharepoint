@@ -8,3 +8,5 @@
 ^\.lintr$
 ^cspell\.yaml$
 ^\.github$
+^dev$
+^\.httr-oauth$

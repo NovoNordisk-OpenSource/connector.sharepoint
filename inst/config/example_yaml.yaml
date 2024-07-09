@@ -1,0 +1,15 @@
+# A example of the configuration file for FS and Database
+metadata:
+  trial: "Amace-Document-Storage"
+  extra_class: "test2"
+  url: "https://novonordisk.sharepoint.com/sites"
+
+connections:
+  - con: "amace"
+    backend:
+        type: "connector.sharepoint::connector_sharepoint"
+        site_url: "{metadata.url}/{metadata.trial}"
+        extra_class: "{metadata.extra_class}"
+datasources:
+  - name: "amace"
+    con: "amace"
