@@ -8,8 +8,12 @@ quiet_connect <- function(...){
   suppressMessages(connector_sharepoint(...))
 }
 
-# Connect
-my_drive <- quiet_connect(my_site)
+if(!on_ci){
+  # Connect
+  my_drive <- quiet_connect(my_site)
+}
+
+
 
 test_that("Testing General connector_sahrepoint", {
 
