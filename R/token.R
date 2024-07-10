@@ -8,11 +8,11 @@
 #' @importFrom AzureAuth list_azure_tokens
 #' @importFrom checkmate assert_character
 get_token <- function(hash = get_default_hash()) {
-  checkmate::assert_character(hash)
+  checkmate::assert_character(hash, null.ok = TRUE)
 
   tokens <- AzureAuth::list_azure_tokens()
 
-  if (is.null(tokens)) {
+  if (length(tokens) == 0) {
     cli::cli_abort("Please create your token first, to do so, follow the guideline")
   }
 
