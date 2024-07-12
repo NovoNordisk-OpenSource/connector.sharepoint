@@ -114,6 +114,7 @@ read_microsoft_file <- function(ms_object, name, ...) {
 #'
 #' @return A file or folder uploaded
 upload_on_drive_or_folder <- function(ms_object, src, dest) {
+
   if (inherits(ms_object, "ms_drive")) {
     return(ms_object$upload_file(src, dest))
   } else {
@@ -150,5 +151,5 @@ write_microsoft_file <- function(ms_object, x, file, ...) {
   unlink(temp_file)
 
   # Return the file name
-  return(res$get_path())
+  return(TRUE)
 }
