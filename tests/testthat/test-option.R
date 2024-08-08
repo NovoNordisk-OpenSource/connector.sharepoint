@@ -8,7 +8,7 @@ test_that("Manipulate options",{
 
     messages <- capture_messages(connector_sharepoint(my_site))
     expect_true(
-      sum(grepl(x = messages, pattern = "Setting up the private variables|Define the path of the folder")) == 2
+      sum(grepl(x = messages, pattern = "Active hash file found, using it to get the hash")) == 1
     )
     options::opt_set("verbosity_level", "verbose")
 

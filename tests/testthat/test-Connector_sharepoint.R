@@ -219,12 +219,13 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
     expect_equal("iris.csv")
 
 
-  #### A not implemented ext in connector read_ext fct
+  #### Read a folder
   my_drive$read("Test_453frg6g") %>%
     expect_error()
 
-  my_drive$read("Test_453frg6g/iris.example") %>%
-    expect_error()
+  ### Using vroom
+  my_drive$read("Test_453frg6g/iris.example", show_col_types = FALSE) %>%
+    expect_no_error()
 
   ### Clean up
 
