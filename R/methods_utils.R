@@ -37,7 +37,7 @@ cnt_download_content <- function(connector_object, name, dest, ...) {
 #' @examplesIf FALSE
 #' # my_drive is a sharepoint object
 #' my_drive %>%
-#'  cnt_upload_content("file.csv", "file.csv")
+#'   cnt_upload_content("file.csv", "file.csv")
 #' # This function is used by the method upload_content
 #' my_drive$upload_content("file.csv", "file.csv")
 cnt_upload_content <- function(connector_object, src, dest, ..., recursive = FALSE) {
@@ -66,7 +66,7 @@ cnt_upload_content <- function(connector_object, src, dest, ..., recursive = FAL
 #' @examplesIf FALSE
 #' # my_drive is a sharepoint object
 #' my_drive %>%
-#'  cnt_create_directory("folder")
+#'   cnt_create_directory("folder")
 #' # This function is used by the method create_directory
 #' my_drive$create_directory("folder")
 cnt_create_directory <- function(connector_object, name, ...) {
@@ -114,7 +114,6 @@ read_microsoft_file <- function(ms_object, name, ...) {
 #'
 #' @return A file or folder uploaded
 upload_on_drive_or_folder <- function(ms_object, src, dest) {
-
   if (inherits(ms_object, "ms_drive")) {
     return(ms_object$upload_file(src, dest))
   } else {

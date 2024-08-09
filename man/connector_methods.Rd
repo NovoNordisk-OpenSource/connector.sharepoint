@@ -13,18 +13,16 @@
 
 \method{cnt_read}{Connector_sharepoint}(connector_object, name, ...)
 
-\method{cnt_write}{Connector_sharepoint}(connector_object, x, file, ...)
+\method{cnt_write}{Connector_sharepoint}(connector_object, x, name, ...)
 }
 \arguments{
 \item{connector_object}{The sharepoint object}
 
-\item{name}{The name of the file to read}
+\item{name}{The name of the file to write}
 
 \item{...}{Additional parameters to pass to the write_microsoft_file function}
 
 \item{x}{The content to write}
-
-\item{file}{The name of the file to write}
 }
 \description{
 Methods for the sharepoint class

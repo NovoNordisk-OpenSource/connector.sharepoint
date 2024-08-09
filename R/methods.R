@@ -27,10 +27,10 @@ cnt_read.Connector_sharepoint <- function(connector_object, name, ...) {
 
 #' @rdname connector_methods
 #' @param x The content to write
-#' @param file The name of the file to write
+#' @param name The name of the file to write
 #' @param ... Additional parameters to pass to the write_microsoft_file function
 #' @export
-cnt_write.Connector_sharepoint <- function(connector_object, x, file, ...) {
+cnt_write.Connector_sharepoint <- function(connector_object, x, name, ...) {
   connector_object$get_conn() %>%
-    write_microsoft_file(x, file, ...)
+    write_microsoft_file(x, file = name, ...)
 }
