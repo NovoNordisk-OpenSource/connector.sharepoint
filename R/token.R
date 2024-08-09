@@ -28,7 +28,7 @@ get_token <- function(hash = get_default_hash()) {
 
 
 #' @noRd
-get_tk_active_file <- function(){
+get_tk_active_file <- function() {
   active_file <- file.path(AzureAuth::AzureR_dir(), ".active_hash")
   if (!file.exists(active_file)) {
     return(NULL)
@@ -37,14 +37,14 @@ get_tk_active_file <- function(){
 }
 
 #' @noRd
-edit_tk_active_file <- function(){
+edit_tk_active_file <- function() {
   active_file <- get_tk_active_file()
   # TODO not only for Rstudio..
   utils::file.edit(active_file)
 }
 
 #' @noRd
-get_tk_hash_sharepoint <- function(){
+get_tk_hash_sharepoint <- function() {
   file_ <- get_tk_active_file()
   if (is.null(file_)) {
     cli::cli_alert_danger("No active hash file found.")
@@ -55,12 +55,12 @@ get_tk_hash_sharepoint <- function(){
   hash <- readLines(file_) %>%
     grep(pattern = "^SHAREPOINT", value = TRUE)
 
-  if (length(hash)== 0) {
+  if (length(hash) == 0) {
     cli::cli_alert_danger("SHAREPOINT key not found in the active hash file.")
     return(NULL)
   }
 
-    hash_f <- sub(pattern = '^SHAREPOINT="([a-zA-Z0-9]{6,})"', replacement = '\\1', hash)
+  hash_f <- sub(pattern = '^SHAREPOINT="([a-zA-Z0-9]{6,})"', replacement = "\\1", hash)
 
   return(hash_f)
 }
@@ -73,7 +73,7 @@ get_tk_hash_sharepoint <- function(){
 #'
 #' @importFrom cli cli_alert_danger
 #' @export
-get_default_hash <- function(){
+get_default_hash <- function() {
   hash <- Sys.getenv("SHAREPOINT_AZURE_HASH")
   if (hash == "") {
     # try to find a .active_hash file
@@ -82,5 +82,4 @@ get_default_hash <- function(){
   }
 
   return(hash)
-
 }

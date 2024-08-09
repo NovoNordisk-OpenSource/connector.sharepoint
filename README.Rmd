@@ -44,5 +44,4 @@ connector <- connector::connect_from_yaml(yaml)
 connector$myteam$list_content()
 connector$myteam$get_conn()
 connector$myteam$read("Test/iris.csv")
-
 ```
