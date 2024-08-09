@@ -44,5 +44,4 @@ connector <- connector::connect_from_yaml(yaml)
 connector$amace$list_content()
 connector$amace$get_conn()
 connector$amace$read("Test/iris.csv")
-
 ```

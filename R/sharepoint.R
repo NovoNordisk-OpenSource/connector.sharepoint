@@ -48,7 +48,6 @@ connector_sharepoint <- function(site_url,
                                  ...,
                                  path_of_folder = NULL,
                                  extra_class = NULL) {
-
   checkmate::assert_character(extra_class, null.ok = TRUE)
 
   layer <- Connector_sharepoint$new(site_url = site_url, token = token, path_of_folder = path_of_folder, ...)
@@ -97,8 +96,7 @@ Connector_sharepoint <- R6::R6Class( # nolint
     initialize = function(site_url,
                           token = get_token(),
                           path_of_folder = NULL,
-                          ...
-                          ) {
+                          ...) {
       # Check params
       if (!AzureAuth::is_azure_token(token)) {
         cli::cli_abort("The token provided is not a valid Azure token")
@@ -106,7 +104,7 @@ Connector_sharepoint <- R6::R6Class( # nolint
 
       checkmate::assert_character(site_url)
 
-      if(!grepl(pattern = "^http|^https", x = site_url)){
+      if (!grepl(pattern = "^http|^https", x = site_url)) {
         cli::cli_abort("site_url must be a valid URL")
       }
 

@@ -3,7 +3,7 @@ test_that("Test set up of Token", {
   hash <- names(list_azure_tokens())[1]
 
   ## Use the var env
-  withr::with_envvar(c("SHAREPOINT_AZURE_HASH" = hash),{
+  withr::with_envvar(c("SHAREPOINT_AZURE_HASH" = hash), {
     messages <- capture_messages(get_token())
     expect_false(
       any(grepl(x = messages, pattern = "No SHAREPOINT_AZURE_HASH env found"))
@@ -11,8 +11,8 @@ test_that("Test set up of Token", {
   })
 
   ## Error if no token
-  withr::with_envvar(c("R_AZURE_DATA_DIR" = "~"),{
-    quiet_token <- function(...){
+  withr::with_envvar(c("R_AZURE_DATA_DIR" = "~"), {
+    quiet_token <- function(...) {
       suppressMessages(get_token(...))
     }
 
@@ -37,5 +37,4 @@ test_that("Test set up of Token", {
 
   ## Restore .active_file
   file.rename(from = file.path(AzureAuth::AzureR_dir(), ".active_hash_old"), to = file.path(AzureAuth::AzureR_dir(), ".active_hash"))
-
 })

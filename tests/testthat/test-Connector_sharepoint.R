@@ -4,11 +4,11 @@ tbl_iris <- tibble::as_tibble(iris, rownames = NULL)
 tbl_iris$Species <- as.character(tbl_iris$Species)
 
 # just to have clean messages in tests
-quiet_connect <- function(...){
+quiet_connect <- function(...) {
   suppressMessages(connector_sharepoint(...))
 }
 
-if(!on_ci){
+if (!on_ci) {
   # Connect
   my_drive <- quiet_connect(my_site)
 }
@@ -16,7 +16,6 @@ if(!on_ci){
 
 
 test_that("Testing General connector_sahrepoint", {
-
   skip_on_ci()
 
   ###############
@@ -42,14 +41,12 @@ test_that("Testing General connector_sahrepoint", {
 
   #### Not a expected token
   expect_error(quiet_connect(my_site, token = "a weird token"))
-
-
 })
 
 test_that("Testing connector_sharepoint methods", {
   skip_on_ci()
 
-   ###############
+  ###############
   ### Methods
   ###############
 
@@ -109,7 +106,7 @@ test_that("Testing connector_sharepoint methods with a specific folder", {
   test_folder$write(tbl_iris, "iris.csv") %>%
     expect_true()
 
-  test_folder$read("iris.csv", show_col_types = FALSE)  %>%
+  test_folder$read("iris.csv", show_col_types = FALSE) %>%
     expect_equal(tbl_iris)
 
   # Remove a file or directory
@@ -230,7 +227,6 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   ### Clean up
 
   my_drive$remove("Test_453frg6g", confirm = FALSE)
-
 })
 
 
@@ -251,4 +247,3 @@ test_that("test when path to a folder is not a folder", {
   # clean up
   my_drive$remove("Test_453frg6g", confirm = FALSE)
 })
-
