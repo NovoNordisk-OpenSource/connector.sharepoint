@@ -66,7 +66,7 @@ connector_sharepoint <- function(site_url,
 #' @examplesIf not_on_ci()
 #' # Connect to Sharepoint
 #' cs <- Connector_sharepoint$new(
-#'   site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com")
+#'   site_url = Sys.getenv("SHAREPOINT_SITE_URL")
 #' )
 #'
 #' cs
