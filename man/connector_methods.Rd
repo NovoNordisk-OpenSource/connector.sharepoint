@@ -25,5 +25,8 @@
 \item{x}{The content to write}
 }
 \description{
-Methods for the sharepoint class
+\itemize{
+\item \link{cnt_read.Connector_sharepoint}: Reuses the \code{\link[connector:cnt_read]{connector::cnt_read()}}
+method for \link{Connector_sharepoint}.
+}
 }

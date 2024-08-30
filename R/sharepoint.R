@@ -19,28 +19,17 @@
 #'
 #' # Connect
 #'
-#' my_drive <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"))
+#' cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"))
 #'
-#' # List content
-#' my_drive$list_content()
-#' # Write a file
-#' my_drive$write(iris, "iris.csv")
-#' # Read a file
-#' my_drive$read("iris.csv")
-#' # Create a directory
-#' my_drive$create_directory("new_directory")
-#' # Remove a file or directory
-#' my_drive$remove("iris.csv", confirm = FALSE)
-#' my_drive$remove("new_directory")
+#' cs
 #'
-#' ### For a specific folder
-#' test_folder <- connector_sharepoint(
-#'   Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
-#'   path_of_folder = "Test"
+#' # Create subclass connection
+#' cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
+#'   extra_class = "subclass"
 #' )
-#' test_folder$list_content()
-#' test_folder$write(iris, "iris.csv")
-#' test_folder$read("iris.csv")
+#'
+#' cs_subclass
+#' class(cs_subclass)
 #'
 #' @export
 connector_sharepoint <- function(site_url,
@@ -59,8 +48,7 @@ connector_sharepoint <- function(site_url,
   return(layer)
 }
 
-
-#' @title Connector Object for Sharepoint
+#' @title Connector Object for Sharepoint class, built on top of [connector::connector] class
 #' @description This object is used to interact with Sharepoint, adding the ability to list, read, write, download, upload, create directories and remove files.
 #'
 #' @importFrom R6 R6Class
@@ -77,13 +65,35 @@ connector_sharepoint <- function(site_url,
 #'
 #' @examplesIf not_on_ci()
 #' # Connect to Sharepoint
-#' my_drive <- Connector_sharepoint$new(
+#' cs <- Connector_sharepoint$new(
 #'   site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com")
 #' )
 #'
-#' my_drive$list_content()
+#' cs
+#'
+#' # List content
+#' cs$cnt_list_content()
+#'
+#' # Write to the connector
+#' cs$cnt_write(iris, "iris.rds")
+#'
+#' # Check it is there
+#' cs$cnt_list_content()
+#'
+#' # Read the result back
+#' cs$cnt_read("iris.rds") |>
+#'   head()
+#'
+#' # Remove a file or directory
+#' cs$cnt_remove("iris.rds")
+#'
+#' # Check it is there
+#' cs$cnt_list_content()
+#'
+#' @export
 Connector_sharepoint <- R6::R6Class( # nolint
-  "Connector_sharepoint",
+  classname = "Connector_sharepoint",
+  inherit = connector::connector,
   public = list(
     #' @description Initializes the Connector_sharepoint class
     #' @param site_url The URL of the Sharepoint site
@@ -128,36 +138,11 @@ Connector_sharepoint <- R6::R6Class( # nolint
 
       private$folder <- folder
     },
-    #' @description List the content of the folder
-    #' @param ... Additional parameters to pass to the cnt_list_content method
-    #' @return A data.frame with the content of the folder
-    #'
-    list_content = function(...) {
-      self %>%
-        cnt_list_content(...)
-    },
-    #' @description Read the content of a file
-    #' @param name The name of the file to read
-    #' @param ... Additional parameters to pass to the cnt_read method
-    #' @return The content of the file
-    read = function(name, ...) {
-      self %>%
-        cnt_read(name, ...)
-    },
-    #' @description Write a file
-    #' @param x The content to write
-    #' @param file The name of the file to write
-    #' @param ... Additional parameters to pass to the cnt_write method
-    #' @return The content of the file
-    write = function(x, file, ...) {
-      self %>%
-        cnt_write(x, file, ...)
-    },
     #' @description Download a file
     #' @param name The name of the file to download
     #' @param ... Additional parameters to pass to the cnt_download_content method
     #' @return The file downloaded
-    download = function(name, ...) {
+    cnt_download = function(name, ...) {
       self %>%
         cnt_download_content(name, ...)
     },
@@ -165,7 +150,7 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @param name The name of the file to upload
     #' @param ... Additional parameters to pass to the cnt_upload_content method
     #' @return The file uploaded
-    upload = function(name, ...) {
+    cnt_upload = function(name, ...) {
       self %>%
         cnt_upload_content(name, ...)
     },
@@ -178,14 +163,14 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @param name The name of the directory to create
     #' @param ... Additional parameters to pass to the cnt_create_directory method
     #' @return The directory created
-    create_directory = function(name, ...) {
+    cnt_create_directory = function(name, ...) {
       self %>%
         cnt_create_directory(name, ...)
     },
     #' @description Remove a file or a directory
     #' @param name The name of the file or directory to remove
     #' @param ... Additional parameters to pass to the cnt_remove method
-    remove = function(name, ...) {
+    cnt_remove = function(name, ...) {
       self %>%
         cnt_remove(name, ...)
     }
