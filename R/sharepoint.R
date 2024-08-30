@@ -166,13 +166,6 @@ Connector_sharepoint <- R6::R6Class( # nolint
     cnt_create_directory = function(name, ...) {
       self %>%
         cnt_create_directory(name, ...)
-    },
-    #' @description Remove a file or a directory
-    #' @param name The name of the file or directory to remove
-    #' @param ... Additional parameters to pass to the cnt_remove method
-    cnt_remove = function(name, ...) {
-      self %>%
-        cnt_remove(name, ...)
     }
   ),
   private = list(

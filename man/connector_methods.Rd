@@ -9,7 +9,7 @@
 \usage{
 \method{cnt_remove}{Connector_sharepoint}(connector_object, name, ...)
 
-\method{cnt_list_content}{Connector_sharepoint}(connector_object)
+\method{cnt_list_content}{Connector_sharepoint}(connector_object, ...)
 
 \method{cnt_read}{Connector_sharepoint}(connector_object, name, ...)
 
@@ -25,6 +25,11 @@
 \item{x}{The content to write}
 }
 \description{
+\itemize{
+\item \link{Connector_sharepoint}: Reuses the \code{\link[connector:cnt_list_content]{connector::cnt_list_content()}}
+method for \link{Connector_sharepoint}
+}
+
 \itemize{
 \item \link{cnt_read.Connector_sharepoint}: Reuses the \code{\link[connector:cnt_read]{connector::cnt_read()}}
 method for \link{Connector_sharepoint}.

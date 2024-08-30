@@ -50,7 +50,6 @@ cs$cnt_list_content()
 \item \href{#method-Connector_sharepoint-cnt_upload}{\code{Connector_sharepoint$cnt_upload()}}
 \item \href{#method-Connector_sharepoint-get_conn}{\code{Connector_sharepoint$get_conn()}}
 \item \href{#method-Connector_sharepoint-cnt_create_directory}{\code{Connector_sharepoint$cnt_create_directory()}}
-\item \href{#method-Connector_sharepoint-cnt_remove}{\code{Connector_sharepoint$cnt_remove()}}
 }
 }
 \if{html}{\out{
@@ -58,6 +57,7 @@ cs$cnt_list_content()
 <ul>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_list_content"><a href='../../connector/html/connector.html#method-connector-cnt_list_content'><code>connector::connector$cnt_list_content()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_read"><a href='../../connector/html/connector.html#method-connector-cnt_read'><code>connector::connector$cnt_read()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_remove"><a href='../../connector/html/connector.html#method-connector-cnt_remove'><code>connector::connector$cnt_remove()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_write"><a href='../../connector/html/connector.html#method-connector-cnt_write'><code>connector::connector$cnt_write()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="print"><a href='../../connector/html/connector.html#method-connector-print'><code>connector::connector$print()</code></a></span></li>
 </ul>
@@ -171,25 +171,6 @@ Create a directory
 }
 \subsection{Returns}{
 The directory created
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_sharepoint-cnt_remove"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_sharepoint-cnt_remove}{}}}
-\subsection{Method \code{cnt_remove()}}{
-Remove a file or a directory
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$cnt_remove(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The name of the file or directory to remove}
-
-\item{\code{...}}{Additional parameters to pass to the cnt_remove method}
-}
-\if{html}{\out{</div>}}
 }
 }
 }
