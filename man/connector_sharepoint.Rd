@@ -39,27 +39,16 @@ while still inheriting the methods from the \code{Connector_sharepoint} object.
 
 # Connect
 
-my_drive <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"))
+cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"))
 
-# List content
-my_drive$list_content()
-# Write a file
-my_drive$write(iris, "iris.csv")
-# Read a file
-my_drive$read("iris.csv")
-# Create a directory
-my_drive$create_directory("new_directory")
-# Remove a file or directory
-my_drive$remove("iris.csv", confirm = FALSE)
-my_drive$remove("new_directory")
+cs
 
-### For a specific folder
-test_folder <- connector_sharepoint(
-  Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
-  path_of_folder = "Test"
+# Create subclass connection
+cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
+  extra_class = "subclass"
 )
-test_folder$list_content()
-test_folder$write(iris, "iris.csv")
-test_folder$read("iris.csv")
+
+cs_subclass
+class(cs_subclass)
 \dontshow{\}) # examplesIf}
 }

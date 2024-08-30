@@ -11,10 +11,14 @@ cnt_remove.Connector_sharepoint <- function(connector_object, name, ...) {
 }
 
 #' @rdname connector_methods
+#' @export
 cnt_list_content.Connector_sharepoint <- function(connector_object) {
   connector_object$get_conn()$list_items()
 }
 
+#' @description
+#' * [cnt_read.Connector_sharepoint]: Reuses the [connector::cnt_read()]
+#'  method for [connector.sharepoint::Connector_sharepoint].
 #' @rdname connector_methods
 #' @param name The name of the file to read
 #' @param ... Additional parameters to pass to the read_microsoft_file function
