@@ -14,7 +14,7 @@ About the token, you can retrieve it by following the guideline in your enterpri
 \dontshow{if (not_on_ci()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Connect to Sharepoint
 cs <- Connector_sharepoint$new(
-  site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com")
+  site_url = Sys.getenv("SHAREPOINT_SITE_URL")
 )
 
 cs
