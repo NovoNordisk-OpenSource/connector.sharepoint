@@ -4,7 +4,7 @@
 #'
 #' @param site_url The URL of the Sharepoint site
 #' @param token The Azure token. By default, it will be retrieve by [get_token]
-#' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents"
+#' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents" #nolint
 #' @param ... Additional parameters to pass to the [Connector_sharepoint] object
 #' @param extra_class [character] Extra class added to the object. See details.
 #'
@@ -41,15 +41,13 @@ connector_sharepoint <- function(site_url,
 
   layer <- Connector_sharepoint$new(site_url = site_url, token = token, path_of_folder = path_of_folder, ...)
   if (!is.null(extra_class)) {
-    # TODO: not sure about paste and so on
-    # extra_class <- paste(class(layer), extra_class, sep = "_")
     class(layer) <- c(extra_class, class(layer))
   }
   return(layer)
 }
 
 #' @title Connector Object for Sharepoint class, built on top of [connector::connector] class
-#' @description This object is used to interact with Sharepoint, adding the ability to list, read, write, download, upload, create directories and remove files.
+#' @description This object is used to interact with Sharepoint, adding the ability to list, read, write, download, upload, create directories and remove files. #nolint
 #'
 #' @importFrom R6 R6Class
 #' @importFrom AzureAuth is_azure_token
@@ -98,7 +96,7 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @description Initializes the Connector_sharepoint class
     #' @param site_url The URL of the Sharepoint site
     #' @param token The Azure token. By default, it will be retrieve by [get_token]
-    #' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents"
+    #' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents" #nolint
     #' @param ... Additional parameters to pass to the [get_sharepoint_site] function
     #' @return A [Connector_sharepoint] object
     #'
