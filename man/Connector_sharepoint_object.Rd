@@ -5,7 +5,7 @@
 \alias{Connector_sharepoint}
 \title{Connector Object for Sharepoint class, built on top of \link[connector:connector]{connector::connector} class}
 \description{
-This object is used to interact with Sharepoint, adding the ability to list, read, write, download, upload, create directories and remove files.
+This object is used to interact with Sharepoint, adding the ability to list, read, write, download, upload, create directories and remove files. #nolint
 }
 \details{
 About the token, you can retrieve it by following the guideline in your enterprise.
@@ -84,7 +84,7 @@ Initializes the Connector_sharepoint class
 
 \item{\code{token}}{The Azure token. By default, it will be retrieve by \link{get_token}}
 
-\item{\code{path_of_folder}}{The path of the folder to interact with, if you don't want to interact with the root folder "Documents"}
+\item{\code{path_of_folder}}{The path of the folder to interact with, if you don't want to interact with the root folder "Documents" #nolint}
 
 \item{\code{...}}{Additional parameters to pass to the \link{get_sharepoint_site} function}
 }

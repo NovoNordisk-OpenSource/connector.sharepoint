@@ -19,7 +19,7 @@ connector_sharepoint(
 
 \item{...}{Additional parameters to pass to the \link{Connector_sharepoint} object}
 
-\item{path_of_folder}{The path of the folder to interact with, if you don't want to interact with the root folder "Documents"}
+\item{path_of_folder}{The path of the folder to interact with, if you don't want to interact with the root folder "Documents" #nolint}
 
 \item{extra_class}{\link{character} Extra class added to the object. See details.}
 }

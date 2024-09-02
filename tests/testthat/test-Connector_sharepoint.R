@@ -153,10 +153,7 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
     cnt_download_content("Test_453frg6g/iris.example", dest = tmp_file_d) %>%
     expect_no_error()
 
-  path_ <- my_drive$
-    get_conn()$
-    get_item("Test_453frg6g/iris.example")$
-    get_path()
+  path_ <- my_drive$get_conn()$get_item("Test_453frg6g/iris.example")$get_path()
 
   expect_equal(path_, "/Test_453frg6g/iris.example")
 
@@ -194,9 +191,7 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
     expect_error() %>%
     expect_warning()
 
-  dir_ <- my_drive$
-    get_conn()$
-    get_item("Test_453frg6g/dir")
+  dir_ <- my_drive$get_conn()$get_item("Test_453frg6g/dir")
 
   expect_true(dir_$is_folder())
 

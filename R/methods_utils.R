@@ -82,6 +82,7 @@ cnt_create_directory <- function(connector_object, name, ...) {
 #' @param ... Additional parameters to pass to the read_file method
 #'
 #' @return The content of the file in R
+#' @export
 read_microsoft_file <- function(ms_object, name, ...) {
   file <- ms_object$get_item(name)
 
@@ -129,9 +130,12 @@ upload_on_drive_or_folder <- function(ms_object, src, dest) {
 #' @param ... Additional parameters to pass to the write_file method
 #'
 #' @return The file path
+#' @export
 write_microsoft_file <- function(ms_object, x, file, ...) {
   if (is.character(x)) {
-    cli::cli_abort("The object provided is a character, please provide a data frame or a R object. For files or folders, use the appropriate functions")
+    cli::cli_abort(
+      "The object provided is a character, please provide a data frame or a R object. For files or folders, use the appropriate functions" #nolint
+    )
   }
 
   # Find extension of file
@@ -143,8 +147,8 @@ write_microsoft_file <- function(ms_object, x, file, ...) {
   # Write the file to a temporary file
   connector::write_file(x, temp_file, ...)
 
-  # Upload the file to sahrepoint
-  res <- upload_on_drive_or_folder(ms_object, temp_file, file)
+  # Upload the file to sharepoint
+  upload_on_drive_or_folder(ms_object, temp_file, file)
 
   # delete the temporary file
   unlink(temp_file)
