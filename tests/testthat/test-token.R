@@ -36,5 +36,8 @@ test_that("Test set up of Token", {
   file.remove(file.path(AzureAuth::AzureR_dir(), ".active_hash"))
 
   ## Restore .active_file
-  file.rename(from = file.path(AzureAuth::AzureR_dir(), ".active_hash_old"), to = file.path(AzureAuth::AzureR_dir(), ".active_hash"))
+  file.rename(
+    from = file.path(AzureAuth::AzureR_dir(), ".active_hash_old"),
+    to = file.path(AzureAuth::AzureR_dir(), ".active_hash")
+  )
 })
