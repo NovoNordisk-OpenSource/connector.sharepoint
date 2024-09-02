@@ -1,6 +1,6 @@
 #' Retrieve a token from the AzureAuth package
 #'
-#' @param hash The hash of the token to use. By default, use this function to retrieve it [get_default_hash]. If not found, use the first token found.
+#' @param hash The hash of the token to use. By default, use this function to retrieve it [get_default_hash]. If not found, use the first token found. #nolint
 #'
 #' @return A token
 #' @export
