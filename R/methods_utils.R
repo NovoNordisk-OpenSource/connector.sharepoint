@@ -12,7 +12,7 @@
 #'
 #' @examplesIf FALSE
 #' # my_drive is a sharepoint object
-#' my_drive %>%
+#' my_drive |>
 #'   cnt_download_content("file.csv", "file.csv")
 #'
 #' # This function is used by the method download_content
@@ -36,7 +36,7 @@ cnt_download_content <- function(connector_object, name, dest, ...) {
 #'
 #' @examplesIf FALSE
 #' # my_drive is a sharepoint object
-#' my_drive %>%
+#' my_drive |>
 #'   cnt_upload_content("file.csv", "file.csv")
 #' # This function is used by the method upload_content
 #' my_drive$upload_content("file.csv", "file.csv")
@@ -65,7 +65,7 @@ cnt_upload_content <- function(connector_object, src, dest, ..., recursive = FAL
 #'
 #' @examplesIf FALSE
 #' # my_drive is a sharepoint object
-#' my_drive %>%
+#' my_drive |>
 #'   cnt_create_directory("folder")
 #' # This function is used by the method create_directory
 #' my_drive$create_directory("folder")

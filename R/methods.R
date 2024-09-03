@@ -29,7 +29,7 @@ cnt_list_content.Connector_sharepoint <- function(connector_object, ...) {
 #'
 #' @export
 cnt_read.Connector_sharepoint <- function(connector_object, name, ...) {
-  connector_object$get_conn() %>%
+  connector_object$get_conn() |>
     read_microsoft_file(name, ...)
 }
 
@@ -39,6 +39,6 @@ cnt_read.Connector_sharepoint <- function(connector_object, name, ...) {
 #' @param ... Additional parameters to pass to the write_microsoft_file function
 #' @export
 cnt_write.Connector_sharepoint <- function(connector_object, x, name, ...) {
-  connector_object$get_conn() %>%
+  connector_object$get_conn() |>
     write_microsoft_file(x, file = name, ...)
 }

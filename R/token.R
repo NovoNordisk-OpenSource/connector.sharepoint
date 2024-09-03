@@ -52,7 +52,7 @@ get_tk_hash_sharepoint <- function() {
   }
   cli::cli_alert_info("Active hash file found, using it to get the hash.")
 
-  hash <- readLines(file_) %>%
+  hash <- readLines(file_) |>
     grep(pattern = "^SHAREPOINT", value = TRUE)
 
   if (length(hash) == 0) {
