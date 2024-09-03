@@ -13,7 +13,6 @@ Imports:
     checkmate,
     cli,
     connector,
-    magrittr,
     Microsoft365R,
     options,
     R6,

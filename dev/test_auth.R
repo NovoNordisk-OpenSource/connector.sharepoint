@@ -29,7 +29,7 @@ library(Microsoft365R)
 # )
 #
 #
-# response <- httr::POST(url, body=payload, headers=headers) %>% httr::content()
+# response <- httr::POST(url, body=payload, headers=headers) |> httr::content()
 
 # tok <- readr::read_rds("~/token_connect.rds")
 

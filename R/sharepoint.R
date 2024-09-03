@@ -141,7 +141,7 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @param ... Additional parameters to pass to the cnt_download_content method
     #' @return The file downloaded
     cnt_download = function(name, ...) {
-      self %>%
+      self |>
         cnt_download_content(name, ...)
     },
     #' @description Upload a file
@@ -149,7 +149,7 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @param ... Additional parameters to pass to the cnt_upload_content method
     #' @return The file uploaded
     cnt_upload = function(name, ...) {
-      self %>%
+      self |>
         cnt_upload_content(name, ...)
     },
     #' @description Get the connection
@@ -162,7 +162,7 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @param ... Additional parameters to pass to the cnt_create_directory method
     #' @return The directory created
     cnt_create_directory = function(name, ...) {
-      self %>%
+      self |>
         cnt_create_directory(name, ...)
     }
   ),

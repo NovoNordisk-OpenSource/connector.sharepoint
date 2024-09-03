@@ -26,7 +26,7 @@ Upload content to sharepoint
 \examples{
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # my_drive is a sharepoint object
-my_drive \%>\%
+my_drive |>
   cnt_upload_content("file.csv", "file.csv")
 # This function is used by the method upload_content
 my_drive$upload_content("file.csv", "file.csv")
