@@ -39,7 +39,7 @@ get_tk_active_file <- function() {
 #' @noRd
 edit_tk_active_file <- function() {
   active_file <- get_tk_active_file()
-  # TODO not only for Rstudio..
+  # Change this to work not only for Rstudio..
   utils::file.edit(active_file)
 }
 

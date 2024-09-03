@@ -19,12 +19,12 @@
 #'
 #' # Connect
 #'
-#' cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"))
+#' cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"))
 #'
 #' cs
 #'
 #' # Create subclass connection
-#' cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
+#' cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"),
 #'   extra_class = "subclass"
 #' )
 #'
