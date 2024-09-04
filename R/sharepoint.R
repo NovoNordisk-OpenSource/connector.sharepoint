@@ -116,12 +116,6 @@ Connector_sharepoint <- R6::R6Class( # nolint
         cli::cli_abort("site_url must be a valid URL")
       }
 
-
-      ## set up the private variables
-      zephyr::msg_debug("Setting up the private variables")
-      private$token <- token
-      private$site_url <- site_url
-
       # define the path of the folder
       zephyr::msg_debug("Define the path of the folder")
       folder <- Microsoft365R::get_sharepoint_site(site_url = site_url, token = token, ...)$get_drive()
@@ -133,8 +127,11 @@ Connector_sharepoint <- R6::R6Class( # nolint
           cli::cli_abort("The path provided is not a folder")
         }
       }
-
-      private$folder <- folder
+      ## set up the private variables
+      zephyr::msg_debug("Setting up the private variables")
+      private$.token <- token
+      private$.site_url <- site_url
+      private$.folder <- folder
     },
     #' @description Download a file
     #' @param name The name of the file to download
@@ -155,7 +152,7 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @description Get the connection
     #' @return The connection
     get_conn = function() {
-      private$folder
+      private$.folder
     },
     #' @description Create a directory
     #' @param name The name of the directory to create
@@ -166,10 +163,24 @@ Connector_sharepoint <- R6::R6Class( # nolint
         cnt_create_directory(name, ...)
     }
   ),
+  active = list(
+    #' @field folder [character] The path of the folder to interact with
+    folder = function() {
+      private$.folder
+    },
+    #' @field token [character] The Azure token
+    token = function() {
+      private$.token
+    },
+    #' @field site_url [character] The URL of the Sharepoint site
+    site_url = function() {
+      private$.site_url
+    }
+  ),
   private = list(
-    token = character(0),
-    folder = NULL,
-    site_url = character(0)
+    .token = character(0),
+    .folder = NULL,
+    .site_url = character(0)
   ),
   cloneable = FALSE
 )

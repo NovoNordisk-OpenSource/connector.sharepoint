@@ -42,6 +42,17 @@ cs$cnt_list_content()
 \section{Super class}{
 \code{\link[connector:connector]{connector::connector}} -> \code{Connector_sharepoint}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{folder}}{\link{character} The path of the folder to interact with}
+
+\item{\code{token}}{\link{character} The Azure token}
+
+\item{\code{site_url}}{\link{character} The URL of the Sharepoint site}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
