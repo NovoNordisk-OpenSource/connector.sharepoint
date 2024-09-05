@@ -7,7 +7,7 @@ on_ci <- isTRUE(
 ## Setup
 
 if (!on_ci) {
-  my_site <- Microsoft365R::list_sharepoint_sites(token = suppressMessages(get_token()))[[1]]$properties$webUrl
+  my_site <- Sys.getenv("SHAREPOINT_SITE_URL")
 
   cli::cli_alert_info("Using {my_site} for tests")
 

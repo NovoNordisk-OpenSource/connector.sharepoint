@@ -22,8 +22,8 @@ Create a directory
 \examples{
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # my_drive is a sharepoint object
-my_drive \%>\%
- cnt_create_directory("folder")
+my_drive |>
+  cnt_create_directory("folder")
 # This function is used by the method create_directory
 my_drive$create_directory("folder")
 \dontshow{\}) # examplesIf}

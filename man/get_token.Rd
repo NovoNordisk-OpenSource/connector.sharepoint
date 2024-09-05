@@ -7,7 +7,7 @@
 get_token(hash = get_default_hash())
 }
 \arguments{
-\item{hash}{The hash of the token to use. By default, use this function to retrieve it \link{get_default_hash}. If not found, use the first token found.}
+\item{hash}{The hash of the token to use. By default, use this function to retrieve it \link{get_default_hash}. If not found, use the first token found. #nolint}
 }
 \value{
 A token
