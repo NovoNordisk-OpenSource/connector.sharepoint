@@ -51,37 +51,37 @@ test_that("Testing connector_sharepoint methods", {
   ###############
 
   # List content
-  contents <- my_drive$list_content()
+  contents <- my_drive$cnt_list_content()
 
   expect_true(nrow(contents) == 0)
 
   # Write a file
-  my_drive$write(tbl_iris, "iris.csv") %>%
+  my_drive$cnt_write(tbl_iris, "iris.csv") |>
     expect_true()
 
   # Read a file
-  my_drive$read("iris.csv", show_col_types = FALSE) %>%
+  my_drive$cnt_read("iris.csv", show_col_types = FALSE) |>
     expect_equal(tbl_iris)
 
   # Remove a file or directory
-  my_drive$remove("iris.csv", confirm = FALSE) %>%
+  my_drive$cnt_remove("iris.csv", confirm = FALSE) |>
     expect_no_condition()
 
   # Create a directory
-  my_drive$create_directory("new_directory") %>%
+  my_drive$cnt_create_directory("new_directory") |>
     expect_no_condition()
 
-  my_drive$create_directory("new_directory") %>%
+  my_drive$cnt_create_directory("new_directory") |>
     expect_error()
 
-  contents <- my_drive$list_content()
+  contents <- my_drive$cnt_list_content()
 
   expect_true(nrow(contents) == 1)
 
 
   # Remove a file or directory
 
-  my_drive$remove("new_directory", confirm = FALSE) %>%
+  my_drive$cnt_remove("new_directory", confirm = FALSE) |>
     expect_no_condition()
 })
 
@@ -92,25 +92,25 @@ test_that("Testing connector_sharepoint methods with a specific folder", {
   ### For a specific folder
   #########################
 
-  my_drive$create_directory("Test_453frg6g")
+  my_drive$cnt_create_directory("Test_453frg6g")
 
   test_folder <- quiet_connect(
     my_site,
     path_of_folder = "Test_453frg6g"
   )
 
-  contents <- test_folder$list_content()
+  contents <- test_folder$cnt_list_content()
 
   expect_true(nrow(contents) == 0)
 
-  test_folder$write(tbl_iris, "iris.csv") %>%
+  test_folder$cnt_write(tbl_iris, "iris.csv") |>
     expect_true()
 
-  test_folder$read("iris.csv", show_col_types = FALSE) %>%
+  test_folder$cnt_read("iris.csv", show_col_types = FALSE) |>
     expect_equal(tbl_iris)
 
   # Remove a file or directory
-  my_drive$remove("Test_453frg6g", confirm = FALSE) %>%
+  my_drive$cnt_remove("Test_453frg6g", confirm = FALSE) |>
     expect_no_condition()
 })
 
@@ -121,21 +121,21 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   #########################
 
   # Create a folder and file
-  my_drive$create_directory("Test_453frg6g")
-  my_drive$write(iris, "Test_453frg6g/iris.csv")
+  my_drive$cnt_create_directory("Test_453frg6g")
+  my_drive$cnt_write(iris, "Test_453frg6g/iris.csv")
 
-  ## Check error for read fo a folder
+  ## Check error for cnt_read fo a folder
 
-  my_drive$read("Test_453frg6g", show_col_types = FALSE) %>%
+  my_drive$cnt_read("Test_453frg6g", show_col_types = FALSE) |>
     expect_error()
 
-  my_drive$get_conn() %>%
-    read_microsoft_file("Test_453frg6g/iris.csv", show_col_types = FALSE) %>%
+  my_drive$get_conn() |>
+    read_microsoft_file("Test_453frg6g/iris.csv", show_col_types = FALSE) |>
     expect_no_error()
 
   ## Check error for write of non character
 
-  my_drive$write("iris", "Test_453frg6g/iris.csv") %>%
+  my_drive$cnt_write("iris", "Test_453frg6g/iris.csv") |>
     expect_error()
 
   ### Upload and download
@@ -145,18 +145,15 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   tmp_file_d <- tempfile(pattern = "downloaded", fileext = ".example")
   write.csv(iris, tmp_file, row.names = FALSE)
 
-  my_drive %>%
-    cnt_upload_content(src = tmp_file, "Test_453frg6g/iris.example") %>%
+  my_drive |>
+    cnt_upload_content(src = tmp_file, "Test_453frg6g/iris.example") |>
     expect_no_error()
 
-  my_drive %>%
-    cnt_download_content("Test_453frg6g/iris.example", dest = tmp_file_d) %>%
+  my_drive |>
+    cnt_download_content("Test_453frg6g/iris.example", dest = tmp_file_d) |>
     expect_no_error()
 
-  path_ <- my_drive$
-    get_conn()$
-    get_item("Test_453frg6g/iris.example")$
-    get_path()
+  path_ <- my_drive$get_conn()$get_item("Test_453frg6g/iris.example")$get_path()
 
   expect_equal(path_, "/Test_453frg6g/iris.example")
 
@@ -172,11 +169,11 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   })
 
   # Upload directory
-  my_drive %>%
-    cnt_upload_content(src = tmp_dir, "Test_453frg6g/dir") %>%
+  my_drive |>
+    cnt_upload_content(src = tmp_dir, "Test_453frg6g/dir") |>
     expect_no_error()
 
-  my_drive$upload(tmp_dir, "Test_453frg6g/dir") %>%
+  my_drive$cnt_upload(tmp_dir, "Test_453frg6g/dir") |>
     expect_no_error()
 
   ### The same with path of folder
@@ -185,48 +182,46 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
     path_of_folder = "Test_453frg6g"
   )
 
-  subfolder$upload(tmp_dir, "dir_sub") %>%
+  subfolder$cnt_upload(tmp_dir, "dir_sub") |>
     expect_no_error()
 
   ### Error not existing
-  my_drive %>%
-    cnt_upload_content(src = "notexits", "Test_453frg6g/dir") %>%
-    expect_error() %>%
+  my_drive |>
+    cnt_upload_content(src = "notexits", "Test_453frg6g/dir") |>
+    expect_error() |>
     expect_warning()
 
-  dir_ <- my_drive$
-    get_conn()$
-    get_item("Test_453frg6g/dir")
+  dir_ <- my_drive$get_conn()$get_item("Test_453frg6g/dir")
 
   expect_true(dir_$is_folder())
 
   ## Download directory
 
-  my_drive %>%
-    cnt_download_content("Test_453frg6g/dir", dest = dir_d) %>%
+  my_drive |>
+    cnt_download_content("Test_453frg6g/dir", dest = dir_d) |>
     expect_no_error()
 
   ## same from the method
 
-  my_drive$download("Test_453frg6g/dir", dir_d, overwrite = TRUE) %>%
+  my_drive$cnt_download("Test_453frg6g/dir", dir_d, overwrite = TRUE) |>
     expect_no_error()
 
 
-  list.files(dir_d) %>%
+  list.files(dir_d) |>
     expect_equal("iris.csv")
 
 
   #### Read a folder
-  my_drive$read("Test_453frg6g") %>%
+  my_drive$cnt_read("Test_453frg6g") |>
     expect_error()
 
   ### Using vroom
-  my_drive$read("Test_453frg6g/iris.example", show_col_types = FALSE) %>%
+  my_drive$cnt_read("Test_453frg6g/iris.example", show_col_types = FALSE) |>
     expect_no_error()
 
   ### Clean up
 
-  my_drive$remove("Test_453frg6g", confirm = FALSE)
+  my_drive$cnt_remove("Test_453frg6g", confirm = FALSE)
 })
 
 
@@ -234,16 +229,16 @@ test_that("test when path to a folder is not a folder", {
   skip_on_ci()
 
   ## create a file
-  my_drive$create_directory("Test_453frg6g")
-  my_drive$write(iris, "Test_453frg6g/iris.csv")
+  my_drive$cnt_create_directory("Test_453frg6g")
+  my_drive$cnt_write(iris, "Test_453frg6g/iris.csv")
 
   # Path is not a folder
   quiet_connect(
     my_site,
     path_of_folder = "Test_453frg6g/iris.csv"
-  ) %>%
+  ) |>
     expect_error()
 
   # clean up
-  my_drive$remove("Test_453frg6g", confirm = FALSE)
+  my_drive$cnt_remove("Test_453frg6g", confirm = FALSE)
 })

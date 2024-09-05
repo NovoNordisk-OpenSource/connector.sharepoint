@@ -1,6 +1,6 @@
 #' Retrieve a token from the AzureAuth package
 #'
-#' @param hash The hash of the token to use. By default, use this function to retrieve it [get_default_hash]. If not found, use the first token found.
+#' @param hash The hash of the token to use. By default, use this function to retrieve it [get_default_hash]. If not found, use the first token found. #nolint
 #'
 #' @return A token
 #' @export
@@ -39,7 +39,7 @@ get_tk_active_file <- function() {
 #' @noRd
 edit_tk_active_file <- function() {
   active_file <- get_tk_active_file()
-  # TODO not only for Rstudio..
+  # Change this to work not only for Rstudio..
   utils::file.edit(active_file)
 }
 
@@ -52,7 +52,7 @@ get_tk_hash_sharepoint <- function() {
   }
   cli::cli_alert_info("Active hash file found, using it to get the hash.")
 
-  hash <- readLines(file_) %>%
+  hash <- readLines(file_) |>
     grep(pattern = "^SHAREPOINT", value = TRUE)
 
   if (length(hash) == 0) {
