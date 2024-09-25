@@ -33,15 +33,16 @@ remotes::install_github("NN-OpenSource/connector.sharepoint")
 
 ## Example
 
-From the yaml file and witt the connector package:
+From the yaml file and with the connector package:
 
 ```{r}
 # Connect
-yaml <- connector::read_yaml_config(system.file("config", "example_yaml.yaml", package = "connector.sharepoint"))
+yaml <- yaml::read_yaml(system.file("config", "example_yaml.yaml", package = "connector.sharepoint"), eval.expr=TRUE)
 
-connector <- connector::connect_from_yaml(yaml)
+connector <- connector::connect(yaml)
 
-connector$myteam$list_content()
-connector$myteam$get_conn()
-connector$myteam$read("Test/iris.csv")
+connector$test$list_content_cnt()
+connector$test$get_conn()
+connector$test$write_cnt(iris, "Test/iris.csv")
+connector$test$read_cnt("Test/iris.csv")
 ```
