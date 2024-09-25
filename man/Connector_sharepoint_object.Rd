@@ -20,23 +20,23 @@ cs <- Connector_sharepoint$new(
 cs
 
 # List content
-cs$cnt_list_content()
+cs$list_content_cnt()
 
 # Write to the connector
-cs$cnt_write(iris, "iris.rds")
+cs$write_cnt(iris, "iris.rds")
 
 # Check it is there
-cs$cnt_list_content()
+cs$list_content_cnt()
 
 # Read the result back
-cs$cnt_read("iris.rds") |>
+cs$read_cnt("iris.rds") |>
   head()
 
 # Remove a file or directory
-cs$cnt_remove("iris.rds")
+cs$remove_cnt("iris.rds")
 
 # Check it is there
-cs$cnt_list_content()
+cs$list_content_cnt()
 \dontshow{\}) # examplesIf}
 }
 \section{Super class}{
@@ -57,20 +57,20 @@ cs$cnt_list_content()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Connector_sharepoint-new}{\code{Connector_sharepoint$new()}}
-\item \href{#method-Connector_sharepoint-cnt_download}{\code{Connector_sharepoint$cnt_download()}}
-\item \href{#method-Connector_sharepoint-cnt_upload}{\code{Connector_sharepoint$cnt_upload()}}
+\item \href{#method-Connector_sharepoint-download_cnt}{\code{Connector_sharepoint$download_cnt()}}
+\item \href{#method-Connector_sharepoint-upload_cnt}{\code{Connector_sharepoint$upload_cnt()}}
 \item \href{#method-Connector_sharepoint-get_conn}{\code{Connector_sharepoint$get_conn()}}
-\item \href{#method-Connector_sharepoint-cnt_create_directory}{\code{Connector_sharepoint$cnt_create_directory()}}
+\item \href{#method-Connector_sharepoint-create_directory_cnt}{\code{Connector_sharepoint$create_directory_cnt()}}
 }
 }
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_list_content"><a href='../../connector/html/connector.html#method-connector-cnt_list_content'><code>connector::connector$cnt_list_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_read"><a href='../../connector/html/connector.html#method-connector-cnt_read'><code>connector::connector$cnt_read()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_remove"><a href='../../connector/html/connector.html#method-connector-cnt_remove'><code>connector::connector$cnt_remove()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_write"><a href='../../connector/html/connector.html#method-connector-cnt_write'><code>connector::connector$cnt_write()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content_cnt"><a href='../../connector/html/connector.html#method-connector-list_content_cnt'><code>connector::connector$list_content_cnt()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="print"><a href='../../connector/html/connector.html#method-connector-print'><code>connector::connector$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read_cnt"><a href='../../connector/html/connector.html#method-connector-read_cnt'><code>connector::connector$read_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove_cnt"><a href='../../connector/html/connector.html#method-connector-remove_cnt'><code>connector::connector$remove_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write_cnt"><a href='../../connector/html/connector.html#method-connector-write_cnt'><code>connector::connector$write_cnt()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -106,12 +106,12 @@ A \link{Connector_sharepoint} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_sharepoint-cnt_download"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_sharepoint-cnt_download}{}}}
-\subsection{Method \code{cnt_download()}}{
+\if{html}{\out{<a id="method-Connector_sharepoint-download_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-Connector_sharepoint-download_cnt}{}}}
+\subsection{Method \code{download_cnt()}}{
 Download a file
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$cnt_download(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$download_cnt(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -119,7 +119,7 @@ Download a file
 \describe{
 \item{\code{name}}{The name of the file to download}
 
-\item{\code{...}}{Additional parameters to pass to the cnt_download_content method}
+\item{\code{...}}{Additional parameters to pass to the download_content_cnt method}
 }
 \if{html}{\out{</div>}}
 }
@@ -128,12 +128,12 @@ The file downloaded
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_sharepoint-cnt_upload"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_sharepoint-cnt_upload}{}}}
-\subsection{Method \code{cnt_upload()}}{
+\if{html}{\out{<a id="method-Connector_sharepoint-upload_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-Connector_sharepoint-upload_cnt}{}}}
+\subsection{Method \code{upload_cnt()}}{
 Upload a file
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$cnt_upload(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$upload_cnt(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -141,7 +141,7 @@ Upload a file
 \describe{
 \item{\code{name}}{The name of the file to upload}
 
-\item{\code{...}}{Additional parameters to pass to the cnt_upload_content method}
+\item{\code{...}}{Additional parameters to pass to the upload_content_cnt method}
 }
 \if{html}{\out{</div>}}
 }
@@ -163,12 +163,12 @@ The connection
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_sharepoint-cnt_create_directory"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_sharepoint-cnt_create_directory}{}}}
-\subsection{Method \code{cnt_create_directory()}}{
+\if{html}{\out{<a id="method-Connector_sharepoint-create_directory_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-Connector_sharepoint-create_directory_cnt}{}}}
+\subsection{Method \code{create_directory_cnt()}}{
 Create a directory
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$cnt_create_directory(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$create_directory_cnt(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -176,7 +176,7 @@ Create a directory
 \describe{
 \item{\code{name}}{The name of the directory to create}
 
-\item{\code{...}}{Additional parameters to pass to the cnt_create_directory method}
+\item{\code{...}}{Additional parameters to pass to the create_directory_cnt method}
 }
 \if{html}{\out{</div>}}
 }
