@@ -70,23 +70,23 @@ connector_sharepoint <- function(site_url,
 #' cs
 #'
 #' # List content
-#' cs$cnt_list_content()
+#' cs$list_content_cnt()
 #'
 #' # Write to the connector
-#' cs$cnt_write(iris, "iris.rds")
+#' cs$write_cnt(iris, "iris.rds")
 #'
 #' # Check it is there
-#' cs$cnt_list_content()
+#' cs$list_content_cnt()
 #'
 #' # Read the result back
-#' cs$cnt_read("iris.rds") |>
+#' cs$read_cnt("iris.rds") |>
 #'   head()
 #'
 #' # Remove a file or directory
-#' cs$cnt_remove("iris.rds")
+#' cs$remove_cnt("iris.rds")
 #'
 #' # Check it is there
-#' cs$cnt_list_content()
+#' cs$list_content_cnt()
 #'
 #' @export
 Connector_sharepoint <- R6::R6Class( # nolint
@@ -135,19 +135,19 @@ Connector_sharepoint <- R6::R6Class( # nolint
     },
     #' @description Download a file
     #' @param name The name of the file to download
-    #' @param ... Additional parameters to pass to the cnt_download_content method
+    #' @param ... Additional parameters to pass to the download_content_cnt method
     #' @return The file downloaded
-    cnt_download = function(name, ...) {
+    download_cnt = function(name, ...) {
       self |>
-        cnt_download_content(name, ...)
+        download_content_cnt(name, ...)
     },
     #' @description Upload a file
     #' @param name The name of the file to upload
-    #' @param ... Additional parameters to pass to the cnt_upload_content method
+    #' @param ... Additional parameters to pass to the upload_content_cnt method
     #' @return The file uploaded
-    cnt_upload = function(name, ...) {
+    upload_cnt = function(name, ...) {
       self |>
-        cnt_upload_content(name, ...)
+        upload_content_cnt(name, ...)
     },
     #' @description Get the connection
     #' @return The connection
@@ -156,11 +156,11 @@ Connector_sharepoint <- R6::R6Class( # nolint
     },
     #' @description Create a directory
     #' @param name The name of the directory to create
-    #' @param ... Additional parameters to pass to the cnt_create_directory method
+    #' @param ... Additional parameters to pass to the create_directory_cnt method
     #' @return The directory created
-    cnt_create_directory = function(name, ...) {
+    create_directory_cnt = function(name, ...) {
       self |>
-        cnt_create_directory(name, ...)
+        create_directory_cnt(name, ...)
     }
   ),
   active = list(
