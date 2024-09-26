@@ -6,29 +6,29 @@
 #'
 #' @rdname connector_methods
 #' @export
-cnt_remove.Connector_sharepoint <- function(connector_object, name, ...) {
+remove_cnt.Connector_sharepoint <- function(connector_object, name, ...) {
   connector_object$get_conn()$get_item(name)$delete(...)
 }
 
 #' @description
-#' * [Connector_sharepoint]: Reuses the [connector::cnt_list_content()]
+#' * [Connector_sharepoint]: Reuses the [connector::list_content_cnt()]
 #' method for [connector.sharepoint::Connector_sharepoint]
 #'
 #' @rdname connector_methods
 #' @export
-cnt_list_content.Connector_sharepoint <- function(connector_object, ...) {
+list_content_cnt.Connector_sharepoint <- function(connector_object, ...) {
   connector_object$get_conn()$list_items()
 }
 
 #' @description
-#' * [cnt_read.Connector_sharepoint]: Reuses the [connector::cnt_read()]
+#' * [read_cnt.Connector_sharepoint]: Reuses the [connector::read_cnt()]
 #'  method for [connector.sharepoint::Connector_sharepoint].
 #' @rdname connector_methods
 #' @param name The name of the file to read
 #' @param ... Additional parameters to pass to the read_microsoft_file function
 #'
 #' @export
-cnt_read.Connector_sharepoint <- function(connector_object, name, ...) {
+read_cnt.Connector_sharepoint <- function(connector_object, name, ...) {
   connector_object$get_conn() |>
     read_microsoft_file(name, ...)
 }
@@ -38,7 +38,7 @@ cnt_read.Connector_sharepoint <- function(connector_object, name, ...) {
 #' @param name The name of the file to write
 #' @param ... Additional parameters to pass to the write_microsoft_file function
 #' @export
-cnt_write.Connector_sharepoint <- function(connector_object, x, name, ...) {
+write_cnt.Connector_sharepoint <- function(connector_object, x, name, ...) {
   connector_object$get_conn() |>
     write_microsoft_file(x, file = name, ...)
 }

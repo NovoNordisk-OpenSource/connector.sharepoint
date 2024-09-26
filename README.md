@@ -23,25 +23,26 @@ remotes::install_github("NN-OpenSource/connector.sharepoint")
 
 ## Example
 
-From the yaml file and witt the connector package:
+From the yaml file and with the connector package:
 
 ``` r
 # Connect
-yaml <- connector::read_yaml_config(system.file("config", "example_yaml.yaml", package = "connector.sharepoint"))
+yaml <- yaml::read_yaml(system.file("config", "example_yaml.yaml", package = "connector.sharepoint"), eval.expr=TRUE)
 
-connector <- connector::connect_from_yaml(yaml)
-#> ℹ Using generic backend connection for con: myteam
+connector <- connector::connect(yaml)
+#> ℹ Using generic backend connection for con: test
+#> ✖ No SHAREPOINT_AZURE_HASH env found, trying to find a .active_hash file
+#> ℹ Active hash file found, using it to get the hash.
 #> Access token has expired or is no longer valid; refreshing
 
-connector$myteam$list_content()
-#>       name  size isdir                                 id
-#> 1     Test 22280  TRUE 01H53SEMJQ3OG6ZMVEYJEJUXJPMDVUXBIO
-#> 2 test.txt     5 FALSE 01H53SEMJT2O2SHKH7TFFZBEOOICYHIULR
-#> 3 text.txt     5 FALSE 01H53SEMMRRBS3XUFNVNCKSKQDAVDT7S6G
-connector$myteam$get_conn()
+connector$test$list_content_cnt()
+#>    name size isdir                                 id
+#> 1  Test 3716  TRUE 01I7W5MXW5FNKFSSCDCFHY6VDTIXYOTQ2M
+#> 2 test2    0  TRUE 01I7W5MXTR2VLMIO2CJ5FK3BSIW3IF4YPP
+connector$test$get_conn()
 #> <Document library 'Documents'>
-#>   directory id: b!4XSDULnNSEaPtuvwNAynpgqSUZUCDotCpwEoBpedVQngFq3uivaKQYe8kJ2vZkpI 
-#>   web link: https://myorg.sharepoint.com/sites/Document-Storage/Shared%20Documents 
+#>   directory id: b!6QoHXTqvDEeYRghQ-UXpoXVuMqn50sZJn7epArNtqIUJDREOivAlTKJXanJ6ONkN 
+#>   web link: https://myorg.sharepoint.com/sites/sharepoint_connector_testing/Shared%20Documents 
 #>   description:  
 #> ---
 #>   Methods:
@@ -52,7 +53,9 @@ connector$myteam$get_conn()
 #>     load_dataframe, load_rdata, load_rds, move_item, open_item,
 #>     save_dataframe, save_rdata, save_rds, set_item_properties,
 #>     sync_fields, update, upload_file, upload_folder
-connector$myteam$read("Test/iris.csv")
+connector$test$write_cnt(iris, "Test/iris.csv")
+#> [1] TRUE
+connector$test$read_cnt("Test/iris.csv")
 #> Rows: 150 Columns: 5
 #> ── Column specification ────────────────────────────────────────────────────────
 #> Delimiter: ","
