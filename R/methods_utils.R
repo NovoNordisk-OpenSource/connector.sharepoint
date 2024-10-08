@@ -13,12 +13,12 @@
 #' @examplesIf FALSE
 #' # my_drive is a sharepoint object
 #' my_drive |>
-#'   cnt_download_content("file.csv", "file.csv")
+#'   download_content_cnt("file.csv", "file.csv")
 #'
 #' # This function is used by the method download_content
 #' my_drive$download_content("file.csv", "file.csv")
 #'
-cnt_download_content <- function(connector_object, name, dest, ...) {
+download_content_cnt <- function(connector_object, name, dest, ...) {
   connector_object$get_conn()$get_item(name)$download(dest, ...)
 }
 
@@ -37,10 +37,10 @@ cnt_download_content <- function(connector_object, name, dest, ...) {
 #' @examplesIf FALSE
 #' # my_drive is a sharepoint object
 #' my_drive |>
-#'   cnt_upload_content("file.csv", "file.csv")
+#'   upload_content_cnt("file.csv", "file.csv")
 #' # This function is used by the method upload_content
 #' my_drive$upload_content("file.csv", "file.csv")
-cnt_upload_content <- function(connector_object, src, dest, ..., recursive = FALSE) {
+upload_content_cnt <- function(connector_object, src, dest, ..., recursive = FALSE) {
   drive <- connector_object$get_conn()
 
   if (dir.exists(src)) {
@@ -66,10 +66,10 @@ cnt_upload_content <- function(connector_object, src, dest, ..., recursive = FAL
 #' @examplesIf FALSE
 #' # my_drive is a sharepoint object
 #' my_drive |>
-#'   cnt_create_directory("folder")
+#'   create_directory_cnt("folder")
 #' # This function is used by the method create_directory
 #' my_drive$create_directory("folder")
-cnt_create_directory <- function(connector_object, name, ...) {
+create_directory_cnt <- function(connector_object, name, ...) {
   connector_object$get_conn()$create_folder(name, ...)
 }
 

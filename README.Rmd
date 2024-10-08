@@ -57,17 +57,39 @@ function, or it can be provided by the user, and it is used to authenticate the 
 Example of how to use the connector object:
 ```{r, eval=FALSE}
 # List content
-con$cnt_list_content()
+con$list_content_cnt()
 
 # Write a file
-con$cnt_write(iris, "iris.rds")
+con$write_cnt(iris, "iris.rds")
 
 # Read a file
-con$cnt_read("iris.rds") |> 
+con$read_cnt("iris.rds") |> 
   head()
 
 # Remove a file
-con$cnt_remove("file_name.csv")
+con$remove_cnt("file_name.csv")
+```
+
+## Usage with connector package
+
+Here is an example how it can be used with connector package and configuration YAML file (for more information take a look at the connector package):
+```{r, eval=FALSE}
+# Connect using configuration file
+yaml <- yaml::read_yaml(system.file("config", "example_yaml.yaml", package = "connector.sharepoint"), eval.expr=TRUE)
+
+connector <- connector::connect(yaml)
+
+# List content
+connector$test$list_content_cnt()
+
+# Get SharePoint connection object
+connector$test$get_conn()
+
+# Write a file
+connector$test$write_cnt(iris, "Test/iris.csv")
+
+# Read a file
+connector$test$read_cnt("Test/iris.csv")
 
 ```
 
