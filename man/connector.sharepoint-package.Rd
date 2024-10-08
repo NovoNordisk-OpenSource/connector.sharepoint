@@ -6,6 +6,8 @@
 \alias{connector.sharepoint-package}
 \title{connector.sharepoint: Connect to Microsoft SharePoint easily}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Help users manipulating sharepoint files and folders. Give them the same experience as the connector package.
 }
 \seealso{
