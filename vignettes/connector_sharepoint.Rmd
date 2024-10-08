@@ -53,7 +53,7 @@ datasources:
     backend:
       type: "connector.sharepoint::connector_sharepoint"
       site_url: "{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_adam"
-  - name: "output_sh"
+  - name: "output"
     backend:
       type: "connector.sharepoint::connector_sharepoint"
       site_url: "{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"
@@ -75,7 +75,6 @@ Now you can access the SharePoint site using the `db` object and `adam` field
 inside of it.
 
 ```{r, eval=FALSE}
-
 # Connection to SharePoint site. This will print object details
 db$adam
 
@@ -161,7 +160,7 @@ gttable <- table %>%
 # Save nontabular data to sharepoint
 tmp_file <- tempfile(fileext = ".docx")
 gtsave(gttable, tmp_file)
-db$output_sh$upload_cnt(tmp_file, "tmeanallmtcars.docx")
+db$output$upload_cnt(tmp_file, "tmeanallmtcars.docx")
 
 # Manipulate data
 setosa_fsetosa <- db$adam %>%
@@ -173,12 +172,12 @@ fsetosa <- ggplot(setosa) +
   geom_point()
 
 ## Store data into output location
-db$output_sh$write_cnt(fsetosa$data, "fsetosa.csv")
-db$output_sh$write_cnt(fsetosa, "fsetosa.rds")
+db$output$write_cnt(fsetosa$data, "fsetosa.csv")
+db$output$write_cnt(fsetosa, "fsetosa.rds")
 
 tmp_file <- tempfile(fileext = ".png")
 ggsave(tmp_file, fsetosa)
-db$output_sh$upload(tmp_file, "fsetosa.png")
+db$output$upload(tmp_file, "fsetosa.png")
 
 ```
 
@@ -187,15 +186,3 @@ db$output_sh$upload(tmp_file, "fsetosa.png")
 In this vignette we showed how to connect to SharePoint site, read and write
 data from it. We also showed how to use the connector package to connect to
 SharePoint and how to manipulate data using the connector package.
-
-
-
-
-
-
-
-
-
-
-
-
