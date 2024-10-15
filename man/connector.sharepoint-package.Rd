@@ -20,6 +20,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Cervan Girard \email{cgid@novonordisk.com}
 
+Authors:
+\itemize{
+  \item Vladimir Obucina \email{vlob@novonordisk.com} (\href{https://orcid.org/0009-0008-2608-2661}{ORCID})
+}
+
 Other contributors:
 \itemize{
   \item Novo Nordisk A/S [copyright holder]
