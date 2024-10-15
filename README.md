@@ -34,7 +34,7 @@ command:
 install.packages("connector.sharepoint")
 
 # Alternatively, you can install the development version from GitHub:
-devtools::install_github("NovoNordisk-OpenSource/connector.sharepoint")
+devtools::install_github("NN-OpenSource/connector.sharepoint")
 ```
 
 ## Usage
@@ -60,17 +60,21 @@ Example of how to use the connector object:
 
 ``` r
 # List content
-con$list_content_cnt()
+con |> 
+  list_content_cnt()
 
 # Write a file
-con$write_cnt(iris, "iris.rds")
+con |> 
+  write_cnt(iris, "iris.rds")
 
 # Read a file
-con$read_cnt("iris.rds") |> 
+con |> 
+  read_cnt("iris.rds") |> 
   head()
 
 # Remove a file
-con$remove_cnt("file_name.csv")
+con |> 
+  remove_cnt("file_name.csv")
 ```
 
 ## Usage with connector package
@@ -86,16 +90,20 @@ yaml <- yaml::read_yaml(system.file("config", "example_yaml.yaml", package = "co
 connector <- connector::connect(yaml)
 
 # List content
-connector$test$list_content_cnt()
+connector$test |> 
+  list_content_cnt()
 
 # Get SharePoint connection object
-connector$test$get_conn()
+connector$test |> 
+  get_conn()
 
 # Write a file
-connector$test$write_cnt(iris, "Test/iris.csv")
+connector$test |> 
+  write_cnt(iris, "Test/iris.csv")
 
 # Read a file
-connector$test$read_cnt("Test/iris.csv")
+connector$test |> 
+  read_cnt("Test/iris.csv")
 ```
 
 ## Contributing
@@ -106,4 +114,4 @@ a pull request on GitHub.
 
 ## License
 
-This package is licensed under the MIT License.
+This package is licensed under the Apache License.

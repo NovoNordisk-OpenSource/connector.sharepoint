@@ -99,25 +99,25 @@ library(dplyr)
 # Manipulate data
 
 ## Iris data
-setosa <- iris %>%
+setosa <- iris |> 
   filter(Species == "setosa")
 
-mean_for_all_iris <- iris %>%
-  group_by(Species) %>%
+mean_for_all_iris <- iris  |> 
+  group_by(Species) |>
   summarise_all(list(mean, median, sd, min, max))
 
 ## Mtcars data
-cars <- mtcars %>%
+cars <- mtcars |>
   filter(mpg > 22)
 
-mean_for_all_mtcars <- mtcars %>%
-  group_by(gear) %>%
+mean_for_all_mtcars <- mtcars |>
+  group_by(gear) |>
   summarise(
     across(
       everything(),
       list("mean" = mean, "median" = median, "sd" = sd, "min" = min, "max" = max),
       .names = "{.col}_{.fn}")
-    ) %>%
+    ) |>
   tidyr::pivot_longer(
     cols = -gear,
     names_to = c(".value", "stat"),
@@ -125,16 +125,16 @@ mean_for_all_mtcars <- mtcars %>%
     )
 
 ## Store data
-db$adam %>%
+db$adam |>
   write_cnt(setosa, "setosa", overwrite = TRUE)
 
-db$adam %>%
+db$adam |>
   write_cnt(mean_for_all_iris, "mean_iris", overwrite = TRUE)
 
-db$adam %>%
+db$adam |>
   write_cnt(cars, "cars_mpg", overwrite = TRUE)
 
-db$adam %>%
+db$adam |>
   write_cnt(mean_for_all_mtcars, "mean_mtcars", overwrite = TRUE)
 
 ```
@@ -148,23 +148,24 @@ library(tidyr)
 library(ggplot2)
 
 # List and load data
-db$adam %>%
+db$adam |>
   list_content_cnt()
 
-table <- db$adam %>%
+table <- db$adam |>
   read_cnt("mean_mtcars")
 
-gttable <- table %>%
+gttable <- table |>
   gt(groupname_col = "gear")
 
 # Save nontabular data to sharepoint
 tmp_file <- tempfile(fileext = ".docx")
 gtsave(gttable, tmp_file)
-db$output$upload_cnt(tmp_file, "tmeanallmtcars.docx")
+db$output |> 
+  upload_cnt(tmp_file, "tmeanallmtcars.docx")
 
 # Manipulate data
-setosa_fsetosa <- db$adam %>%
-  read_cnt("setosa") %>%
+setosa_fsetosa <- db$adam |>
+  read_cnt("setosa") |>
   filter(Sepal.Length > 5)
 
 fsetosa <- ggplot(setosa) +
@@ -172,12 +173,15 @@ fsetosa <- ggplot(setosa) +
   geom_point()
 
 ## Store data into output location
-db$output$write_cnt(fsetosa$data, "fsetosa.csv")
-db$output$write_cnt(fsetosa, "fsetosa.rds")
+db$output |> 
+  write_cnt(fsetosa$data, "fsetosa.csv")
+db$output |> 
+  write_cnt(fsetosa, "fsetosa.rds")
 
 tmp_file <- tempfile(fileext = ".png")
 ggsave(tmp_file, fsetosa)
-db$output$upload(tmp_file, "fsetosa.png")
+db$output |> 
+  upload(tmp_file, "fsetosa.png")
 
 ```
 
