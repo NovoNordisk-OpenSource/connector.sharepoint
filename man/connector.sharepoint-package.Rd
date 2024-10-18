@@ -6,6 +6,8 @@
 \alias{connector.sharepoint-package}
 \title{connector.sharepoint: Connect to Microsoft SharePoint easily}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Help users manipulating sharepoint files and folders. Give them the same experience as the connector package.
 }
 \seealso{
@@ -17,6 +19,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Cervan Girard \email{cgid@novonordisk.com}
+
+Authors:
+\itemize{
+  \item Vladimir Obucina \email{vlob@novonordisk.com} (\href{https://orcid.org/0009-0008-2608-2661}{ORCID})
+}
 
 Other contributors:
 \itemize{

@@ -134,7 +134,7 @@ upload_on_drive_or_folder <- function(ms_object, src, dest) {
 write_microsoft_file <- function(ms_object, x, file, ...) {
   if (is.character(x)) {
     cli::cli_abort(
-      "The object provided is a character, please provide a data frame or a R object. For files or folders, use the appropriate functions" #nolint
+      "The object provided is a character, please provide a data frame or a R object. For files or folders, use the appropriate functions" # nolint
     )
   }
 
