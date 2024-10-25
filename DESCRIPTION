@@ -17,7 +17,7 @@ Imports:
     cli,
     connector,
     Microsoft365R,
-    options,
+    options (>= 0.2.0),
     R6,
     tools
 Suggests: 
