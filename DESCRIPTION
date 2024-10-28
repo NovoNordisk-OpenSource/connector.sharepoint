@@ -11,6 +11,8 @@ Description: Help users manipulating sharepoint files and folders. Give
     them the same experience as the connector package.
 License: Apache License (>= 2)
 URL: https://jubilant-carnival-p8y68vm.pages.github.io/
+Depends: 
+    R (>= 4.4)
 Imports: 
     AzureAuth,
     checkmate,
