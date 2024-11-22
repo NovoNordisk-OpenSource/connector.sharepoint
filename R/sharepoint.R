@@ -99,8 +99,6 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @param path_of_folder The path of the folder to interact with, if you don't want to interact with the root folder "Documents" #nolint
     #' @param ... Additional parameters to pass to the [get_sharepoint_site] function
     #' @return A [Connector_sharepoint] object
-    #'
-    #'
     initialize = function(site_url,
                           token = get_token(),
                           path_of_folder = NULL,
@@ -157,7 +155,7 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @description Create a directory
     #' @param name The name of the directory to create
     #' @param ... Additional parameters to pass to the create_directory_cnt method
-    #' @return The directory created
+    #' @return A [Connector_sharepoint] object to the directory created
     create_directory_cnt = function(name, ...) {
       self |>
         create_directory_cnt(name, ...)
