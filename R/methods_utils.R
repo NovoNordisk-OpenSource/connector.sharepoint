@@ -75,12 +75,12 @@ upload_content_cnt <- function(connector_object,
 #' new_folder <- my_drive$create_directory_cnt("folder")
 create_directory_cnt <- function(connector_object, name, ...) {
   new_directory <- connector_object$get_conn()$create_folder(name, ...)
-  return(
+  return(invisible(
     connector_sharepoint(
       site_url = connector_object$site_url,
       path_of_folder = new_directory$get_path()
     )
-  )
+  ))
 }
 
 #' Read a file from sharepoint
