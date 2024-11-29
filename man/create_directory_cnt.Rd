@@ -22,9 +22,9 @@ Create a directory
 \examples{
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # my_drive is a sharepoint object
-my_drive |>
+new_folder <- my_drive |>
   create_directory_cnt("folder")
 # This function is used by the method create_directory
-my_drive$create_directory("folder")
+new_folder <- my_drive$create_directory_cnt("folder")
 \dontshow{\}) # examplesIf}
 }
