@@ -181,7 +181,7 @@ Create a directory
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-The directory created
+A \link{Connector_sharepoint} object to the directory created
 }
 }
 }

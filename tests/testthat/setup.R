@@ -9,22 +9,11 @@ on_ci <- isTRUE(
 if (!on_ci) {
   my_site <- Sys.getenv("SHAREPOINT_SITE_URL")
 
-  cli::cli_alert_info("Using {my_site} for tests")
-
   ## stop now if no site found
   if (length(my_site) == 0) {
     cli::cli_abort("No site found")
   }
+
+  cli::cli_alert_info("Using {my_site} for tests")
 }
 
-## Clean up
-if (!on_ci) {
-  withr::defer(
-    {
-      cli::cli_alert_info("Cleaning up your site {my_site}")
-      my_drive <- suppressMessages(connector_sharepoint(my_site))
-      try(my_drive$remove("Test_453frg6g", confirm = FALSE), silent = TRUE)
-    },
-    teardown_env()
-  )
-}

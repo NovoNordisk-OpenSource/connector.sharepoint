@@ -40,7 +40,11 @@ download_content_cnt <- function(connector_object, name, dest, ...) {
 #'   upload_content_cnt("file.csv", "file.csv")
 #' # This function is used by the method upload_content
 #' my_drive$upload_content("file.csv", "file.csv")
-upload_content_cnt <- function(connector_object, src, dest, ..., recursive = FALSE) {
+upload_content_cnt <- function(connector_object,
+                               src,
+                               dest,
+                               ...,
+                               recursive = FALSE) {
   drive <- connector_object$get_conn()
 
   if (dir.exists(src)) {
@@ -65,15 +69,19 @@ upload_content_cnt <- function(connector_object, src, dest, ..., recursive = FAL
 #'
 #' @examplesIf FALSE
 #' # my_drive is a sharepoint object
-#' my_drive |>
+#' new_folder <- my_drive |>
 #'   create_directory_cnt("folder")
 #' # This function is used by the method create_directory
-#' my_drive$create_directory("folder")
+#' new_folder <- my_drive$create_directory_cnt("folder")
 create_directory_cnt <- function(connector_object, name, ...) {
-  connector_object$get_conn()$create_folder(name, ...)
+  new_directory <- connector_object$get_conn()$create_folder(name, ...)
+  return(invisible(
+    connector_sharepoint(
+      site_url = connector_object$site_url,
+      path_of_folder = new_directory$get_path()
+    )
+  ))
 }
-
-
 
 #' Read a file from sharepoint
 #'
