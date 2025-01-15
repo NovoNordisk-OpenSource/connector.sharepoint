@@ -34,7 +34,7 @@ jobs:
 
       - name: Install package from GitHub
         run: |
-          Rscript -e 'install.packages("remotes");remotes::install_github("NN-OpenSource/connector")'
+          Rscript -e 'install.packages("remotes");remotes::install_github("NovoNordisk-OpenSource/connector")'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
