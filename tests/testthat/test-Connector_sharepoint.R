@@ -76,6 +76,10 @@ test_that("Testing connector_sharepoint methods", {
 
   expect_true(nrow(contents) == 1)
 
+  contents_new_dir <- my_drive$list_content_cnt("new_directory")
+
+  expect_true(nrow(contents_new_dir) == 0)
+
   # Remove a file or directory
 
   my_drive$remove_cnt("new_directory", confirm = FALSE) |>

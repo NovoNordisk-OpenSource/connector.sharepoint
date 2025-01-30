@@ -14,10 +14,12 @@ remove_cnt.Connector_sharepoint <- function(connector_object, name, ...) {
 #' * [Connector_sharepoint]: Reuses the [connector::list_content_cnt()]
 #' method for [connector.sharepoint::Connector_sharepoint]
 #'
+#' @param ... Additional parameters to pass to the delete method
+#'
 #' @rdname connector_methods
 #' @export
 list_content_cnt.Connector_sharepoint <- function(connector_object, ...) {
-  connector_object$get_conn()$list_items()
+  connector_object$get_conn()$list_items(...)
 }
 
 #' @description
