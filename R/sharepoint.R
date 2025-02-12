@@ -91,7 +91,7 @@ connector_sharepoint <- function(site_url,
 #' @export
 Connector_sharepoint <- R6::R6Class( # nolint
   classname = "Connector_sharepoint",
-  inherit = connector::connector,
+  inherit = connector::connector_fs,
   public = list(
     #' @description Initializes the Connector_sharepoint class
     #' @param site_url The URL of the Sharepoint site
@@ -130,35 +130,12 @@ Connector_sharepoint <- R6::R6Class( # nolint
       private$.token <- token
       private$.site_url <- site_url
       private$.folder <- folder
-    },
-    #' @description Download a file
-    #' @param name The name of the file to download
-    #' @param ... Additional parameters to pass to the download_content_cnt method
-    #' @return The file downloaded
-    download_cnt = function(name, ...) {
-      self |>
-        download_content_cnt(name, ...)
-    },
-    #' @description Upload a file
-    #' @param name The name of the file to upload
-    #' @param ... Additional parameters to pass to the upload_content_cnt method
-    #' @return The file uploaded
-    upload_cnt = function(name, ...) {
-      self |>
-        upload_content_cnt(name, ...)
+      private$.path <- paste0(site_url, path_of_folder, collapse = "/")
     },
     #' @description Get the connection
     #' @return The connection
     get_conn = function() {
       private$.folder
-    },
-    #' @description Create a directory
-    #' @param name The name of the directory to create
-    #' @param ... Additional parameters to pass to the create_directory_cnt method
-    #' @return A [Connector_sharepoint] object to the directory created
-    create_directory_cnt = function(name, ...) {
-      self |>
-        create_directory_cnt(name, ...)
     }
   ),
   active = list(
@@ -173,12 +150,17 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' @field site_url [character] The URL of the Sharepoint site
     site_url = function() {
       private$.site_url
+    },
+    #' @field path [character] The whole URL path of the Sharepoint resource
+    path = function() {
+      private$.path
     }
   ),
   private = list(
     .token = character(0),
     .folder = NULL,
-    .site_url = character(0)
+    .site_url = character(0),
+    .path = character(0)
   ),
   cloneable = FALSE
 )
