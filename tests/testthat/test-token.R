@@ -20,7 +20,7 @@ test_that("Test set up of Token", {
   })
 
   ## Manipulate .active_file
-  file.rename(from = get_tk_active_file(), to = file.path(AzureAuth::AzureR_dir(), ".active_hash_old"))
+  file.rename(from = get_tk_active_file(), to = file.path(AzureAuth::AzureR_dir(), ".old_hash"))
   messages_a <- capture_messages(get_token())
 
   expect_true(
@@ -37,7 +37,7 @@ test_that("Test set up of Token", {
 
   ## Restore .active_file
   file.rename(
-    from = file.path(AzureAuth::AzureR_dir(), ".active_hash_old"),
+    from = file.path(AzureAuth::AzureR_dir(), ".old_hash"),
     to = file.path(AzureAuth::AzureR_dir(), ".active_hash")
   )
 })

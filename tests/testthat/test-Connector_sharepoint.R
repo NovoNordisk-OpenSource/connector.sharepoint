@@ -52,7 +52,7 @@ test_that("Testing connector_sharepoint methods", {
 
   # Write a file
   my_drive$write_cnt(tbl_iris, "iris.csv") |>
-    expect_true()
+    expect_equal(my_drive)
 
   # Read a file
   my_drive$read_cnt("iris.csv", show_col_types = FALSE) |>
@@ -63,12 +63,15 @@ test_that("Testing connector_sharepoint methods", {
     expect_no_condition()
 
   # Create a directory
-  new_directory <- my_drive$create_directory_cnt("new_directory")
+  new_directory <- my_drive$create_directory_cnt("new_directory", open = FALSE)
 
   checkmate::expect_r6(new_directory, "Connector_sharepoint")
-  expect_equal(my_drive$site_url, new_directory$site_url)
-  expect_equal(new_directory$folder$get_path(), paste0(my_drive$folder$get_path(), "/new_directory"))
-
+  expect_equal(my_drive$folder$get_path(), new_directory$folder$get_path())
+  
+  new_directory_open <- my_drive$create_directory_cnt("new_directory_open", open = TRUE)
+  expect_equal(new_directory_open$folder$get_path(), paste0(my_drive$folder$get_path(), "/new_directory_open"))
+  my_drive$remove_directory_cnt(name = "new_directory_open", confirm = FALSE)
+  
   my_drive$create_directory_cnt("new_directory") |>
     expect_error()
 
@@ -102,7 +105,7 @@ test_that("Testing connector_sharepoint methods with a specific folder", {
   expect_true(nrow(contents) == 0)
 
   test_folder$write_cnt(tbl_iris, "iris.csv") |>
-    expect_true()
+    expect_equal(test_folder)
 
   test_folder$read_cnt("iris.csv", show_col_types = FALSE) |>
     expect_equal(tbl_iris)
@@ -129,8 +132,7 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   my_drive$read_cnt("dir_name", show_col_types = FALSE) |>
     expect_error()
 
-  my_drive$get_conn() |>
-    read_microsoft_file(paste0(dir_name, "/iris.csv"), show_col_types = FALSE) |>
+  my_drive$read_cnt(paste0(dir_name, "/iris.csv"), show_col_types = FALSE) |>
     expect_no_error()
 
   ## Check error for write of non character
@@ -145,12 +147,10 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   tmp_file_d <- tempfile(pattern = "downloaded", fileext = ".example")
   write.csv(iris, tmp_file, row.names = FALSE)
 
-  my_drive |>
-    upload_content_cnt(src = tmp_file, paste0(dir_name, "/iris.example")) |>
+  my_drive$upload_cnt(src = tmp_file, paste0(dir_name, "/iris.example")) |>
     expect_no_error()
 
-  my_drive |>
-    download_content_cnt(paste0(dir_name, "/iris.example"), dest = tmp_file_d) |>
+  my_drive$download_cnt(name = paste0(dir_name, "/iris.example"), file = tmp_file_d) |>
     expect_no_error()
 
   path_ <- my_drive$get_conn()$get_item(paste0(dir_name, "/iris.example"))$get_path()
@@ -169,19 +169,14 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   })
 
   # Upload directory
-  my_drive |>
-    upload_content_cnt(src = tmp_dir, paste0(dir_name,"/dir")) |>
-    expect_no_error()
-
-  my_drive$upload_cnt(tmp_dir, paste0(dir_name, "/dir")) |>
+  my_drive$upload_cnt(src = tmp_dir, paste0(dir_name,"/dir")) |>
     expect_no_error()
 
   subfolder$upload_cnt(tmp_dir, "dir_sub") |>
     expect_no_error()
 
   ### Error not existing
-  my_drive |>
-    upload_content_cnt(src = "notexits", paste0(dir_name, "/dir")) |>
+  my_drive$upload_cnt(src = "notexits", paste0(dir_name, "/dir")) |>
     expect_error() |>
     expect_warning()
 
@@ -190,16 +185,8 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   expect_true(dir_$is_folder())
 
   ## Download directory
-
-  my_drive |>
-    download_content_cnt(paste0(dir_name, "/dir"), dest = dir_d) |>
+  my_drive$download_cnt(name = paste0(dir_name, "/dir"), file = dir_d) |>
     expect_no_error()
-
-  ## same from the method
-
-  my_drive$download_cnt(paste0(dir_name, "/dir"), dir_d, overwrite = TRUE) |>
-    expect_no_error()
-
 
   list.files(dir_d) |>
     expect_equal("iris.csv")
@@ -214,7 +201,6 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
     expect_no_error()
 
   ### Clean up
-
   my_drive$remove_cnt(dir_name, confirm = FALSE)
 })
 
