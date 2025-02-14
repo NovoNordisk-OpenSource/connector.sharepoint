@@ -228,7 +228,7 @@ upload_on_drive_or_folder <- function(ms_object, src, dest, ...) {
 #' @return [Connector_sharepoint] object
 #'
 #' @export
-upload_folder_cnt <- function(
+upload_directory_cnt <- function(
     connector_object,
     folder,
     name = basename(folder),

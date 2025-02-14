@@ -60,7 +60,7 @@ cs$list_content_cnt()
 \itemize{
 \item \href{#method-Connector_sharepoint-new}{\code{Connector_sharepoint$new()}}
 \item \href{#method-Connector_sharepoint-get_conn}{\code{Connector_sharepoint$get_conn()}}
-\item \href{#method-Connector_sharepoint-upload_folder_cnt}{\code{Connector_sharepoint$upload_folder_cnt()}}
+\item \href{#method-Connector_sharepoint-upload_directory_cnt}{\code{Connector_sharepoint$upload_directory_cnt()}}
 }
 }
 \if{html}{\out{
@@ -124,12 +124,12 @@ The connection
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_sharepoint-upload_folder_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_sharepoint-upload_folder_cnt}{}}}
-\subsection{Method \code{upload_folder_cnt()}}{
+\if{html}{\out{<a id="method-Connector_sharepoint-upload_directory_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-Connector_sharepoint-upload_directory_cnt}{}}}
+\subsection{Method \code{upload_directory_cnt()}}{
 Upload a folder
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$upload_folder_cnt(
+\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$upload_directory_cnt(
   folder,
   name = basename(folder),
   ...,

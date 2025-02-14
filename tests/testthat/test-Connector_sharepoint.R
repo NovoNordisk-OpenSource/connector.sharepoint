@@ -163,7 +163,7 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
     write.csv(iris, "iris.csv", row.names = FALSE)
   })
 
-  my_drive$upload_folder_cnt(folder = tmp_dir, name = paste0(dir_name, "/dir")) |> 
+  my_drive$upload_directory_cnt(folder = tmp_dir, name = paste0(dir_name, "/dir")) |> 
     expect_no_error()
 
   ## Download directory
@@ -221,18 +221,18 @@ test_that("test folder upload works", {
   })
 
   # Upload directory fails when needed
-  my_drive$upload_folder_cnt("bad_folder", name = "dir") |> 
+  my_drive$upload_directory_cnt("bad_folder", name = "dir") |> 
     expect_error()
-  my_drive$upload_folder_cnt(tmp_dir, name = 2) |> 
+  my_drive$upload_directory_cnt(tmp_dir, name = 2) |> 
     expect_error()
 
   # Upload directory
-  my_drive$upload_folder_cnt(tmp_dir, paste0(dir_name,"/dir")) |>
+  my_drive$upload_directory_cnt(tmp_dir, paste0(dir_name,"/dir")) |>
     expect_no_error()
 
   # Upload directory to a directory
   new_directory <- my_drive$create_directory_cnt(name = "test_dir", open = TRUE)
-  new_directory$upload_folder_cnt(tmp_dir, paste0(dir_name,"/dir")) |>
+  new_directory$upload_directory_cnt(tmp_dir, paste0(dir_name,"/dir")) |>
     expect_no_error()
 
   ### Error not existing
