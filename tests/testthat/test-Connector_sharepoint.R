@@ -128,7 +128,6 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   my_drive$write_cnt(iris, paste0(dir_name,"/iris.csv"))
 
   ## Check error for read_cnt fo a folder
-
   my_drive$read_cnt("dir_name", show_col_types = FALSE) |>
     expect_error()
 
@@ -136,7 +135,6 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
     expect_no_error()
 
   ## Check error for write of non character
-
   my_drive$write_cnt("iris", paste0(dir_name, "/iris.csv")) |>
     expect_error()
 
@@ -147,7 +145,7 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   tmp_file_d <- tempfile(pattern = "downloaded", fileext = ".example")
   write.csv(iris, tmp_file, row.names = FALSE)
 
-  my_drive$upload_cnt(src = tmp_file, paste0(dir_name, "/iris.example")) |>
+  my_drive$upload_cnt(file = tmp_file, name = paste0(dir_name, "/iris.example")) |>
     expect_no_error()
 
   my_drive$download_cnt(name = paste0(dir_name, "/iris.example"), file = tmp_file_d) |>
@@ -158,39 +156,24 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   expect_equal(path_, paste0(my_drive$folder$get_path(), paste0("/", dir_name, "/iris.example")))
 
   #### Dirs
-
   tmp_dir <- tempfile(pattern = "test_dir")
   dir.create(tmp_dir)
-  dir_d <- tempfile("dir_d")
-  dir.create(dir_d)
 
   withr::with_dir(tmp_dir, {
     write.csv(iris, "iris.csv", row.names = FALSE)
   })
 
-  # Upload directory
-  my_drive$upload_cnt(src = tmp_dir, paste0(dir_name,"/dir")) |>
+  my_drive$upload_folder_cnt(folder = tmp_dir, name = paste0(dir_name, "/dir")) |> 
     expect_no_error()
-
-  subfolder$upload_cnt(tmp_dir, "dir_sub") |>
-    expect_no_error()
-
-  ### Error not existing
-  my_drive$upload_cnt(src = "notexits", paste0(dir_name, "/dir")) |>
-    expect_error() |>
-    expect_warning()
-
-  dir_ <- my_drive$get_conn()$get_item(paste0(dir_name,"/dir"))
-
-  expect_true(dir_$is_folder())
 
   ## Download directory
+  dir_d <- tempfile("dir_d")
+  dir.create(dir_d)
   my_drive$download_cnt(name = paste0(dir_name, "/dir"), file = dir_d) |>
     expect_no_error()
 
   list.files(dir_d) |>
     expect_equal("iris.csv")
-
 
   #### Read a folder
   my_drive$read_cnt(dir_name) |>
@@ -208,7 +191,7 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
 test_that("test when path to a folder is not a folder", {
   skip_on_ci()
   my_drive <- suppressMessages(local_create_sharepoint_directory(site_url = my_site))
-
+  
   ## create a file
   dir_name <- test_directory_name()
   my_drive$create_directory_cnt(dir_name)
@@ -223,4 +206,40 @@ test_that("test when path to a folder is not a folder", {
 
   # clean up
   my_drive$remove_cnt(dir_name, confirm = FALSE)
+})
+
+test_that("test folder upload works", {
+  skip_on_ci()
+  my_drive <- suppressMessages(local_create_sharepoint_directory(site_url = my_site))
+  dir_name <- test_directory_name()
+
+  tmp_dir <- tempfile(pattern = "test_dir")
+  dir.create(tmp_dir)
+
+  withr::with_dir(tmp_dir, {
+    write.csv(iris, "iris.csv", row.names = FALSE)
+  })
+
+  # Upload directory fails when needed
+  my_drive$upload_folder_cnt("bad_folder", name = "dir") |> 
+    expect_error()
+  my_drive$upload_folder_cnt(tmp_dir, name = 2) |> 
+    expect_error()
+
+  # Upload directory
+  my_drive$upload_folder_cnt(tmp_dir, paste0(dir_name,"/dir")) |>
+    expect_no_error()
+
+  # Upload directory to a directory
+  new_directory <- my_drive$create_directory_cnt(name = "test_dir", open = TRUE)
+  new_directory$upload_folder_cnt(tmp_dir, paste0(dir_name,"/dir")) |>
+    expect_no_error()
+
+  ### Error not existing
+  my_drive$upload_cnt(src = "notexits", paste0(dir_name, "/dir")) |>
+    expect_error()
+
+  dir_ <- my_drive$get_conn()$get_item(paste0(dir_name,"/dir"))
+
+  expect_true(dir_$is_folder())
 })

@@ -7,7 +7,13 @@
 \usage{
 upload_cnt(connector_object, file, name = basename(file), ...)
 
-\method{upload_cnt}{Connector_sharepoint}(connector_object, src, dest, ..., recursive = FALSE)
+\method{upload_cnt}{Connector_sharepoint}(
+  connector_object,
+  file,
+  name = basename(file),
+  ...,
+  recursive = FALSE
+)
 }
 \arguments{
 \item{connector_object}{\link[connector]{connector} The connector object to use.}
@@ -16,8 +22,10 @@ upload_cnt(connector_object, file, name = basename(file), ...)
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{\link[=upload_file]{upload_file()}} or \code{\link[=upload_folder]{upload_folder()}}
+\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{upload_file()} or \code{upload_folder()}
 method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
+
+\item{recursive}{If \code{recursive} is TRUE, all subfolders will also be transferred recursively. Default: \code{FALSE}}
 }
 \value{
 \link{Connector_sharepoint} object

@@ -12,7 +12,7 @@ list_content_cnt(connector_object, ...)
 \arguments{
 \item{connector_object}{\link[connector]{connector} The connector object to use.}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{\link[=list_items]{list_items()}} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
+\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{list_items()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 }
 \value{
 A \link{character} vector of content names

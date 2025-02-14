@@ -14,7 +14,7 @@ read_cnt(connector_object, name, ...)
 
 \item{name}{The name of the file to read}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{\link[=get_item]{get_item()}} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class}
+\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{get_item()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class}
 }
 \value{
 R object with the content. For rectangular data a \link{data.frame}.

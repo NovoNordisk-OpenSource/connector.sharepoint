@@ -14,8 +14,7 @@ remove_directory_cnt(connector_object, name, ...)
 
 \item{name}{\link{character} The name of the directory to remove}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to
-the \code{\link[brickster:db_volume_dir_delete]{brickster::db_volume_dir_delete()}} method}
+\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to \code{delete()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 }
 \value{
 \link{Connector_sharepoint} object

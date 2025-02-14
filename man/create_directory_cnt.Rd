@@ -14,7 +14,7 @@ create_directory_cnt(connector_object, name, ...)
 
 \item{name}{\link{character} The name of the directory to create}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \link[brickster:db_volume_dir_create]{brickster::db_volume_dir_create} method}
+\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to \code{create_folder()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 
 \item{open}{create a new connector object}
 }

@@ -7,7 +7,7 @@
 \usage{
 download_cnt(connector_object, name, file = basename(name), ...)
 
-\method{download_cnt}{Connector_sharepoint}(connector_object, name, dest, ...)
+\method{download_cnt}{Connector_sharepoint}(connector_object, name, file = basename(name), ...)
 }
 \arguments{
 \item{connector_object}{\link[connector]{connector} The connector object to use.}
@@ -16,7 +16,7 @@ download_cnt(connector_object, name, file = basename(name), ...)
 
 \item{file}{\link{character} Path to the file to download to or upload from}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{\link[=download]{download()}} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
+\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{download()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 }
 \value{
 \link{Connector_sharepoint} object

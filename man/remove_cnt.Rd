@@ -14,7 +14,7 @@ remove_cnt(connector_object, name, ...)
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{\link[=delete]{delete()}} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
+\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{delete()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 }
 \value{
 \link{Connector_sharepoint} object
