@@ -144,11 +144,11 @@ Connector_sharepoint <- R6::R6Class( # nolint
     #' or to `upload()` method of [Microsoft365R::ms_drive_item()] class.
     #' @param recursive  If `recursive` is `TRUE`, all subfolders will also be transferred recursively. Default: `FALSE`
     #' @return [Connector_sharepoint] object
-    upload_folder_cnt = function(folder,
+    upload_directory_cnt = function(folder,
                                  name = basename(folder),
                                  ...,
                                  recursive = FALSE) {
-      upload_folder_cnt(self, folder, name, ..., recursive)
+      upload_directory_cnt(self, folder, name, ..., recursive)
     }
   ),
   active = list(
