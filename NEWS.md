@@ -1,3 +1,7 @@
+# connector.sharepoint 0.0.4
+
+* Added `upload_folder_cnt()` function to upload a folder to SharePoint
+
 # connector.sharepoint 0.0.3
 
 Initial release to internal package manager
