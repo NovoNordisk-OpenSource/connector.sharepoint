@@ -39,8 +39,8 @@ cs$remove_cnt("iris.rds")
 cs$list_content_cnt()
 \dontshow{\}) # examplesIf}
 }
-\section{Super class}{
-\code{\link[connector:connector]{connector::connector}} -> \code{Connector_sharepoint}
+\section{Super classes}{
+\code{\link[connector:connector]{connector::connector}} -> \code{\link[connector:connector_fs]{connector::connector_fs}} -> \code{Connector_sharepoint}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -50,6 +50,8 @@ cs$list_content_cnt()
 \item{\code{token}}{\link{character} The Azure token}
 
 \item{\code{site_url}}{\link{character} The URL of the Sharepoint site}
+
+\item{\code{path}}{\link{character} The whole URL path of the Sharepoint resource}
 }
 \if{html}{\out{</div>}}
 }
@@ -57,20 +59,23 @@ cs$list_content_cnt()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Connector_sharepoint-new}{\code{Connector_sharepoint$new()}}
-\item \href{#method-Connector_sharepoint-download_cnt}{\code{Connector_sharepoint$download_cnt()}}
-\item \href{#method-Connector_sharepoint-upload_cnt}{\code{Connector_sharepoint$upload_cnt()}}
 \item \href{#method-Connector_sharepoint-get_conn}{\code{Connector_sharepoint$get_conn()}}
-\item \href{#method-Connector_sharepoint-create_directory_cnt}{\code{Connector_sharepoint$create_directory_cnt()}}
+\item \href{#method-Connector_sharepoint-upload_directory_cnt}{\code{Connector_sharepoint$upload_directory_cnt()}}
 }
 }
 \if{html}{\out{
-<details open><summary>Inherited methods</summary>
+<details><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content_cnt"><a href='../../connector/html/connector.html#method-connector-list_content_cnt'><code>connector::connector$list_content_cnt()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="print"><a href='../../connector/html/connector.html#method-connector-print'><code>connector::connector$print()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read_cnt"><a href='../../connector/html/connector.html#method-connector-read_cnt'><code>connector::connector$read_cnt()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove_cnt"><a href='../../connector/html/connector.html#method-connector-remove_cnt'><code>connector::connector$remove_cnt()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write_cnt"><a href='../../connector/html/connector.html#method-connector-write_cnt'><code>connector::connector$write_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector_fs" data-id="create_directory_cnt"><a href='../../connector/html/connector_fs.html#method-connector_fs-create_directory_cnt'><code>connector::connector_fs$create_directory_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector_fs" data-id="download_cnt"><a href='../../connector/html/connector_fs.html#method-connector_fs-download_cnt'><code>connector::connector_fs$download_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector_fs" data-id="remove_directory_cnt"><a href='../../connector/html/connector_fs.html#method-connector_fs-remove_directory_cnt'><code>connector::connector_fs$remove_directory_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector_fs" data-id="tbl_cnt"><a href='../../connector/html/connector_fs.html#method-connector_fs-tbl_cnt'><code>connector::connector_fs$tbl_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector_fs" data-id="upload_cnt"><a href='../../connector/html/connector_fs.html#method-connector_fs-upload_cnt'><code>connector::connector_fs$upload_cnt()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -106,50 +111,6 @@ A \link{Connector_sharepoint} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_sharepoint-download_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_sharepoint-download_cnt}{}}}
-\subsection{Method \code{download_cnt()}}{
-Download a file
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$download_cnt(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The name of the file to download}
-
-\item{\code{...}}{Additional parameters to pass to the download_content_cnt method}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The file downloaded
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_sharepoint-upload_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_sharepoint-upload_cnt}{}}}
-\subsection{Method \code{upload_cnt()}}{
-Upload a file
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$upload_cnt(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The name of the file to upload}
-
-\item{\code{...}}{Additional parameters to pass to the upload_content_cnt method}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The file uploaded
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connector_sharepoint-get_conn"></a>}}
 \if{latex}{\out{\hypertarget{method-Connector_sharepoint-get_conn}{}}}
 \subsection{Method \code{get_conn()}}{
@@ -163,25 +124,35 @@ The connection
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_sharepoint-create_directory_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_sharepoint-create_directory_cnt}{}}}
-\subsection{Method \code{create_directory_cnt()}}{
-Create a directory
+\if{html}{\out{<a id="method-Connector_sharepoint-upload_directory_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-Connector_sharepoint-upload_directory_cnt}{}}}
+\subsection{Method \code{upload_directory_cnt()}}{
+Upload a folder
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$create_directory_cnt(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connector_sharepoint$upload_directory_cnt(
+  folder,
+  name = basename(folder),
+  ...,
+  recursive = FALSE
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{The name of the directory to create}
+\item{\code{folder}}{Local folder path}
 
-\item{\code{...}}{Additional parameters to pass to the create_directory_cnt method}
+\item{\code{name}}{Folder name to be used when uploaded}
+
+\item{\code{...}}{additional paramaeters passed on to \code{upload_folder()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class
+or to \code{upload()} method of \code{\link[Microsoft365R:ms_drive_item]{Microsoft365R::ms_drive_item()}} class.}
+
+\item{\code{recursive}}{If \code{recursive} is \code{TRUE}, all subfolders will also be transferred recursively. Default: \code{FALSE}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \link{Connector_sharepoint} object to the directory created
+\link{Connector_sharepoint} object
 }
 }
 }
