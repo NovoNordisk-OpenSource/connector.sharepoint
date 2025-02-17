@@ -1,4 +1,4 @@
-# connector.sharepoint 0.0.2
+# connector.sharepoint 0.0.3
 
 Initial release to internal package manager
 
