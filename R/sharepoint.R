@@ -32,11 +32,12 @@
 #'
 #' @export
 connector_sharepoint <- function(
-    site_url,
-    token = get_token(),
-    path_of_folder = NULL,
-    ...,
-    extra_class = NULL) {
+  site_url,
+  token = get_token(),
+  path_of_folder = NULL,
+  ...,
+  extra_class = NULL
+) {
   ConnectorSharepoint$new(
     site_url = site_url,
     token = token,
@@ -53,6 +54,7 @@ connector_sharepoint <- function(
 #' @importFrom R6 R6Class
 #' @importFrom AzureAuth is_azure_token
 #' @importFrom Microsoft365R get_sharepoint_site
+#' @importFrom zephyr msg_debug
 #'
 #' @details
 #' About the token, you can retrieve it by following the guideline in your enterprise.
@@ -102,11 +104,13 @@ ConnectorSharepoint <- R6::R6Class(
     #' @param ... Additional parameters to pass to the [get_sharepoint_site] function
     #' @param extra_class [character] Extra class added to the object.
     #' @return A [ConnectorSharepoint] object
-    initialize = function(site_url,
-                          token = get_token(),
-                          path_of_folder = NULL,
-                          ...,
-                          extra_class = NULL) {
+    initialize = function(
+      site_url,
+      token = get_token(),
+      path_of_folder = NULL,
+      ...,
+      extra_class = NULL
+    ) {
       # Check params
       if (!AzureAuth::is_azure_token(token)) {
         cli::cli_abort("The token provided is not a valid Azure token")
@@ -155,10 +159,12 @@ ConnectorSharepoint <- R6::R6Class(
     #' @param recursive  If `recursive` is `TRUE`, all subfolders will also
     #' be transferred recursively. Default: `FALSE`
     #' @return [ConnectorSharepoint] object
-    upload_directory_cnt = function(folder,
-                                    name = basename(folder),
-                                    ...,
-                                    recursive = FALSE) {
+    upload_directory_cnt = function(
+      folder,
+      name = basename(folder),
+      ...,
+      recursive = FALSE
+    ) {
       upload_directory_cnt(self, folder, name, ..., recursive)
     }
   ),
