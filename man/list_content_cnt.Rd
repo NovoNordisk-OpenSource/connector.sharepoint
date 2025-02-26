@@ -2,26 +2,28 @@
 % Please edit documentation in R/connector_imports.R, R/methods.R
 \name{list_content_cnt}
 \alias{list_content_cnt}
-\alias{list_content_cnt.Connector_sharepoint}
+\alias{list_content_cnt.ConnectorSharepoint}
 \title{List available content from the connector}
 \usage{
 list_content_cnt(connector_object, ...)
 
-\method{list_content_cnt}{Connector_sharepoint}(connector_object, ...)
+\method{list_content_cnt}{ConnectorSharepoint}(connector_object, ...)
 }
 \arguments{
-\item{connector_object}{\link[connector]{connector} The connector object to use.}
+\item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{list_items()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
+\item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to the \code{list_items()} method
+of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 }
 \value{
 A \link{character} vector of content names
 }
 \description{
-Addition list content methods for databricks connectors implemented for \code{\link[connector:list_content_cnt]{connector::list_content_cnt()}}:
+Addition list content methods for databricks connectors implemented
+for \code{\link[connector:list_content_cnt]{connector::list_content_cnt()}}:
 
 \itemize{
-\item \link{Connector_sharepoint}: Reuses the \code{\link[connector:list_content_cnt]{connector::list_content_cnt()}}
-method for \code{\link[=Connector_sharepoint]{Connector_sharepoint()}}
+\item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:list_content_cnt]{connector::list_content_cnt()}}
+method for \code{\link[=ConnectorSharepoint]{ConnectorSharepoint()}}
 }
 }

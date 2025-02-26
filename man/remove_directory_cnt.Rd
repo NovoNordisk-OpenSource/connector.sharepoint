@@ -2,28 +2,30 @@
 % Please edit documentation in R/connector_imports.R, R/methods.R
 \name{remove_directory_cnt}
 \alias{remove_directory_cnt}
-\alias{remove_directory_cnt.Connector_sharepoint}
+\alias{remove_directory_cnt.ConnectorSharepoint}
 \title{Remove a directory}
 \usage{
 remove_directory_cnt(connector_object, name, ...)
 
-\method{remove_directory_cnt}{Connector_sharepoint}(connector_object, name, ...)
+\method{remove_directory_cnt}{ConnectorSharepoint}(connector_object, name, ...)
 }
 \arguments{
-\item{connector_object}{\link[connector]{connector} The connector object to use.}
+\item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
 \item{name}{\link{character} The name of the directory to remove}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to \code{delete()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
+\item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to
+\code{delete()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 }
 \value{
-\link{Connector_sharepoint} object
+\link{ConnectorSharepoint} object
 }
 \description{
-Addition list content methods for databricks connectors implemented for \code{\link[connector:remove_directory_cnt]{connector::remove_directory_cnt()}}:
+Addition list content methods for databricks connectors implemented
+for \code{\link[connector:remove_directory_cnt]{connector::remove_directory_cnt()}}:
 
 \itemize{
-\item \link{Connector_sharepoint}: Reuses the \code{\link[connector:remove_directory_cnt]{connector::remove_directory_cnt()}}
-method for \code{\link[=Connector_sharepoint]{Connector_sharepoint()}}
+\item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:remove_directory_cnt]{connector::remove_directory_cnt()}}
+method for \code{\link[=ConnectorSharepoint]{ConnectorSharepoint()}}
 }
 }

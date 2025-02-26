@@ -10,18 +10,19 @@ Authors@R: c(
 Description: Help users manipulating sharepoint files and folders. Give
     them the same experience as the connector package.
 License: Apache License (>= 2)
-URL: https://jubilant-carnival-p8y68vm.pages.github.io/
+URL: https://github.com/nn-opensource/connector.sharepoint, https://nn-opensource.github.io/connector.sharepoint
 Depends: 
     R (>= 4.4)
 Imports: 
     AzureAuth,
     checkmate,
     cli,
-    connector,
+    connector (>= 0.0.8),
     Microsoft365R,
     options (>= 0.2.0),
     R6,
-    tools
+    tools,
+    zephyr
 Suggests: 
     knitr,
     rmarkdown,
@@ -32,6 +33,7 @@ VignetteBuilder:
     knitr
 Remotes: 
     github::NovoNordisk-OpenSource/connector
+    github::NovoNordisk-OpenSource/zephyr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -16,4 +16,3 @@ if (!on_ci) {
 
   cli::cli_alert_info("Using {my_site} for tests")
 }
-

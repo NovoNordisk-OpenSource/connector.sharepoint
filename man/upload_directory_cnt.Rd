@@ -13,7 +13,7 @@ upload_directory_cnt(
 )
 }
 \arguments{
-\item{connector_object}{\link{Connector_sharepoint} object}
+\item{connector_object}{\link{ConnectorSharepoint} object}
 
 \item{folder}{Local folder path}
 
@@ -25,7 +25,7 @@ or to \code{upload()} method of \code{\link[Microsoft365R:ms_drive_item]{Microso
 \item{recursive}{If \code{recursive} is \code{TRUE}, all subfolders will also be transferred recursively. Default: \code{FALSE}}
 }
 \value{
-\link{Connector_sharepoint} object
+\link{ConnectorSharepoint} object
 }
 \description{
 Upload folder to the Sharepoint drive or folder

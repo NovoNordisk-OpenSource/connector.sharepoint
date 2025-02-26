@@ -2,7 +2,6 @@
 #'
 #' @return logical
 #' @export
-#'
 not_on_ci <- function() {
   !(
     isTRUE(
