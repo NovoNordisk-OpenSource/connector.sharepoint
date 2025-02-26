@@ -15,6 +15,7 @@ upload_directory_cnt(
 \arguments{
 \item{connector_object}{\link{ConnectorSharepoint} object}
 
+
 \item{folder}{Local folder path}
 
 \item{name}{Folder name to be used when uploaded}

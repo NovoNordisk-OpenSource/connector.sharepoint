@@ -1,6 +1,6 @@
 Package: connector.sharepoint
 Title: Connect to Microsoft SharePoint easily
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Vladimir", "Obucina", , "vlob@novonordisk.com", role = c("aut"),
