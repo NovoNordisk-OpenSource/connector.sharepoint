@@ -101,9 +101,10 @@ do.call(test_folder$list_files, list(info = "name"))
 my_share$get_lists()
 
 
-test <- Connector_sharepoint$new(
+test <- ConnectorSharepoint$new(
   site_url = Sys.getenv("SHAREPOINT_SITE_URL", "https://sharepoint.com"),
-  token = tok)
+  token = tok
+)
 
 something <- test
 
@@ -114,6 +115,3 @@ item <- something$get_item("Test")
 test$read("Test")
 test$write(iris, "Test/iris.csv")
 test$write("iris.csv", "Test/iris.csv")
-
-
-

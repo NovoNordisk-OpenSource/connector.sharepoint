@@ -1,6 +1,6 @@
 test_that("Test set up of Token", {
   skip_on_ci()
-  hash <- names(list_azure_tokens())[1]
+  hash <- names(AzureAuth::list_azure_tokens())[1]
 
   ## Use the var env
   withr::with_envvar(c("SHAREPOINT_AZURE_HASH" = hash), {
@@ -20,18 +20,31 @@ test_that("Test set up of Token", {
   })
 
   ## Manipulate .active_file
-  file.rename(from = get_tk_active_file(), to = file.path(AzureAuth::AzureR_dir(), ".old_hash"))
+  file.rename(
+    from = get_tk_active_file(),
+    to = file.path(AzureAuth::AzureR_dir(), ".old_hash")
+  )
   messages_a <- capture_messages(get_token())
 
   expect_true(
-    any(grepl(x = messages_a, pattern = "No hash provided or found, using the first token found"))
+    any(
+      grepl(
+        x = messages_a,
+        pattern = "No hash provided or found, using the first token found"
+      )
+    )
   )
 
   ## create one without SHAREPOINT
   file.create(file.path(AzureAuth::AzureR_dir(), ".active_hash"))
   messages_s <- capture_messages(get_token())
   expect_true(
-    any(grepl(x = messages_s, pattern = "SHAREPOINT key not found in the active hash file"))
+    any(
+      grepl(
+        x = messages_s,
+        pattern = "SHAREPOINT key not found in the active hash file"
+      )
+    )
   )
   file.remove(file.path(AzureAuth::AzureR_dir(), ".active_hash"))
 
