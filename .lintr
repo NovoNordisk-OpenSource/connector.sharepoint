@@ -1,4 +1,7 @@
 linters: linters_with_defaults(
   line_length_linter(120)
   ) # see vignette("lintr")
+exclusions: list(
+  "vignettes/connector_sharepoint.Rmd"
+  )
 encoding: "UTF-8"

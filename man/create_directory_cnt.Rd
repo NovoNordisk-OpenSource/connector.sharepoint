@@ -2,30 +2,32 @@
 % Please edit documentation in R/connector_imports.R, R/methods.R
 \name{create_directory_cnt}
 \alias{create_directory_cnt}
-\alias{create_directory_cnt.Connector_sharepoint}
+\alias{create_directory_cnt.ConnectorSharepoint}
 \title{Create a directory}
 \usage{
 create_directory_cnt(connector_object, name, ...)
 
-\method{create_directory_cnt}{Connector_sharepoint}(connector_object, name, ..., open = TRUE)
+\method{create_directory_cnt}{ConnectorSharepoint}(connector_object, name, ..., open = TRUE)
 }
 \arguments{
-\item{connector_object}{\link[connector]{connector} The connector object to use.}
+\item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
 \item{name}{\link{character} The name of the directory to create}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to \code{create_folder()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
+\item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to \code{create_folder()} method
+of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 
 \item{open}{create a new connector object}
 }
 \value{
-\link{Connector_sharepoint} object or \link{Connector_sharepoint} object of a newly built directory
+\link{ConnectorSharepoint} object or \link{ConnectorSharepoint} object of a newly built directory
 }
 \description{
-Addition list content methods for databricks connectors implemented for \code{\link[connector:create_directory_cnt]{connector::create_directory_cnt()}}:
+Addition list content methods for databricks connectors implemented
+for \code{\link[connector:create_directory_cnt]{connector::create_directory_cnt()}}:
 
 \itemize{
-\item \link{Connector_sharepoint}: Reuses the \code{\link[connector:create_directory_cnt]{connector::create_directory_cnt()}}
-method for \code{\link[=Connector_sharepoint]{Connector_sharepoint()}}
+\item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:create_directory_cnt]{connector::create_directory_cnt()}}
+method for \code{\link[=ConnectorSharepoint]{ConnectorSharepoint()}}
 }
 }

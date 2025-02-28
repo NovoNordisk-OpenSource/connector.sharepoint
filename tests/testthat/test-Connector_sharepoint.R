@@ -20,7 +20,7 @@ test_that("Testing General connector_sahrepoint", {
   ### GENERAL
   ##############
 
-  expect_true(inherits(test_drive, "Connector_sharepoint"))
+  expect_true(inherits(test_drive, "ConnectorSharepoint"))
 
   ## Extra class
 
@@ -39,9 +39,9 @@ test_that("Testing General connector_sahrepoint", {
   expect_error(quiet_connect(my_site, token = "a weird token"))
 })
 
-test_that("Testing connector_sharepoint methods", {
+test_that("Testing ConnectorSharepoint methods", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_sharepoint_directory(site_url = my_site))
+  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
   ###############
   ### Methods
   ###############
@@ -65,13 +65,19 @@ test_that("Testing connector_sharepoint methods", {
   # Create a directory
   new_directory <- my_drive$create_directory_cnt("new_directory", open = FALSE)
 
-  checkmate::expect_r6(new_directory, "Connector_sharepoint")
+  checkmate::expect_r6(new_directory, "ConnectorSharepoint")
   expect_equal(my_drive$folder$get_path(), new_directory$folder$get_path())
-  
-  new_directory_open <- my_drive$create_directory_cnt("new_directory_open", open = TRUE)
-  expect_equal(new_directory_open$folder$get_path(), paste0(my_drive$folder$get_path(), "/new_directory_open"))
+
+  new_directory_open <- my_drive$create_directory_cnt(
+    "new_directory_open",
+    open = TRUE
+  )
+  expect_equal(
+    new_directory_open$folder$get_path(),
+    paste0(my_drive$folder$get_path(), "/new_directory_open")
+  )
   my_drive$remove_directory_cnt(name = "new_directory_open", confirm = FALSE)
-  
+
   my_drive$create_directory_cnt("new_directory") |>
     expect_error()
 
@@ -89,9 +95,9 @@ test_that("Testing connector_sharepoint methods", {
     expect_no_condition()
 })
 
-test_that("Testing connector_sharepoint methods with a specific folder", {
+test_that("Testing ConnectorSharepoint methods with a specific folder", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_sharepoint_directory(site_url = my_site))
+  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
 
   #########################
   ### For a specific folder
@@ -115,9 +121,9 @@ test_that("Testing connector_sharepoint methods with a specific folder", {
     expect_no_condition()
 })
 
-test_that("Testing connector_sharepoint specific outputs for methods", {
+test_that("Testing ConnectorSharepoint specific outputs for methods", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_sharepoint_directory(site_url = my_site))
+  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
   #########################
   ### Specific to methods
   #########################
@@ -125,7 +131,7 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   # Create a folder and file
   dir_name <- test_directory_name()
   subfolder <- my_drive$create_directory_cnt(dir_name)
-  my_drive$write_cnt(iris, paste0(dir_name,"/iris.csv"))
+  my_drive$write_cnt(iris, paste0(dir_name, "/iris.csv"))
 
   ## Check error for read_cnt fo a folder
   my_drive$read_cnt("dir_name", show_col_types = FALSE) |>
@@ -145,15 +151,26 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
   tmp_file_d <- tempfile(pattern = "downloaded", fileext = ".example")
   write.csv(iris, tmp_file, row.names = FALSE)
 
-  my_drive$upload_cnt(file = tmp_file, name = paste0(dir_name, "/iris.example")) |>
+  my_drive$upload_cnt(
+    file = tmp_file,
+    name = paste0(dir_name, "/iris.example")
+  ) |>
     expect_no_error()
 
-  my_drive$download_cnt(name = paste0(dir_name, "/iris.example"), file = tmp_file_d) |>
+  my_drive$download_cnt(
+    name = paste0(dir_name, "/iris.example"),
+    file = tmp_file_d
+  ) |>
     expect_no_error()
 
-  path_ <- my_drive$get_conn()$get_item(paste0(dir_name, "/iris.example"))$get_path()
+  path_ <- my_drive$get_conn()$get_item(
+    paste0(dir_name, "/iris.example")
+  )$get_path()
 
-  expect_equal(path_, paste0(my_drive$folder$get_path(), paste0("/", dir_name, "/iris.example")))
+  expect_equal(
+    path_,
+    paste0(my_drive$folder$get_path(), paste0("/", dir_name, "/iris.example"))
+  )
 
   #### Dirs
   tmp_dir <- tempfile(pattern = "test_dir")
@@ -163,7 +180,10 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
     write.csv(iris, "iris.csv", row.names = FALSE)
   })
 
-  my_drive$upload_directory_cnt(folder = tmp_dir, name = paste0(dir_name, "/dir")) |> 
+  my_drive$upload_directory_cnt(
+    folder = tmp_dir,
+    name = paste0(dir_name, "/dir")
+  ) |>
     expect_no_error()
 
   ## Download directory
@@ -180,18 +200,20 @@ test_that("Testing connector_sharepoint specific outputs for methods", {
     expect_error()
 
   ### Using vroom
-  my_drive$read_cnt(paste0(dir_name, "/iris.example"), show_col_types = FALSE) |>
+  my_drive$read_cnt(
+    paste0(dir_name, "/iris.example"),
+    show_col_types = FALSE
+  ) |>
     expect_no_error()
 
   ### Clean up
   my_drive$remove_cnt(dir_name, confirm = FALSE)
 })
 
-
 test_that("test when path to a folder is not a folder", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_sharepoint_directory(site_url = my_site))
-  
+  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
+
   ## create a file
   dir_name <- test_directory_name()
   my_drive$create_directory_cnt(dir_name)
@@ -210,7 +232,7 @@ test_that("test when path to a folder is not a folder", {
 
 test_that("test folder upload works", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_sharepoint_directory(site_url = my_site))
+  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
   dir_name <- test_directory_name()
 
   tmp_dir <- tempfile(pattern = "test_dir")
@@ -221,25 +243,25 @@ test_that("test folder upload works", {
   })
 
   # Upload directory fails when needed
-  my_drive$upload_directory_cnt("bad_folder", name = "dir") |> 
+  my_drive$upload_directory_cnt("bad_folder", name = "dir") |>
     expect_error()
-  my_drive$upload_directory_cnt(tmp_dir, name = 2) |> 
+  my_drive$upload_directory_cnt(tmp_dir, name = 2) |>
     expect_error()
 
   # Upload directory
-  my_drive$upload_directory_cnt(tmp_dir, paste0(dir_name,"/dir")) |>
+  my_drive$upload_directory_cnt(tmp_dir, paste0(dir_name, "/dir")) |>
     expect_no_error()
 
   # Upload directory to a directory
   new_directory <- my_drive$create_directory_cnt(name = "test_dir", open = TRUE)
-  new_directory$upload_directory_cnt(tmp_dir, paste0(dir_name,"/dir")) |>
+  new_directory$upload_directory_cnt(tmp_dir, paste0(dir_name, "/dir")) |>
     expect_no_error()
 
   ### Error not existing
   my_drive$upload_cnt(src = "notexits", paste0(dir_name, "/dir")) |>
     expect_error()
 
-  dir_ <- my_drive$get_conn()$get_item(paste0(dir_name,"/dir"))
+  dir_ <- my_drive$get_conn()$get_item(paste0(dir_name, "/dir"))
 
   expect_true(dir_$is_folder())
 })

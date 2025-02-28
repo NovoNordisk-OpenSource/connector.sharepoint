@@ -1,4 +1,17 @@
 url: https://nn-opensource.github.io/connector.sharepoint
 template:
   bootstrap: 5
-
+reference:
+  - title: Use connector.sharepoint
+    contents:
+    - ConnectorSharepoint
+    - connector_sharepoint
+    - options
+  - title: connector.sharepoint functions
+    contents:
+    - matches(".*_cnt$")
+  - title: Utilities
+    contents:
+    - get_default_hash
+    - get_token
+    - not_on_ci
