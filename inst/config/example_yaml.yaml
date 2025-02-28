@@ -2,7 +2,7 @@
 metadata:
   trial: "sharepoint_connector_testing"
   extra_class: "test2"
-  url: "https://myorg.sharepoint.com/sites/"
+  url: "https://novonordisk.sharepoint.com/sites/"
 
 connections:
   - con: "test"
