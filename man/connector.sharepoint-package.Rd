@@ -13,7 +13,8 @@ Help users manipulating sharepoint files and folders. Give them the same experie
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://jubilant-carnival-p8y68vm.pages.github.io/}
+  \item \url{https://github.com/nn-opensource/connector.sharepoint}
+  \item \url{https://nn-opensource.github.io/connector.sharepoint}
 }
 
 }

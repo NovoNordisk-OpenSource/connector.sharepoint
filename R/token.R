@@ -4,20 +4,21 @@
 #'
 #' @return A token
 #' @export
-#'
-#' @importFrom AzureAuth list_azure_tokens
-#' @importFrom checkmate assert_character
 get_token <- function(hash = get_default_hash()) {
   checkmate::assert_character(hash, null.ok = TRUE)
 
   tokens <- AzureAuth::list_azure_tokens()
 
   if (length(tokens) == 0) {
-    cli::cli_abort("Please create your token first, to do so, follow the guideline")
+    cli::cli_abort(
+      "Please create your token first, to do so, follow the guideline"
+    )
   }
 
   if (is.null(hash)) {
-    cli::cli_alert_info("No hash provided or found, using the first token found")
+    cli::cli_alert_info(
+      "No hash provided or found, using the first token found"
+    )
     hash <- 1
   }
 
@@ -25,7 +26,6 @@ get_token <- function(hash = get_default_hash()) {
 
   return(token)
 }
-
 
 #' @noRd
 get_tk_active_file <- function() {
@@ -60,7 +60,11 @@ get_tk_hash_sharepoint <- function() {
     return(NULL)
   }
 
-  hash_f <- sub(pattern = '^SHAREPOINT="([a-zA-Z0-9]{6,})"', replacement = "\\1", hash)
+  hash_f <- sub(
+    pattern = '^SHAREPOINT="([a-zA-Z0-9]{6,})"',
+    replacement = "\\1",
+    hash
+  )
 
   return(hash_f)
 }
@@ -77,7 +81,9 @@ get_default_hash <- function() {
   hash <- Sys.getenv("SHAREPOINT_AZURE_HASH")
   if (hash == "") {
     # try to find a .active_hash file
-    cli::cli_alert_danger("No SHAREPOINT_AZURE_HASH env found, trying to find a .active_hash file")
+    cli::cli_alert_danger(
+      "No SHAREPOINT_AZURE_HASH env found, trying to find a .active_hash file"
+    )
     hash <- get_tk_hash_sharepoint()
   }
 
