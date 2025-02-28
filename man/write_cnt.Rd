@@ -2,30 +2,31 @@
 % Please edit documentation in R/connector_imports.R, R/methods.R
 \name{write_cnt}
 \alias{write_cnt}
-\alias{write_cnt.Connector_sharepoint}
+\alias{write_cnt.ConnectorSharepoint}
 \title{Write content to the connector}
 \usage{
 write_cnt(connector_object, x, name, ...)
 
-\method{write_cnt}{Connector_sharepoint}(connector_object, x, name, ...)
+\method{write_cnt}{ConnectorSharepoint}(connector_object, x, name, ...)
 }
 \arguments{
-\item{connector_object}{\link[connector]{connector} The connector object to use.}
+\item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
 \item{x}{The object to write to the connection}
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{\link[connector:write_file]{connector::write_file()}} function}
+\item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to the \code{\link[connector:write_file]{connector::write_file()}} function}
 }
 \value{
 \link{invisible} connector_object.
 }
 \description{
-Addition write methods for databricks connectors implemented for \code{\link[connector:write_cnt]{connector::write_cnt()}}:
+Addition write methods for databricks connectors implemented
+for \code{\link[connector:write_cnt]{connector::write_cnt()}}:
 
 \itemize{
-\item \link{Connector_sharepoint}: Reuses the \code{\link[connector:write_cnt]{connector::write_cnt()}}
-method for \code{\link[=Connector_sharepoint]{Connector_sharepoint()}}
+\item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:write_cnt]{connector::write_cnt()}}
+method for \code{\link[=ConnectorSharepoint]{ConnectorSharepoint()}}
 }
 }

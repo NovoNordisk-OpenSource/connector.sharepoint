@@ -1,13 +1,14 @@
 #' @description
-#' * [Connector_sharepoint]: Reuses the [connector::read_cnt()]
-#'  method for [connector.sharepoint::Connector_sharepoint()]
+#' * [ConnectorSharepoint]: Reuses the [connector::read_cnt()]
+#'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname read_cnt
 #' @param name The name of the file to read
-#' @param ... [Connector_sharepoint]: Additional parameters to pass to the `get_item()` method of [Microsoft365R::ms_drive()] class
+#' @param ... [ConnectorSharepoint]: Additional parameters to pass to the `get_item()` method of
+#'  [Microsoft365R::ms_drive()] class
 #'
 #' @export
-read_cnt.Connector_sharepoint <- function(connector_object, name, ...) {
+read_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
   checkmate::assert_string(name)
 
   drive <- connector_object$get_conn()
@@ -15,7 +16,9 @@ read_cnt.Connector_sharepoint <- function(connector_object, name, ...) {
   file <- drive$get_item(name)
 
   if (file$is_folder()) {
-    cli::cli_abort("The file provided is a folder, please use download_folder instead of read")
+    cli::cli_abort(
+      "The file provided is a folder, please use download_folder instead of read"
+    )
   }
 
   find_ext <- tools::file_ext(name)
@@ -34,13 +37,13 @@ read_cnt.Connector_sharepoint <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [Connector_sharepoint]: Reuses the [connector::write_cnt()]
-#'  method for [connector.sharepoint::Connector_sharepoint()]
+#' * [ConnectorSharepoint]: Reuses the [connector::write_cnt()]
+#'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname write_cnt
-#' @param ... [Connector_sharepoint]: Additional parameters to pass to the [connector::write_file()] function
+#' @param ... [ConnectorSharepoint]: Additional parameters to pass to the [connector::write_file()] function
 #' @export
-write_cnt.Connector_sharepoint <- function(connector_object, x, name, ...) {
+write_cnt.ConnectorSharepoint <- function(connector_object, x, name, ...) {
   checkmate::assert_string(name)
 
   drive <- connector_object$get_conn()
@@ -73,43 +76,49 @@ write_cnt.Connector_sharepoint <- function(connector_object, x, name, ...) {
 }
 
 #' @description
-#' * [Connector_sharepoint]: Reuses the [connector::list_content_cnt()]
-#'  method for [connector.sharepoint::Connector_sharepoint()]
+#' * [ConnectorSharepoint]: Reuses the [connector::list_content_cnt()]
+#'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname list_content_cnt
-#' @param ... [Connector_sharepoint]: Additional parameters to pass to the `list_items()` method of [Microsoft365R::ms_drive()] class.
+#' @param ... [ConnectorSharepoint]: Additional parameters to pass to the `list_items()` method
+#' of [Microsoft365R::ms_drive()] class.
 #' @export
-list_content_cnt.Connector_sharepoint <- function(connector_object, ...) {
+list_content_cnt.ConnectorSharepoint <- function(connector_object, ...) {
   connector_object$get_conn()$list_items(...)
 }
 
 #' @description
-#' * [Connector_sharepoint]: Reuses the [connector::remove_cnt()]
-#'  method for [connector.sharepoint::Connector_sharepoint()]
+#' * [ConnectorSharepoint]: Reuses the [connector::remove_cnt()]
+#'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname remove_cnt
-#' @param ... [Connector_sharepoint]: Additional parameters to pass to the `delete()` method of [Microsoft365R::ms_drive()] class.
+#' @param ... [ConnectorSharepoint]: Additional parameters to pass to the `delete()` method
+#' of [Microsoft365R::ms_drive()] class.
 #'
-#' @return [Connector_sharepoint] object
+#' @return [ConnectorSharepoint] object
 #' @export
-remove_cnt.Connector_sharepoint <- function(connector_object, name, ...) {
+remove_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
   checkmate::assert_string(name)
 
   connector_object$get_conn()$get_item(name)$delete(...)
   return(invisible(connector_object))
 }
 
-
 #' @description
-#' * [Connector_sharepoint]: Reuses the [connector::download_cnt()]
-#'  method for [connector.sharepoint::Connector_sharepoint()]
+#' * [ConnectorSharepoint]: Reuses the [connector::download_cnt()]
+#'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname download_cnt
-#' @param ... [Connector_sharepoint]: Additional parameters to pass to the `download()` method of [Microsoft365R::ms_drive()] class.
+#' @param ... [ConnectorSharepoint]: Additional parameters to pass to the `download()` method
+#' of [Microsoft365R::ms_drive()] class.
 #'
-#' @return [Connector_sharepoint] object
+#' @return [ConnectorSharepoint] object
 #' @export
-download_cnt.Connector_sharepoint <- function(connector_object, name, file = basename(name), ...) {
+download_cnt.ConnectorSharepoint <- function(
+    connector_object,
+    name,
+    file = basename(name),
+    ...) {
   checkmate::assert_string(name)
   checkmate::assert_string(file)
 
@@ -118,21 +127,22 @@ download_cnt.Connector_sharepoint <- function(connector_object, name, file = bas
 }
 
 #' @description
-#' * [Connector_sharepoint]: Reuses the [connector::upload_cnt()]
-#'  method for [connector.sharepoint::Connector_sharepoint()]
+#' * [ConnectorSharepoint]: Reuses the [connector::upload_cnt()]
+#'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname upload_cnt
 #' @param recursive If `recursive` is TRUE, all subfolders will also be transferred recursively. Default: `FALSE`
-#' @param ... [Connector_sharepoint]: Additional parameters to pass to the `upload_file()` or `upload_folder()`
+#' @param ... [ConnectorSharepoint]: Additional parameters to pass to the `upload_file()` or `upload_folder()`
 #' method of [Microsoft365R::ms_drive()] class.
 #'
-#' @return [Connector_sharepoint] object
+#' @return [ConnectorSharepoint] object
 #' @export
-upload_cnt.Connector_sharepoint <- function(connector_object,
-                                            file,
-                                            name = basename(file),
-                                            ...,
-                                            recursive = FALSE) {
+upload_cnt.ConnectorSharepoint <- function(
+    connector_object,
+    file,
+    name = basename(file),
+    ...,
+    recursive = FALSE) {
   checkmate::assert_file_exists(file)
   checkmate::assert_string(name)
 
@@ -144,46 +154,57 @@ upload_cnt.Connector_sharepoint <- function(connector_object,
 }
 
 #' @description
-#' * [Connector_sharepoint]: Reuses the [connector::create_directory_cnt()]
-#'  method for [connector.sharepoint::Connector_sharepoint()]
+#' * [ConnectorSharepoint]: Reuses the [connector::create_directory_cnt()]
+#'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname create_directory_cnt
-#' @param ... [Connector_sharepoint]: Additional parameters to pass to `create_folder()` method of [Microsoft365R::ms_drive()] class.
+#' @param ... [ConnectorSharepoint]: Additional parameters to pass to `create_folder()` method
+#' of [Microsoft365R::ms_drive()] class.
 #' @param open create a new connector object
 #'
-#' @return [Connector_sharepoint] object or [Connector_sharepoint] object of a newly built directory
+#' @return [ConnectorSharepoint] object or [ConnectorSharepoint] object of a newly built directory
 #' @export
-create_directory_cnt.Connector_sharepoint <- function(connector_object, name, ..., open = TRUE) {
+create_directory_cnt.ConnectorSharepoint <- function(
+    connector_object,
+    name,
+    ...,
+    open = TRUE) {
   checkmate::assert_string(name)
   checkmate::assert_logical(open)
 
   new_directory <- connector_object$get_conn()$create_folder(name, ...)
 
   if (open) {
-    return(connector_sharepoint(
-      site_url = connector_object$site_url,
-      path_of_folder = new_directory$get_path()
-    ))
+    return(
+      ConnectorSharepoint$new(
+        site_url = connector_object$site_url,
+        path_of_folder = new_directory$get_path()
+      )
+    )
   }
   return(invisible(connector_object))
 }
 
 #' @description
-#' * [Connector_sharepoint]: Reuses the [connector::remove_directory_cnt()]
-#'  method for [connector.sharepoint::Connector_sharepoint()]
+#' * [ConnectorSharepoint]: Reuses the [connector::remove_directory_cnt()]
+#'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname remove_directory_cnt
-#' @param ... [Connector_sharepoint]: Additional parameters to pass to `delete()` method of [Microsoft365R::ms_drive()] class.
-#' @return [Connector_sharepoint] object
+#' @param ... [ConnectorSharepoint]: Additional parameters to pass to
+#' `delete()` method of [Microsoft365R::ms_drive()] class.
+#' @return [ConnectorSharepoint] object
 #' @export
-remove_directory_cnt.Connector_sharepoint <- function(connector_object, name, ...) {
+remove_directory_cnt.ConnectorSharepoint <- function(
+    connector_object,
+    name,
+    ...) {
   checkmate::assert_string(name)
   connector_object$get_conn()$get_item(name)$delete(...)
   return(invisible(connector_object))
 }
 
 #' @description
-#' * [Connector_sharepoint]: Uses [read_cnt()] to allow redundancy.
+#' * [ConnectorSharepoint]: Uses [read_cnt()] to allow redundancy.
 #'
 #' @rdname tbl_cnt
 #' @export
@@ -215,17 +236,17 @@ upload_on_drive_or_folder <- function(ms_object, src, dest, ...) {
 }
 
 #' @title Upload folder to sharepoint
-#' 
+#'
 #' @description
 #' Upload folder to the Sharepoint drive or folder
 #'
-#' @param connector_object [Connector_sharepoint] object
+#' @param connector_object [ConnectorSharepoint] object
 #' @param folder Local folder path
 #' @param name Folder name to be used when uploaded
 #' @param ... additional paramaeters passed on to `upload_folder()` method of [Microsoft365R::ms_drive()] class
 #' or to `upload()` method of [Microsoft365R::ms_drive_item()] class.
 #' @param recursive  If `recursive` is `TRUE`, all subfolders will also be transferred recursively. Default: `FALSE`
-#' @return [Connector_sharepoint] object
+#' @return [ConnectorSharepoint] object
 #'
 #' @export
 upload_directory_cnt <- function(
@@ -234,7 +255,7 @@ upload_directory_cnt <- function(
     name = basename(folder),
     ...,
     recursive = FALSE) {
-  checkmate::assert_r6(x = connector_object, classes = "Connector_sharepoint")
+  checkmate::assert_r6(x = connector_object, classes = "ConnectorSharepoint")
   checkmate::assert_directory_exists(folder)
   checkmate::assert_string(name)
 

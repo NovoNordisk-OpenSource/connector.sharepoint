@@ -47,7 +47,7 @@ SharePoint site and retrieve data:
 library(connector.sharepoint)
 
 # Connect to SharePoint
-con <- connector_sharepoint(site_url = "sharepoint_url")
+con <- ConnectorSharepoint(site_url = "sharepoint_url")
 ```
 
 When connecting to SharePoint, you need to provide the URL of the
@@ -60,20 +60,20 @@ Example of how to use the connector object:
 
 ``` r
 # List content
-con |> 
+con |>
   list_content_cnt()
 
 # Write a file
-con |> 
+con |>
   write_cnt(iris, "iris.rds")
 
 # Read a file
-con |> 
-  read_cnt("iris.rds") |> 
+con |>
+  read_cnt("iris.rds") |>
   head()
 
 # Remove a file
-con |> 
+con |>
   remove_cnt("file_name.csv")
 ```
 
@@ -85,24 +85,24 @@ connector package):
 
 ``` r
 # Connect using configuration file
-yaml <- yaml::read_yaml(system.file("config", "example_yaml.yaml", package = "connector.sharepoint"), eval.expr=TRUE)
+yaml <- yaml::read_yaml(system.file("config", "example_yaml.yaml", package = "connector.sharepoint"), eval.expr = TRUE)
 
 connector <- connector::connect(yaml)
 
 # List content
-connector$test |> 
+connector$test |>
   list_content_cnt()
 
 # Get SharePoint connection object
-connector$test |> 
+connector$test |>
   get_conn()
 
 # Write a file
-connector$test |> 
+connector$test |>
   write_cnt(iris, "Test/iris.csv")
 
 # Read a file
-connector$test |> 
+connector$test |>
   read_cnt("Test/iris.csv")
 ```
 

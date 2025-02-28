@@ -10,7 +10,7 @@ tbl_cnt(connector_object, name, ...)
 \method{tbl_cnt}{ConnectorDatabricksVolume}(connector_object, name, ...)
 }
 \arguments{
-\item{connector_object}{\link[connector]{connector} The connector object to use.}
+\item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
@@ -20,9 +20,10 @@ tbl_cnt(connector_object, name, ...)
 A \link[dplyr:tbl]{dplyr::tbl} object.
 }
 \description{
-Addition tbl methods for databricks connectors implemented for \code{\link[connector:tbl_cnt]{connector::tbl_cnt()}}:
+Addition tbl methods for databricks connectors implemented
+for \code{\link[connector:tbl_cnt]{connector::tbl_cnt()}}:
 
 \itemize{
-\item \link{Connector_sharepoint}: Uses \code{\link[=read_cnt]{read_cnt()}} to allow redundancy.
+\item \link{ConnectorSharepoint}: Uses \code{\link[=read_cnt]{read_cnt()}} to allow redundancy.
 }
 }

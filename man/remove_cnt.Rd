@@ -2,28 +2,30 @@
 % Please edit documentation in R/connector_imports.R, R/methods.R
 \name{remove_cnt}
 \alias{remove_cnt}
-\alias{remove_cnt.Connector_sharepoint}
+\alias{remove_cnt.ConnectorSharepoint}
 \title{Remove content from the connector}
 \usage{
 remove_cnt(connector_object, name, ...)
 
-\method{remove_cnt}{Connector_sharepoint}(connector_object, name, ...)
+\method{remove_cnt}{ConnectorSharepoint}(connector_object, name, ...)
 }
 \arguments{
-\item{connector_object}{\link[connector]{connector} The connector object to use.}
+\item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{delete()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
+\item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to the \code{delete()} method
+of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 }
 \value{
-\link{Connector_sharepoint} object
+\link{ConnectorSharepoint} object
 }
 \description{
-Addition remove methods for databricks connectors implemented for \code{\link[connector:remove_cnt]{connector::remove_cnt()}}:
+Addition remove methods for databricks connectors implemented
+for \code{\link[connector:remove_cnt]{connector::remove_cnt()}}:
 
 \itemize{
-\item \link{Connector_sharepoint}: Reuses the \code{\link[connector:remove_cnt]{connector::remove_cnt()}}
-method for \code{\link[=Connector_sharepoint]{Connector_sharepoint()}}
+\item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:remove_cnt]{connector::remove_cnt()}}
+method for \code{\link[=ConnectorSharepoint]{ConnectorSharepoint()}}
 }
 }

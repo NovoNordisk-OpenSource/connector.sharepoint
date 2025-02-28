@@ -2,30 +2,32 @@
 % Please edit documentation in R/connector_imports.R, R/methods.R
 \name{download_cnt}
 \alias{download_cnt}
-\alias{download_cnt.Connector_sharepoint}
+\alias{download_cnt.ConnectorSharepoint}
 \title{Download content from the connector}
 \usage{
 download_cnt(connector_object, name, file = basename(name), ...)
 
-\method{download_cnt}{Connector_sharepoint}(connector_object, name, file = basename(name), ...)
+\method{download_cnt}{ConnectorSharepoint}(connector_object, name, file = basename(name), ...)
 }
 \arguments{
-\item{connector_object}{\link[connector]{connector} The connector object to use.}
+\item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
 \item{file}{\link{character} Path to the file to download to or upload from}
 
-\item{...}{\link{Connector_sharepoint}: Additional parameters to pass to the \code{download()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
+\item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to the \code{download()} method
+of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 }
 \value{
-\link{Connector_sharepoint} object
+\link{ConnectorSharepoint} object
 }
 \description{
-Addition list content methods for databricks connectors implemented for \code{\link[connector:download_cnt]{connector::download_cnt()}}:
+Addition list content methods for databricks connectors implemented
+for \code{\link[connector:download_cnt]{connector::download_cnt()}}:
 
 \itemize{
-\item \link{Connector_sharepoint}: Reuses the \code{\link[connector:download_cnt]{connector::download_cnt()}}
-method for \code{\link[=Connector_sharepoint]{Connector_sharepoint()}}
+\item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:download_cnt]{connector::download_cnt()}}
+method for \code{\link[=ConnectorSharepoint]{ConnectorSharepoint()}}
 }
 }
