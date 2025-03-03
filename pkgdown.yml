@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  connector_sharepoint: connector_sharepoint.html
+last_built: 2025-03-03T13:18Z
+urls:
+  reference: https://nn-opensource.github.io/connector.sharepoint/reference
+  article: https://nn-opensource.github.io/connector.sharepoint/articles
