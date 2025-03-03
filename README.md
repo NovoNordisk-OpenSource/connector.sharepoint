@@ -1,11 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# connector.sharepoint <a href="https://nn-opensource.github.io/connector.sharepoint"><img src="man/figures/logo.png" align="right" height="138" alt="connector.sharepoint website" /></a>
+# connector.sharepoint <a href="https://novonordisk-opensource.github.io/connector.sharepoint"><img src="man/figures/logo.png" align="right" height="138" alt="connector.sharepoint website" /></a>
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/NN-OpenSource/connector.sharepoint/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NN-OpenSource/connector.sharepoint/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/novonordisk-OpenSource/connector.sharepoint/actions/workflows/check_and_co.yaml/badge.svg)](https://github.com/novonordisk-OpenSource/connector.sharepoint/actions/workflows/check_and_co.yaml)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
@@ -19,10 +19,10 @@ SharePoint site, retrieving data, and performing various operations
 using this package.
 
 This package is meant to be used with
-[connector](%22https://github.com/NN-OpenSource/connector%22) package,
-which provides a common interface for interacting with various data
-sources. The connector.sharepoint package extends the connector package
-to support Microsoft SharePoint sites.
+[connector](%22https://github.com/novonordisk-OpenSource/connector%22)
+package, which provides a common interface for interacting with various
+data sources. The connector.sharepoint package extends the connector
+package to support Microsoft SharePoint sites.
 
 ## Installation
 
@@ -34,7 +34,7 @@ command:
 install.packages("connector.sharepoint")
 
 # Alternatively, you can install the development version from GitHub:
-devtools::install_github("NN-OpenSource/connector.sharepoint")
+devtools::install_github("novonordisk-OpenSource/connector.sharepoint")
 ```
 
 ## Usage
