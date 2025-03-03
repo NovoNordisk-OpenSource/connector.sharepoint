@@ -13,8 +13,8 @@ Help users manipulating sharepoint files and folders. Give them the same experie
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/nn-opensource/connector.sharepoint}
-  \item \url{https://nn-opensource.github.io/connector.sharepoint}
+  \item \url{https://github.com/novonordisk-opensource/connector.sharepoint}
+  \item \url{https://novonordisk-opensource.github.io/connector.sharepoint}
 }
 
 }

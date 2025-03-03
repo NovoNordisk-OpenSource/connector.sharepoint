@@ -13,17 +13,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-# connector.sharepoint <a href="https://nn-opensource.github.io/connector.sharepoint"><img src="man/figures/logo.png" align="right" height="138" alt="connector.sharepoint website" /></a>
+# connector.sharepoint <a href="https://novonordisk-opensource.github.io/connector.sharepoint"><img src="man/figures/logo.png" align="right" height="138" alt="connector.sharepoint website" /></a>
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/NN-OpenSource/connector.sharepoint/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NN-OpenSource/connector.sharepoint/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/novonordisk-OpenSource/connector.sharepoint/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/novonordisk-OpenSource/connector.sharepoint/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/connector.sharepoint)](https://CRAN.R-project.org/package=connector.sharepoint)
 <!-- badges: end -->
 
 The connector.sharepoint package provides a convenient interface for accessing and interacting with Microsoft SharePoint sites directly from R. This vignette will guide you through the process of connecting to a SharePoint site, retrieving data, and performing various operations using this package.
 
-This package is meant to be used with [connector]("https://github.com/NN-OpenSource/connector") package, which 
+This package is meant to be used with [connector]("https://github.com/novonordisk-OpenSource/connector") package, which 
 provides a common interface for interacting with various data sources. The connector.sharepoint package extends the connector package to support Microsoft 
 SharePoint sites.
 
@@ -36,7 +36,7 @@ You can install the connector.sharepoint package using the following command:
 install.packages("connector.sharepoint")
 
 # Alternatively, you can install the development version from GitHub:
-devtools::install_github("NN-OpenSource/connector.sharepoint")
+devtools::install_github("novonordisk-OpenSource/connector.sharepoint")
 ```
 
 

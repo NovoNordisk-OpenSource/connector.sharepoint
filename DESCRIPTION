@@ -10,7 +10,7 @@ Authors@R: c(
 Description: Help users manipulating sharepoint files and folders. Give
     them the same experience as the connector package.
 License: Apache License (>= 2)
-URL: https://github.com/nn-opensource/connector.sharepoint, https://nn-opensource.github.io/connector.sharepoint
+URL: https://github.com/novonordisk-opensource/connector.sharepoint, https://novonordisk-opensource.github.io/connector.sharepoint
 Imports: 
     AzureAuth,
     checkmate,
