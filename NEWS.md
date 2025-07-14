@@ -1,3 +1,8 @@
+# connector.sharepoint dev
+
+## Enhancement
+* Replace `options` package with `zephyr` package for configuration management
+
 # connector.sharepoint 0.0.5
 
 ## Breaking Changes
@@ -7,7 +12,7 @@
 
 ## Enhancement
 * Add issue and PR templates
-* Add precommit 
+* Add precommit
 * Update pkgdown website with categories
 
 # connector.sharepoint 0.0.4
