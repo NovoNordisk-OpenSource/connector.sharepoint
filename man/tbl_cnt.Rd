@@ -2,12 +2,12 @@
 % Please edit documentation in R/connector_imports.R, R/methods.R
 \name{tbl_cnt}
 \alias{tbl_cnt}
-\alias{tbl_cnt.ConnectorDatabricksVolume}
+\alias{tbl_cnt.ConnectorSharepoint}
 \title{Use dplyr verbs to interact with the remote database table}
 \usage{
 tbl_cnt(connector_object, name, ...)
 
-\method{tbl_cnt}{ConnectorDatabricksVolume}(connector_object, name, ...)
+\method{tbl_cnt}{ConnectorSharepoint}(connector_object, name, ...)
 }
 \arguments{
 \item{connector_object}{\link[connector]{Connector} The connector object to use.}
@@ -20,7 +20,7 @@ tbl_cnt(connector_object, name, ...)
 A \link[dplyr:tbl]{dplyr::tbl} object.
 }
 \description{
-Addition tbl methods for databricks connectors implemented
+Addition tbl methods for sharepoint connectors implemented
 for \code{\link[connector:tbl_cnt]{connector::tbl_cnt()}}:
 
 \itemize{

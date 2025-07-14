@@ -6,8 +6,10 @@
 \usage{
 upload_directory_cnt(
   connector_object,
-  folder,
-  name = basename(folder),
+  dir,
+  name = basename(dir),
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  open = FALSE,
   ...,
   recursive = FALSE
 )
@@ -15,14 +17,14 @@ upload_directory_cnt(
 \arguments{
 \item{connector_object}{\link{ConnectorSharepoint} object}
 
-\item{folder}{Local folder path}
-
 \item{name}{Folder name to be used when uploaded}
 
 \item{...}{additional paramaeters passed on to \code{upload_folder()} method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class
 or to \code{upload()} method of \code{\link[Microsoft365R:ms_drive_item]{Microsoft365R::ms_drive_item()}} class.}
 
 \item{recursive}{If \code{recursive} is \code{TRUE}, all subfolders will also be transferred recursively. Default: \code{FALSE}}
+
+\item{folder}{Local folder path}
 }
 \value{
 \link{ConnectorSharepoint} object

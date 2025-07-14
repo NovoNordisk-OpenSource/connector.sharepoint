@@ -14,10 +14,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-The connector.sharepoint package provides a convenient interface for accessing and interacting with Microsoft SharePoint sites directly from R. 
+The connector.sharepoint package provides a convenient interface for accessing and interacting with Microsoft SharePoint sites directly from R.
 
 
-## Introduction 
+## Introduction
 This vignette will guide you through the process of connecting to a SharePoint site, retrieving data, and performing various operations using this package.
 
 ## Connecting to a SharePoint Site
@@ -35,30 +35,18 @@ con <- connector_sharepoint(site_url = "sharepoint_url")
 
 ### With connector package (recommended)
 
-If you are using the connector package, you can connect to a SharePoint site 
-using the `connect()` function. This function based on a configuration file or 
-a list creates a `connectors()` object with a `connector`for each of the 
-specified datasources (for detailed explanation have a look at connector package). 
+If you are using the connector package, you can connect to a SharePoint site
+using the `connect()` function. This function based on a configuration file or
+a list creates a `connectors()` object with a `connector`for each of the
+specified datasources (for detailed explanation have a look at connector package).
 
 Configuration file for connecting to SharePoint should look like this:
 
 ```{r, eval=FALSE}
-metadata:
-trial:"trial_name"
-project:"project_name"
-sharepoint:"https://my_organisation.sharepoint.com"
-datasources:
--name:"adam"
-backend:
-type:"connector.sharepoint::connector_sharepoint"
-site_url:"{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_adam"
--name:"output"
-backend:
-type:"connector.sharepoint::connector_sharepoint"
-site_url:"{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"
+
 ```
 
-Save this to `_connector.yml` file and use the `connect()` function to connect 
+Save this to `_connector.yml` file and use the `connect()` function to connect
 to SharePoint:
 
 ```{r, eval=FALSE}

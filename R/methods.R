@@ -27,10 +27,8 @@ read_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
 
   file$download(dest = temp_file)
 
-  # Read the downloaded file
   x <- connector::read_file(temp_file, ...)
 
-  # delete the temporary file
   unlink(temp_file)
 
   return(x)
@@ -43,7 +41,13 @@ read_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
 #' @rdname write_cnt
 #' @param ... [ConnectorSharepoint]: Additional parameters to pass to the [connector::write_file()] function
 #' @export
-write_cnt.ConnectorSharepoint <- function(connector_object, x, name, ...) {
+write_cnt.ConnectorSharepoint <- function(
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector.sharepoint"),
+  ...
+) {
   checkmate::assert_string(name)
 
   drive <- connector_object$get_conn()
@@ -55,24 +59,17 @@ write_cnt.ConnectorSharepoint <- function(connector_object, x, name, ...) {
     )
   }
 
-  # Find extension of file
   find_ext <- tools::file_ext(name)
 
-  # Create temporary file as a placeholder
   temp_file <- tempfile(fileext = paste0(".", find_ext))
 
-  # Write the file to a temporary file
   connector::write_file(x, temp_file, ...)
 
-  # Upload the file to sharepoint
   upload_on_drive_or_folder(drive, temp_file, name)
 
-  # delete the temporary file
   unlink(temp_file)
 
-  return(
-    invisible(connector_object)
-  )
+  return(invisible(connector_object))
 }
 
 #' @description
@@ -115,10 +112,11 @@ remove_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
 #' @return [ConnectorSharepoint] object
 #' @export
 download_cnt.ConnectorSharepoint <- function(
-    connector_object,
-    name,
-    file = basename(name),
-    ...) {
+  connector_object,
+  name,
+  file = basename(name),
+  ...
+) {
   checkmate::assert_string(name)
   checkmate::assert_string(file)
 
@@ -138,11 +136,13 @@ download_cnt.ConnectorSharepoint <- function(
 #' @return [ConnectorSharepoint] object
 #' @export
 upload_cnt.ConnectorSharepoint <- function(
-    connector_object,
-    file,
-    name = basename(file),
-    ...,
-    recursive = FALSE) {
+  connector_object,
+  file,
+  name = basename(file),
+  overwrite = zephyr::get_option("overwrite", "connector.sharepoint"),
+  ...,
+  recursive = FALSE
+) {
   checkmate::assert_file_exists(file)
   checkmate::assert_string(name)
 
@@ -165,10 +165,11 @@ upload_cnt.ConnectorSharepoint <- function(
 #' @return [ConnectorSharepoint] object or [ConnectorSharepoint] object of a newly built directory
 #' @export
 create_directory_cnt.ConnectorSharepoint <- function(
-    connector_object,
-    name,
-    ...,
-    open = TRUE) {
+  connector_object,
+  name,
+  open = TRUE,
+  ...
+) {
   checkmate::assert_string(name)
   checkmate::assert_logical(open)
 
@@ -195,9 +196,10 @@ create_directory_cnt.ConnectorSharepoint <- function(
 #' @return [ConnectorSharepoint] object
 #' @export
 remove_directory_cnt.ConnectorSharepoint <- function(
-    connector_object,
-    name,
-    ...) {
+  connector_object,
+  name,
+  ...
+) {
   checkmate::assert_string(name)
   connector_object$get_conn()$get_item(name)$delete(...)
   return(invisible(connector_object))
@@ -208,7 +210,7 @@ remove_directory_cnt.ConnectorSharepoint <- function(
 #'
 #' @rdname tbl_cnt
 #' @export
-tbl_cnt.ConnectorDatabricksVolume <- function(connector_object, name, ...) {
+tbl_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
   checkmate::assert_string(name)
   read_cnt(connector_object = connector_object, name = name, ...)
 }
@@ -250,11 +252,14 @@ upload_on_drive_or_folder <- function(ms_object, src, dest, ...) {
 #'
 #' @export
 upload_directory_cnt <- function(
-    connector_object,
-    folder,
-    name = basename(folder),
-    ...,
-    recursive = FALSE) {
+  connector_object,
+  dir,
+  name = basename(dir),
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  open = FALSE,
+  ...,
+  recursive = FALSE
+) {
   checkmate::assert_r6(x = connector_object, classes = "ConnectorSharepoint")
   checkmate::assert_directory_exists(folder)
   checkmate::assert_string(name)
@@ -265,6 +270,19 @@ upload_directory_cnt <- function(
     drive$upload_folder(folder, name, recursive = recursive, ...)
   } else {
     drive$upload(folder, name, recursive = recursive)
+  }
+
+  # create a new connector object from the new path with persistent extra class
+  if (open) {
+    extra_class <- class(connector_object)
+    extra_class <- utils::head(
+      extra_class,
+      which(extra_class == "ConnectorSharepoint") - 1
+    )
+    connector_object <- connector_sharepoint(
+      site_url = connector_object$site_url,
+      path_of_folder = paste0(connector_object$folder, "/", name)
+    )
   }
 
   return(invisible(connector_object))

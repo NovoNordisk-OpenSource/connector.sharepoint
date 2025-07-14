@@ -5,9 +5,21 @@
 \alias{write_cnt.ConnectorSharepoint}
 \title{Write content to the connector}
 \usage{
-write_cnt(connector_object, x, name, ...)
+write_cnt(
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+)
 
-\method{write_cnt}{ConnectorSharepoint}(connector_object, x, name, ...)
+\method{write_cnt}{ConnectorSharepoint}(
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector.sharepoint"),
+  ...
+)
 }
 \arguments{
 \item{connector_object}{\link[connector]{Connector} The connector object to use.}
@@ -16,13 +28,15 @@ write_cnt(connector_object, x, name, ...)
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
+\item{overwrite}{Overwrite existing content if it exists in the connector?. Default: \code{FALSE}.}
+
 \item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to the \code{\link[connector:write_file]{connector::write_file()}} function}
 }
 \value{
 \link{invisible} connector_object.
 }
 \description{
-Addition write methods for databricks connectors implemented
+Addition write methods for sharepoint connectors implemented
 for \code{\link[connector:write_cnt]{connector::write_cnt()}}:
 
 \itemize{

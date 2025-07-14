@@ -5,25 +5,25 @@
 \alias{create_directory_cnt.ConnectorSharepoint}
 \title{Create a directory}
 \usage{
-create_directory_cnt(connector_object, name, ...)
+create_directory_cnt(connector_object, name, open = TRUE, ...)
 
-\method{create_directory_cnt}{ConnectorSharepoint}(connector_object, name, ..., open = TRUE)
+\method{create_directory_cnt}{ConnectorSharepoint}(connector_object, name, open = TRUE, ...)
 }
 \arguments{
 \item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
 \item{name}{\link{character} The name of the directory to create}
 
+\item{open}{create a new connector object}
+
 \item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to \code{create_folder()} method
 of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
-
-\item{open}{create a new connector object}
 }
 \value{
 \link{ConnectorSharepoint} object or \link{ConnectorSharepoint} object of a newly built directory
 }
 \description{
-Addition list content methods for databricks connectors implemented
+Addition list content methods for sharepoint connectors implemented
 for \code{\link[connector:create_directory_cnt]{connector::create_directory_cnt()}}:
 
 \itemize{

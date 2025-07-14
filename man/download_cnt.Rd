@@ -23,7 +23,7 @@ of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 \link{ConnectorSharepoint} object
 }
 \description{
-Addition list content methods for databricks connectors implemented
+Addition list content methods for sharepoint connectors implemented
 for \code{\link[connector:download_cnt]{connector::download_cnt()}}:
 
 \itemize{

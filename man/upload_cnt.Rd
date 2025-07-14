@@ -5,12 +5,19 @@
 \alias{upload_cnt.ConnectorSharepoint}
 \title{Upload content to the connector}
 \usage{
-upload_cnt(connector_object, file, name = basename(file), ...)
+upload_cnt(
+  connector_object,
+  file,
+  name = basename(file),
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+)
 
 \method{upload_cnt}{ConnectorSharepoint}(
   connector_object,
   file,
   name = basename(file),
+  overwrite = zephyr::get_option("overwrite", "connector.sharepoint"),
   ...,
   recursive = FALSE
 )
@@ -22,6 +29,8 @@ upload_cnt(connector_object, file, name = basename(file), ...)
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
+\item{overwrite}{Overwrite existing content if it exists in the connector?. Default: \code{FALSE}.}
+
 \item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to the \code{upload_file()} or \code{upload_folder()}
 method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 
@@ -31,7 +40,7 @@ method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.
 \link{ConnectorSharepoint} object
 }
 \description{
-Addition list content methods for databricks connectors implemented
+Addition list content methods for sharepoint connectors implemented
 for \code{\link[connector:upload_cnt]{connector::upload_cnt()}}:
 
 \itemize{
