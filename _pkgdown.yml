@@ -6,7 +6,6 @@ reference:
     contents:
     - ConnectorSharepoint
     - connector_sharepoint
-    - options
   - title: connector.sharepoint functions
     contents:
     - matches(".*_cnt$")
