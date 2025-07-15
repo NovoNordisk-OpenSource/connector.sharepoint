@@ -237,39 +237,33 @@ upload_on_drive_or_folder <- function(ms_object, src, dest, ...) {
   return(ms_object)
 }
 
-#' @title Upload folder to sharepoint
+#' Upload a directory
 #'
-#' @description
-#' Upload folder to the Sharepoint drive or folder
-#'
-#' @param connector_object [ConnectorSharepoint] object
-#' @param folder Local folder path
-#' @param name Folder name to be used when uploaded
+#' @rdname upload_directory_cnt
 #' @param ... additional paramaeters passed on to `upload_folder()` method of [Microsoft365R::ms_drive()] class
 #' or to `upload()` method of [Microsoft365R::ms_drive_item()] class.
 #' @param recursive  If `recursive` is `TRUE`, all subfolders will also be transferred recursively. Default: `FALSE`
 #' @return [ConnectorSharepoint] object
-#'
 #' @export
-upload_directory_cnt <- function(
+upload_directory_cnt.ConnectorSharepoint <- function(
   connector_object,
   dir,
   name = basename(dir),
   overwrite = zephyr::get_option("overwrite", "connector"),
   open = FALSE,
   ...,
-  recursive = FALSE
+  recursive = TRUE
 ) {
   checkmate::assert_r6(x = connector_object, classes = "ConnectorSharepoint")
-  checkmate::assert_directory_exists(folder)
+  checkmate::assert_directory_exists(dir)
   checkmate::assert_string(name)
 
   drive <- connector_object$get_conn()
 
   if (inherits(drive, "ms_drive")) {
-    drive$upload_folder(folder, name, recursive = recursive, ...)
+    drive$upload_folder(dir, name, recursive = recursive, ...)
   } else {
-    drive$upload(folder, name, recursive = recursive)
+    drive$upload(dir, name, recursive = recursive)
   }
 
   # create a new connector object from the new path with persistent extra class
@@ -283,6 +277,38 @@ upload_directory_cnt <- function(
       site_url = connector_object$site_url,
       path_of_folder = paste0(connector_object$folder, "/", name)
     )
+  }
+
+  return(invisible(connector_object))
+}
+
+#' Download a directory
+#'
+#' @rdname download_directory_cnt
+#' @param ... additional paramaeters passed on to `download_folder()` method of [Microsoft365R::ms_drive()] class
+#' or to `download()` method of [Microsoft365R::ms_drive_item()] class.
+#' @param recursive  If `recursive` is `TRUE`, all subfolders will also be transferred recursively. Default: `FALSE`
+#' @return [ConnectorSharepoint] object
+#' @export
+download_directory_cnt.ConnectorSharepoint <- function(
+  connector_object,
+  name,
+  dir = basename(name),
+  ...,
+  recursive = TRUE
+) {
+  checkmate::assert_r6(x = connector_object, classes = "ConnectorSharepoint")
+  checkmate::assert_string(dir)
+  checkmate::assert_string(name)
+
+  drive <- connector_object$get_conn()
+
+  browser()
+
+  if (inherits(drive, "ms_drive")) {
+    drive$download_folder(dir, name, recursive = recursive, ...)
+  } else {
+    drive$download(dir, name, recursive = recursive)
   }
 
   return(invisible(connector_object))

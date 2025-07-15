@@ -21,8 +21,8 @@ read_cnt(connector_object, name, ...)
 R object with the content. For rectangular data a \link{data.frame}.
 }
 \description{
-Addition read methods for sharepoint connectors implemented
-for \code{\link[connector:read_cnt]{connector::read_cnt()}}:
+Addition read methods for databricks connectors implemented for
+\code{\link[connector:read_cnt]{connector::read_cnt()}}:
 
 \itemize{
 \item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:read_cnt]{connector::read_cnt()}}

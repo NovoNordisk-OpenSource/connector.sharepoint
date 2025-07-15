@@ -144,28 +144,12 @@ ConnectorSharepoint <- R6::R6Class(
       private$.token <- token
       private$.site_url <- site_url
       private$.folder <- folder
-      private$.path <- paste0(site_url, path_of_folder, collapse = "/")
+      private$.path <- paste(site_url, path_of_folder, sep = "/")
     },
     #' @description Get the connection
     #' @return The connection
     get_conn = function() {
       private$.folder
-    },
-    #' @description Upload a folder
-    #' @param folder Local folder path
-    #' @param name Folder name to be used when uploaded
-    #' @param ... additional paramaeters passed on to `upload_folder()` method
-    #' of [Microsoft365R::ms_drive()] class or to `upload()` method of [Microsoft365R::ms_drive_item()] class.
-    #' @param recursive  If `recursive` is `TRUE`, all subfolders will also
-    #' be transferred recursively. Default: `FALSE`
-    #' @return [ConnectorSharepoint] object
-    upload_directory_cnt = function(
-      folder,
-      name = basename(folder),
-      ...,
-      recursive = FALSE
-    ) {
-      upload_directory_cnt(self, folder, name, ..., recursive)
     }
   ),
   active = list(

@@ -1,5 +1,14 @@
 test_that("Test set up of Token", {
   skip_on_ci()
+
+  withr::local_options(
+    .new = list(
+      connector.sharepoint.verbosity_level = "verbose",
+      zephyr.verbosity_level = "verbose"
+    ),
+    .local_envir = teardown_env()
+  )
+
   hash <- names(AzureAuth::list_azure_tokens())[1]
 
   ## Use the var env

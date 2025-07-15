@@ -20,8 +20,8 @@ tbl_cnt(connector_object, name, ...)
 A \link[dplyr:tbl]{dplyr::tbl} object.
 }
 \description{
-Addition tbl methods for sharepoint connectors implemented
-for \code{\link[connector:tbl_cnt]{connector::tbl_cnt()}}:
+Addition tbl methods for databricks connectors implemented for
+\code{\link[connector:tbl_cnt]{connector::tbl_cnt()}}:
 
 \itemize{
 \item \link{ConnectorSharepoint}: Uses \code{\link[=read_cnt]{read_cnt()}} to allow redundancy.

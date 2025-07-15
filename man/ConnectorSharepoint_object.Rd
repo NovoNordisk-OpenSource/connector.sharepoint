@@ -61,7 +61,6 @@ cs$list_content_cnt()
 \itemize{
 \item \href{#method-ConnectorSharepoint-new}{\code{ConnectorSharepoint$new()}}
 \item \href{#method-ConnectorSharepoint-get_conn}{\code{ConnectorSharepoint$get_conn()}}
-\item \href{#method-ConnectorSharepoint-upload_directory_cnt}{\code{ConnectorSharepoint$upload_directory_cnt()}}
 }
 }
 \if{html}{\out{
@@ -78,6 +77,7 @@ cs$list_content_cnt()
 <li><span class="pkg-link" data-pkg="connector" data-topic="ConnectorFS" data-id="remove_directory_cnt"><a href='../../connector/html/ConnectorFS.html#method-ConnectorFS-remove_directory_cnt'><code>connector::ConnectorFS$remove_directory_cnt()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="ConnectorFS" data-id="tbl_cnt"><a href='../../connector/html/ConnectorFS.html#method-ConnectorFS-tbl_cnt'><code>connector::ConnectorFS$tbl_cnt()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="ConnectorFS" data-id="upload_cnt"><a href='../../connector/html/ConnectorFS.html#method-ConnectorFS-upload_cnt'><code>connector::ConnectorFS$upload_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="ConnectorFS" data-id="upload_directory_cnt"><a href='../../connector/html/ConnectorFS.html#method-ConnectorFS-upload_directory_cnt'><code>connector::ConnectorFS$upload_directory_cnt()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -127,39 +127,6 @@ Get the connection
 
 \subsection{Returns}{
 The connection
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ConnectorSharepoint-upload_directory_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-ConnectorSharepoint-upload_directory_cnt}{}}}
-\subsection{Method \code{upload_directory_cnt()}}{
-Upload a folder
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConnectorSharepoint$upload_directory_cnt(
-  folder,
-  name = basename(folder),
-  ...,
-  recursive = FALSE
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{folder}}{Local folder path}
-
-\item{\code{name}}{Folder name to be used when uploaded}
-
-\item{\code{...}}{additional paramaeters passed on to \code{upload_folder()} method
-of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class or to \code{upload()} method of \code{\link[Microsoft365R:ms_drive_item]{Microsoft365R::ms_drive_item()}} class.}
-
-\item{\code{recursive}}{If \code{recursive} is \code{TRUE}, all subfolders will also
-be transferred recursively. Default: \code{FALSE}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\link{ConnectorSharepoint} object
 }
 }
 }

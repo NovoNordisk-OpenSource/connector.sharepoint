@@ -21,8 +21,8 @@ remove_directory_cnt(connector_object, name, ...)
 \link{ConnectorSharepoint} object
 }
 \description{
-Addition list content methods for sharepoint connectors implemented
-for \code{\link[connector:remove_directory_cnt]{connector::remove_directory_cnt()}}:
+Addition list content methods for databricks connectors implemented for
+\code{\link[connector:remove_directory_cnt]{connector::remove_directory_cnt()}}:
 
 \itemize{
 \item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:remove_directory_cnt]{connector::remove_directory_cnt()}}

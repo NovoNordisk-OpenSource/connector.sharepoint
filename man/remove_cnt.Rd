@@ -21,8 +21,8 @@ of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 \link{ConnectorSharepoint} object
 }
 \description{
-Addition remove methods for sharepoint connectors implemented
-for \code{\link[connector:remove_cnt]{connector::remove_cnt()}}:
+Addition remove methods for databricks connectors implemented for
+\code{\link[connector:remove_cnt]{connector::remove_cnt()}}:
 
 \itemize{
 \item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:remove_cnt]{connector::remove_cnt()}}

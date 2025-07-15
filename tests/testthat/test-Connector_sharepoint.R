@@ -1,21 +1,6 @@
-# make iris a tbl
-tbl_iris <- tibble::as_tibble(iris, rownames = NULL)
-## remove factors, read and write not working with factors
-tbl_iris$Species <- as.character(tbl_iris$Species)
-
-# just to have clean messages in tests
-quiet_connect <- function(...) {
-  suppressMessages(connector_sharepoint(...))
-}
-
-if (!on_ci) {
-  # Connect
-  test_drive <- quiet_connect(site_url = my_site)
-}
+skip_on_ci()
 
 test_that("Testing General connector_sahrepoint", {
-  skip_on_ci()
-
   ###############
   ### GENERAL
   ##############
@@ -40,7 +25,6 @@ test_that("Testing General connector_sahrepoint", {
 })
 
 test_that("Testing ConnectorSharepoint methods", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
   ###############
   ### Methods
@@ -96,7 +80,6 @@ test_that("Testing ConnectorSharepoint methods", {
 })
 
 test_that("Testing ConnectorSharepoint methods with a specific folder", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
 
   #########################
@@ -122,7 +105,6 @@ test_that("Testing ConnectorSharepoint methods with a specific folder", {
 })
 
 test_that("Testing ConnectorSharepoint specific outputs for methods", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
   #########################
   ### Specific to methods
@@ -134,7 +116,7 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
   my_drive$write_cnt(iris, paste0(dir_name, "/iris.csv"))
 
   ## Check error for read_cnt fo a folder
-  my_drive$read_cnt("dir_name", show_col_types = FALSE) |>
+  my_drive$read_cnt(dir_name, show_col_types = FALSE) |>
     expect_error()
 
   my_drive$read_cnt(paste0(dir_name, "/iris.csv"), show_col_types = FALSE) |>
@@ -181,7 +163,7 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
   })
 
   my_drive$upload_directory_cnt(
-    folder = tmp_dir,
+    dir = tmp_dir,
     name = paste0(dir_name, "/dir")
   ) |>
     expect_no_error()
@@ -189,10 +171,13 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
   ## Download directory
   dir_d <- tempfile("dir_d")
   dir.create(dir_d)
-  my_drive$download_cnt(name = paste0(dir_name, "/dir"), file = dir_d) |>
+  my_drive$download_directory_cnt(
+    name = paste0(dir_name, "/dir"),
+    dir = dir_d
+  ) |>
     expect_no_error()
 
-  list.files(dir_d) |>
+  list.files(paste0(dir_d, "/dir")) |>
     expect_equal("iris.csv")
 
   #### Read a folder
@@ -211,7 +196,6 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
 })
 
 test_that("test when path to a folder is not a folder", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
 
   ## create a file
@@ -231,7 +215,6 @@ test_that("test when path to a folder is not a folder", {
 })
 
 test_that("test folder upload works", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
   dir_name <- test_directory_name()
 
@@ -243,18 +226,24 @@ test_that("test folder upload works", {
   })
 
   # Upload directory fails when needed
-  my_drive$upload_directory_cnt("bad_folder", name = "dir") |>
+  my_drive$upload_directory_cnt(dir = "bad_folder", name = "dir") |>
     expect_error()
-  my_drive$upload_directory_cnt(tmp_dir, name = 2) |>
+  my_drive$upload_directory_cnt(dir = tmp_dir, name = 2) |>
     expect_error()
 
   # Upload directory
-  my_drive$upload_directory_cnt(tmp_dir, paste0(dir_name, "/dir")) |>
+  my_drive$upload_directory_cnt(
+    dir = tmp_dir,
+    name = paste0(dir_name, "/dir")
+  ) |>
     expect_no_error()
 
   # Upload directory to a directory
   new_directory <- my_drive$create_directory_cnt(name = "test_dir", open = TRUE)
-  new_directory$upload_directory_cnt(tmp_dir, paste0(dir_name, "/dir")) |>
+  new_directory$upload_directory_cnt(
+    dir = tmp_dir,
+    name = paste0(dir_name, "/dir")
+  ) |>
     expect_no_error()
 
   ### Error not existing

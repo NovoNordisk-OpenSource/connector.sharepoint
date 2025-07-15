@@ -23,8 +23,8 @@ of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.}
 \link{ConnectorSharepoint} object or \link{ConnectorSharepoint} object of a newly built directory
 }
 \description{
-Addition list content methods for sharepoint connectors implemented
-for \code{\link[connector:create_directory_cnt]{connector::create_directory_cnt()}}:
+Addition list content methods for databricks connectors implemented for
+\code{\link[connector:create_directory_cnt]{connector::create_directory_cnt()}}:
 
 \itemize{
 \item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:create_directory_cnt]{connector::create_directory_cnt()}}

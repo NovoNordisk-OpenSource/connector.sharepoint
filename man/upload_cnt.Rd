@@ -40,8 +40,8 @@ method of \code{\link[Microsoft365R:ms_drive]{Microsoft365R::ms_drive()}} class.
 \link{ConnectorSharepoint} object
 }
 \description{
-Addition list content methods for sharepoint connectors implemented
-for \code{\link[connector:upload_cnt]{connector::upload_cnt()}}:
+Addition list content methods for databricks connectors implemented for
+\code{\link[connector:upload_cnt]{connector::upload_cnt()}}:
 
 \itemize{
 \item \link{ConnectorSharepoint}: Reuses the \code{\link[connector:upload_cnt]{connector::upload_cnt()}}

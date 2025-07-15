@@ -1,7 +1,8 @@
 local_create_directory <- function(
-    site_url = NULL,
-    ...,
-    env = parent.frame()) {
+  site_url = NULL,
+  ...,
+  env = parent.frame()
+) {
   # Generate test directory name
   test_dir <- test_directory_name()
 
@@ -31,9 +32,10 @@ local_create_directory <- function(
 }
 
 local_download_sharepoint_file <- function(
-    con = NULL,
-    file_name = NULL,
-    env = parent.frame()) {
+  con = NULL,
+  file_name = NULL,
+  env = parent.frame()
+) {
   con |>
     download_cnt(file_name, file_name, overwrite = TRUE)
 
@@ -59,3 +61,9 @@ test_file_name <- function(prefix = "test_", suffix = ".csv", length = 10) {
   result <- paste0(prefix, random_string, suffix)
   return(result)
 }
+
+# make iris a tbl
+tbl_iris <- tibble::as_tibble(iris, rownames = NULL)
+
+## remove factors, read and write not working with factors
+tbl_iris$Species <- as.character(tbl_iris$Species)
