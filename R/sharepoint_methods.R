@@ -254,7 +254,6 @@ upload_directory_cnt.ConnectorSharepoint <- function(
   ...,
   recursive = TRUE
 ) {
-  checkmate::assert_r6(x = connector_object, classes = "ConnectorSharepoint")
   checkmate::assert_directory_exists(dir)
   checkmate::assert_string(name)
   name <- paste(connector_object$folder, name, sep = "/")
@@ -295,7 +294,6 @@ download_directory_cnt.ConnectorSharepoint <- function(
   ...,
   recursive = TRUE
 ) {
-  checkmate::assert_r6(x = connector_object, classes = "ConnectorSharepoint")
   checkmate::assert_string(dir)
   checkmate::assert_string(name)
   name <- paste(connector_object$folder, name, sep = "/")
