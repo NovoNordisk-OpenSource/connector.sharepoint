@@ -2,6 +2,9 @@
 
 ## Enhancement
 * Replace `options` package with `zephyr` package for configuration management
+* Update `ConnectorSharepoint` class to use `""` as a default value for folder.
+Also, add private field called `.conn`.
+* Update sharepoint methods so they use only `ms_drive()` class from `Microsoft365R` package.
 
 # connector.sharepoint 0.0.5
 

@@ -243,7 +243,7 @@ upload_directory_cnt.ConnectorSharepoint <- function(
   connector_object,
   dir,
   name = basename(dir),
-  overwrite = zephyr::get_option("overwrite", "connector"),
+  overwrite = zephyr::get_option("overwrite", "connector.sharepoint"),
   open = FALSE,
   ...,
   recursive = TRUE
