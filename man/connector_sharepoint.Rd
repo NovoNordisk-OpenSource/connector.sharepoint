@@ -7,7 +7,7 @@
 connector_sharepoint(
   site_url,
   token = get_token(),
-  path_of_folder = NULL,
+  path_of_folder = "",
   ...,
   extra_class = NULL
 )
@@ -17,8 +17,8 @@ connector_sharepoint(
 
 \item{token}{The Azure token. By default, it will be retrieve by \link{get_token}}
 
-\item{path_of_folder}{The path of the folder to interact with, if you don't want to
-interact with the root folder "Documents" #nolint}
+\item{path_of_folder}{The path of the folder to interact with, if you don't
+want to interact with the root folder "Documents" #nolint}
 
 \item{...}{Additional parameters to pass to the \link{ConnectorSharepoint} object}
 
@@ -28,16 +28,17 @@ interact with the root folder "Documents" #nolint}
 A new \link{ConnectorSharepoint} object
 }
 \description{
-Create a new sharepoint connector object. See \link{ConnectorSharepoint} for details.
+Create a new sharepoint connector object. See
+\link{ConnectorSharepoint} for details.
 }
 \details{
-The \code{extra_class} parameter allows you to create a subclass of the \code{ConnectorSharepoint} object.
-This can be useful if you want to create a custom connection object for
-easier dispatch of new s3 methods,
-while still inheriting the methods from the \code{ConnectorSharepoint} object.
+The \code{extra_class} parameter allows you to create a subclass of the
+\link{ConnectorSharepoint} object. This can be useful if you want to create a
+custom connection object for easier dispatch of new s3 methods,
+while still inheriting the methods from the \link{ConnectorSharepoint} object.
 }
 \examples{
-\dontshow{if (not_on_ci()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Connect
 cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"))
 cs

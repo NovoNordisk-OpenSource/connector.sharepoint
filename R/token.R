@@ -75,7 +75,6 @@ get_tk_hash_sharepoint <- function() {
 #' 1. The user has set the environment variable SHAREPOINT_AZURE_HASH
 #' 2. The user has set the file .active_hash in the AzureR directory
 #'
-#' @importFrom cli cli_alert_danger
 #' @export
 get_default_hash <- function() {
   hash <- Sys.getenv("SHAREPOINT_AZURE_HASH")

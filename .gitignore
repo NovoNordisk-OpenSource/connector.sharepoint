@@ -53,3 +53,5 @@ rsconnect/
 inst/doc
 
 /.quarto/
+
+dev/

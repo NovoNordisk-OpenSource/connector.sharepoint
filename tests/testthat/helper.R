@@ -6,7 +6,7 @@ local_create_directory <- function(
   # Generate test directory name
   test_dir <- test_directory_name()
 
-  test_sharepoint <- suppressMessages(ConnectorSharepoint$new(site_url))
+  test_sharepoint <- suppressMessages(connector_sharepoint(site_url))
 
   # Create test directory
   test_sharepoint |>

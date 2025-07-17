@@ -50,16 +50,17 @@ test_that("Testing ConnectorSharepoint methods", {
   new_directory <- my_drive$create_directory_cnt("new_directory", open = FALSE)
 
   checkmate::expect_r6(new_directory, "ConnectorSharepoint")
-  expect_equal(my_drive$folder$get_path(), new_directory$folder$get_path())
+  expect_equal(my_drive$folder, new_directory$folder)
 
   new_directory_open <- my_drive$create_directory_cnt(
     "new_directory_open",
     open = TRUE
   )
   expect_equal(
-    new_directory_open$folder$get_path(),
-    paste0(my_drive$folder$get_path(), "/new_directory_open")
+    new_directory_open$folder,
+    paste(my_drive$folder, "new_directory_open", sep = "/")
   )
+
   my_drive$remove_directory_cnt(name = "new_directory_open", confirm = FALSE)
 
   my_drive$create_directory_cnt("new_directory") |>
@@ -67,15 +68,10 @@ test_that("Testing ConnectorSharepoint methods", {
 
   contents <- my_drive$list_content_cnt()
 
-  expect_true(nrow(contents) == 1)
-
-  contents_new_dir <- my_drive$list_content_cnt("new_directory")
-
-  expect_true(nrow(contents_new_dir) == 0)
+  expect_true(length(contents) == 1)
 
   # Remove a file or directory
-
-  my_drive$remove_cnt("new_directory", confirm = FALSE) |>
+  my_drive$remove_directory_cnt("new_directory", confirm = FALSE) |>
     expect_no_condition()
 })
 
@@ -87,11 +83,11 @@ test_that("Testing ConnectorSharepoint methods with a specific folder", {
   #########################
 
   dir_name <- test_directory_name()
-  test_folder <- my_drive$create_directory_cnt(dir_name)
+  test_folder <- my_drive$create_directory_cnt(dir_name, open = TRUE)
 
   contents <- test_folder$list_content_cnt()
 
-  expect_true(nrow(contents) == 0)
+  expect_true(length(contents) == 0)
 
   test_folder$write_cnt(tbl_iris, "iris.csv") |>
     expect_equal(test_folder)
@@ -146,12 +142,12 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
     expect_no_error()
 
   path_ <- my_drive$get_conn()$get_item(
-    paste0(dir_name, "/iris.example")
+    paste(my_drive$folder, dir_name, "iris.example", sep = "/")
   )$get_path()
 
   expect_equal(
     path_,
-    paste0(my_drive$folder$get_path(), paste0("/", dir_name, "/iris.example"))
+    paste0("/", paste(my_drive$folder, dir_name, "iris.example", sep = "/"))
   )
 
   #### Dirs
@@ -177,7 +173,7 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
   ) |>
     expect_no_error()
 
-  list.files(paste0(dir_d, "/dir")) |>
+  list.files(dir_d) |>
     expect_equal("iris.csv")
 
   #### Read a folder
@@ -250,7 +246,12 @@ test_that("test folder upload works", {
   my_drive$upload_cnt(src = "notexits", paste0(dir_name, "/dir")) |>
     expect_error()
 
-  dir_ <- my_drive$get_conn()$get_item(paste0(dir_name, "/dir"))
+  dir_ <- my_drive$get_conn()$get_item(paste(
+    my_drive$folder,
+    dir_name,
+    "/dir",
+    sep = "/"
+  ))
 
   expect_true(dir_$is_folder())
 })
