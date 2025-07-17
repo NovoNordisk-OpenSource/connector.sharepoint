@@ -8,10 +8,14 @@ test_that("Testing General connector_sahrepoint", {
   expect_true(inherits(test_drive, "ConnectorSharepoint"))
 
   ## Extra class
-
   extra_class_ <- quiet_connect(my_site, extra_class = "test")
   expect_true(inherits(extra_class_, "test"))
 
+  ## Check active bindings
+  expect_error(test_drive$folder <- "new_folder_name")
+  expect_error(test_drive$token <- "new_token_value")
+  expect_error(test_drive$site_url <- "new_site_url")
+  expect_error(test_drive$path <- "new_path_name")
   ## Errors
 
   ##### Not a sharepoint URL
@@ -233,6 +237,19 @@ test_that("test folder upload works", {
     name = paste0(dir_name, "/dir")
   ) |>
     expect_no_error()
+
+  # Upload directory OPEN
+  new_directory_OPEN <- my_drive$upload_directory_cnt(
+    dir = tmp_dir,
+    name = paste0(dir_name, "/dirOPEN"),
+    open = TRUE
+  ) |>
+    expect_no_error()
+
+  expect_true(
+    new_directory_OPEN$folder ==
+      paste(my_drive$folder, dir_name, "dirOPEN", sep = "/")
+  )
 
   # Upload directory to a directory
   new_directory <- my_drive$create_directory_cnt(name = "test_dir", open = TRUE)

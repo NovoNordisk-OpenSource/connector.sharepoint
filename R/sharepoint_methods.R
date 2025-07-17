@@ -264,7 +264,7 @@ upload_directory_cnt.ConnectorSharepoint <- function(
     )
     connector_object <- connector_sharepoint(
       site_url = connector_object$site_url,
-      path_of_folder = paste0(connector_object$folder, "/", name)
+      path_of_folder = name
     )
   }
 
