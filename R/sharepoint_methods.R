@@ -9,8 +9,7 @@
 #'
 #' @export
 read_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
-  checkmate::assert_string(name)
-  name <- paste(connector_object$folder, name, sep = "/")
+  name <- check_convert_name(connector_object$folder, name)
 
   drive <- connector_object$get_conn()
 
@@ -51,8 +50,7 @@ write_cnt.ConnectorSharepoint <- function(
   overwrite = zephyr::get_option("overwrite", "connector.sharepoint"),
   ...
 ) {
-  checkmate::assert_string(name)
-  name <- paste(connector_object$folder, name, sep = "/")
+  name <- check_convert_name(connector_object$folder, name)
 
   drive <- connector_object$get_conn()
 
@@ -104,8 +102,7 @@ list_content_cnt.ConnectorSharepoint <- function(connector_object, ...) {
 #' @return [ConnectorSharepoint] object
 #' @export
 remove_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
-  checkmate::assert_string(name)
-  name <- paste(connector_object$folder, name, sep = "/")
+  name <- check_convert_name(connector_object$folder, name)
 
   connector_object$get_conn()$get_item(name)$delete(...)
 
@@ -128,9 +125,8 @@ download_cnt.ConnectorSharepoint <- function(
   file = basename(name),
   ...
 ) {
-  checkmate::assert_string(name)
+  name <- check_convert_name(connector_object$folder, name)
   checkmate::assert_string(file)
-  name <- paste(connector_object$folder, name, sep = "/")
 
   connector_object$get_conn()$get_item(name)$download(file, ...)
 
@@ -159,8 +155,7 @@ upload_cnt.ConnectorSharepoint <- function(
   recursive = FALSE
 ) {
   checkmate::assert_file_exists(file)
-  checkmate::assert_string(name)
-  name <- paste(connector_object$folder, name, sep = "/")
+  name <- check_convert_name(connector_object$folder, name)
 
   drive <- connector_object$get_conn()
 
@@ -219,8 +214,7 @@ remove_directory_cnt.ConnectorSharepoint <- function(
   name,
   ...
 ) {
-  checkmate::assert_string(name)
-  name <- paste(connector_object$folder, name, sep = "/")
+  name <- check_convert_name(connector_object$folder, name)
 
   connector_object$get_conn()$get_item(name)$delete(...)
 
@@ -255,8 +249,7 @@ upload_directory_cnt.ConnectorSharepoint <- function(
   recursive = TRUE
 ) {
   checkmate::assert_directory_exists(dir)
-  checkmate::assert_string(name)
-  name <- paste(connector_object$folder, name, sep = "/")
+  name <- check_convert_name(connector_object$folder, name)
 
   drive <- connector_object$get_conn()
 
@@ -294,13 +287,19 @@ download_directory_cnt.ConnectorSharepoint <- function(
   ...,
   recursive = TRUE
 ) {
+  name <- check_convert_name(connector_object$folder, name)
   checkmate::assert_string(dir)
-  checkmate::assert_string(name)
-  name <- paste(connector_object$folder, name, sep = "/")
 
   drive <- connector_object$get_conn()
 
   drive$download_folder(src = name, dest = dir, recursive = recursive, ...)
 
   invisible(connector_object)
+}
+
+# Utility function to check if the name is valid and add folder name to it
+# @noRd
+check_convert_name <- function(folder, name) {
+  checkmate::assert_string(name)
+  name <- paste(folder, name, sep = "/")
 }
