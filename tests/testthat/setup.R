@@ -6,6 +6,11 @@ withr::local_options(
   .local_envir = teardown_env()
 )
 
+# just to have clean messages in tests
+quiet_connect <- function(...) {
+  suppressMessages(connector_sharepoint(...))
+}
+
 skip_on_ci()
 
 my_site <- Sys.getenv("SHAREPOINT_SITE_URL")
@@ -16,11 +21,6 @@ if (length(my_site) == 0) {
 }
 
 cli::cli_alert_info("Using {my_site} for tests")
-
-# just to have clean messages in tests
-quiet_connect <- function(...) {
-  suppressMessages(connector_sharepoint(...))
-}
 
 # Connect
 test_drive <- quiet_connect(site_url = my_site)

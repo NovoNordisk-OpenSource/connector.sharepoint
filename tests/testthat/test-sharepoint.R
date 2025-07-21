@@ -1,11 +1,21 @@
 test_that("Testing General connector_sahrepoint", {
-  skip_on_ci()
   ###############
   ### GENERAL
   ##############
 
-  expect_true(inherits(test_drive, "ConnectorSharepoint"))
+  ## Errors
+  ##### Not a sharepoint URL
+  expect_error(quiet_connect("https://www.google.com"))
 
+  #### Expected a http or https URL
+  expect_error(quiet_connect("www.google.com"))
+
+  #### Not a expected token
+  expect_error(quiet_connect(my_site, token = "a weird token"))
+
+  skip_on_ci()
+
+  expect_true(inherits(test_drive, "ConnectorSharepoint"))
   ## Extra class
   extra_class_ <- quiet_connect(my_site, extra_class = "test")
   expect_true(inherits(extra_class_, "test"))
@@ -15,16 +25,6 @@ test_that("Testing General connector_sahrepoint", {
   expect_error(test_drive$token <- "new_token_value")
   expect_error(test_drive$site_url <- "new_site_url")
   expect_error(test_drive$path <- "new_path_name")
-  ## Errors
-
-  ##### Not a sharepoint URL
-  expect_error(quiet_connect("https://www.google.com"))
-
-  #### Expected a http or https URL
-  expect_error(quiet_connect("www.google.com"))
-
-  #### Not a expected token
-  expect_error(quiet_connect(my_site, token = "a weird token"))
 })
 
 test_that("Testing ConnectorSharepoint methods", {
