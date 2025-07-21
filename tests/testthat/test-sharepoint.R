@@ -1,6 +1,5 @@
-skip_on_ci()
-
 test_that("Testing General connector_sahrepoint", {
+  skip_on_ci()
   ###############
   ### GENERAL
   ##############
@@ -29,6 +28,7 @@ test_that("Testing General connector_sahrepoint", {
 })
 
 test_that("Testing ConnectorSharepoint methods", {
+  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
   ###############
   ### Methods
@@ -80,6 +80,7 @@ test_that("Testing ConnectorSharepoint methods", {
 })
 
 test_that("Testing ConnectorSharepoint methods with a specific folder", {
+  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
 
   #########################
@@ -105,6 +106,7 @@ test_that("Testing ConnectorSharepoint methods with a specific folder", {
 })
 
 test_that("Testing ConnectorSharepoint specific outputs for methods", {
+  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
   #########################
   ### Specific to methods
@@ -196,6 +198,7 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
 })
 
 test_that("test when path to a folder is not a folder", {
+  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
 
   ## create a file
@@ -215,6 +218,7 @@ test_that("test when path to a folder is not a folder", {
 })
 
 test_that("test folder upload works", {
+  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
   dir_name <- test_directory_name()
 

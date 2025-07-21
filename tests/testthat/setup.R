@@ -1,5 +1,3 @@
-skip_on_ci()
-
 withr::local_options(
   .new = list(
     connector.sharepoint.verbosity_level = "quiet",
@@ -7,6 +5,8 @@ withr::local_options(
   ),
   .local_envir = teardown_env()
 )
+
+skip_on_ci()
 
 my_site <- Sys.getenv("SHAREPOINT_SITE_URL")
 
