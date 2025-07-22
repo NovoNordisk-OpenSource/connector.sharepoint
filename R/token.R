@@ -33,7 +33,7 @@ get_tk_active_file <- function() {
   if (!file.exists(active_file)) {
     return(NULL)
   }
-  return(active_file)
+  active_file
 }
 
 #' @noRd
@@ -66,7 +66,7 @@ get_tk_hash_sharepoint <- function() {
     hash
   )
 
-  return(hash_f)
+  hash_f
 }
 
 #' Get the default hash
@@ -86,5 +86,5 @@ get_default_hash <- function() {
     hash <- get_tk_hash_sharepoint()
   }
 
-  return(hash)
+  hash
 }

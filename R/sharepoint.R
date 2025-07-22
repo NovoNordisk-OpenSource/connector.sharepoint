@@ -33,12 +33,11 @@
 #'
 #' @export
 connector_sharepoint <- function(
-  site_url,
-  token = get_token(),
-  path_of_folder = "",
-  ...,
-  extra_class = NULL
-) {
+    site_url,
+    token = get_token(),
+    path_of_folder = "",
+    ...,
+    extra_class = NULL) {
   ConnectorSharepoint$new(
     site_url = site_url,
     token = token,
@@ -103,13 +102,11 @@ ConnectorSharepoint <- R6::R6Class(
     #' \code{\link[Microsoft365R]{get_sharepoint_site}} function
     #' @param extra_class [character] Extra class added to the object.
     #' @return A [ConnectorSharepoint] object
-    initialize = function(
-      site_url,
-      token = get_token(),
-      path_of_folder = "",
-      ...,
-      extra_class = NULL
-    ) {
+    initialize = function(site_url,
+                          token = get_token(),
+                          path_of_folder = "",
+                          ...,
+                          extra_class = NULL) {
       checkmate::assert_character(site_url)
       if (!grepl(pattern = "^http|^https", x = site_url)) {
         cli::cli_abort("site_url must be a valid URL")

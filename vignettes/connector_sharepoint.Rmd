@@ -43,7 +43,6 @@ specified datasources (for detailed explanation have a look at connector package
 Configuration file for connecting to SharePoint should look like this:
 
 ```{r, eval=FALSE}
-
 ```
 
 Save this to `_connector.yml` file and use the `connect()` function to connect

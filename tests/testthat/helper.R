@@ -1,8 +1,7 @@
 local_create_directory <- function(
-  site_url = NULL,
-  ...,
-  env = parent.frame()
-) {
+    site_url = NULL,
+    ...,
+    env = parent.frame()) {
   # Generate test directory name
   test_dir <- test_directory_name()
 
@@ -32,10 +31,9 @@ local_create_directory <- function(
 }
 
 local_download_sharepoint_file <- function(
-  con = NULL,
-  file_name = NULL,
-  env = parent.frame()
-) {
+    con = NULL,
+    file_name = NULL,
+    env = parent.frame()) {
   con |>
     download_cnt(file_name, file_name, overwrite = TRUE)
 

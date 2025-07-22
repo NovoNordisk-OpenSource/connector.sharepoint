@@ -188,7 +188,7 @@ create_directory_cnt.ConnectorSharepoint <- function(
     name <- paste(connector_object$folder, name, sep = "/")
   }
 
-  new_directory <- connector_object$get_conn()$create_folder(name, ...)
+  connector_object$get_conn()$create_folder(name, ...)
 
   if (open) {
     connector_object <- connector_sharepoint(
@@ -222,12 +222,16 @@ remove_directory_cnt.ConnectorSharepoint <- function(
 }
 
 #' @description
-#' * [ConnectorSharepoint]: Uses [read_cnt()] to allow redundancy.
+#' * [ConnectorSharepoint]: Uses `read_cnt()` to allow redundancy.
 #'
 #' @rdname tbl_cnt
 #' @export
 tbl_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
-  read_cnt(connector_object = connector_object, name = name, ...)
+  read_cnt.ConnectorSharepoint(
+    connector_object = connector_object,
+    name = name,
+    ...
+  )
 }
 
 #' Upload a directory
@@ -262,7 +266,7 @@ upload_directory_cnt.ConnectorSharepoint <- function(
       extra_class,
       which(extra_class == "ConnectorSharepoint") - 1
     )
-    connector_object <- connector_sharepoint(
+    connector_object <- ConnectorSharepoint$new(
       site_url = connector_object$site_url,
       path_of_folder = name
     )
