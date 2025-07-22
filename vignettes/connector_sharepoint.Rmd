@@ -89,7 +89,7 @@ mean_for_all_iris <- iris |>
   group_by(Species) |>
   summarise_all(list(mean, median, sd, min, max))
 
-## Mtcars data
+## mtcars data
 cars <- mtcars |>
   filter(mpg > 22)
 

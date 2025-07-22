@@ -1,4 +1,4 @@
-test_that("Testing General connector_sahrepoint", {
+test_that("Testing General connector_sharepoint", {
   ## Errors
   ##### Not a sharepoint URL
   expect_error(quiet_connect("https://www.google.com"))
@@ -257,7 +257,7 @@ test_that("test folder upload works", {
     expect_no_error()
 
   ### Error not existing
-  my_drive$upload_cnt(src = "notexits", paste0(dir_name, "/dir")) |>
+  my_drive$upload_cnt(src = "not_exist", paste0(dir_name, "/dir")) |>
     expect_error()
 
   dir_ <- my_drive$get_conn()$get_item(paste(
