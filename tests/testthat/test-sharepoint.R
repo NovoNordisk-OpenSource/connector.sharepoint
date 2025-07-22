@@ -1,8 +1,4 @@
 test_that("Testing General connector_sahrepoint", {
-  ###############
-  ### GENERAL
-  ##############
-
   ## Errors
   ##### Not a sharepoint URL
   expect_error(quiet_connect("https://www.google.com"))
@@ -15,24 +11,21 @@ test_that("Testing General connector_sahrepoint", {
 
   skip_on_ci()
 
-  expect_true(inherits(test_drive, "ConnectorSharepoint"))
+  expect_true(inherits(setup_connector, "ConnectorSharepoint"))
   ## Extra class
   extra_class_ <- quiet_connect(my_site, extra_class = "test")
   expect_true(inherits(extra_class_, "test"))
 
   ## Check active bindings
-  expect_error(test_drive$folder <- "new_folder_name")
-  expect_error(test_drive$token <- "new_token_value")
-  expect_error(test_drive$site_url <- "new_site_url")
-  expect_error(test_drive$path <- "new_path_name")
+  expect_error(setup_connector$folder <- "new_folder_name")
+  expect_error(setup_connector$token <- "new_token_value")
+  expect_error(setup_connector$site_url <- "new_site_url")
+  expect_error(setup_connector$path <- "new_path_name")
 })
 
 test_that("Testing ConnectorSharepoint methods", {
   skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(site_url = my_site))
-  ###############
-  ### Methods
-  ###############
 
   # List content
   contents <- my_drive$list_content_cnt() |>
