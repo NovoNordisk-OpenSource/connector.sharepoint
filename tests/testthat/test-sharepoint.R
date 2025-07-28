@@ -202,7 +202,7 @@ test_that("test when path to a folder is not a folder", {
   # Path is not a folder
   quiet_connect(
     my_site,
-    path_of_folder = paste0(dir_name, "/iris.csv")
+    folder = paste0(dir_name, "/iris.csv")
   ) |>
     expect_error()
 

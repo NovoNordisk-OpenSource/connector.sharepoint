@@ -17,8 +17,8 @@ read_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
 
   if (file$is_folder()) {
     cli::cli_abort(
-      "The file provided is a folder, please use download_folder instead of
-      read."
+      "The file provided is a folder, please use download_directory_cnt instead
+      of read."
     )
   }
 
@@ -193,7 +193,7 @@ create_directory_cnt.ConnectorSharepoint <- function(
   if (open) {
     connector_object <- connector_sharepoint(
       site_url = connector_object$site_url,
-      path_of_folder = name
+      folder = name
     )
   }
 
@@ -268,7 +268,7 @@ upload_directory_cnt.ConnectorSharepoint <- function(
     )
     connector_object <- ConnectorSharepoint$new(
       site_url = connector_object$site_url,
-      path_of_folder = name
+      folder = name
     )
   }
 

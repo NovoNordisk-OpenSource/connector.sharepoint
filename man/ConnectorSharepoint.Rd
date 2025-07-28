@@ -92,7 +92,7 @@ Initializes the ConnectorSharepoint class
 \if{html}{\out{<div class="r">}}\preformatted{ConnectorSharepoint$new(
   site_url,
   token = get_token(),
-  path_of_folder = "",
+  folder = "",
   ...,
   extra_class = NULL
 )}\if{html}{\out{</div>}}
@@ -106,7 +106,7 @@ Initializes the ConnectorSharepoint class
 \item{\code{token}}{The Azure token. By default, it will be retrieve by
 \link{get_token}}
 
-\item{\code{path_of_folder}}{The path of the folder to interact with, if you
+\item{\code{folder}}{The path of the folder to interact with, if you
 don't want to interact with the root folder "Documents"}
 
 \item{\code{...}}{Additional parameters to pass to the
