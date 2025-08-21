@@ -1,6 +1,6 @@
 Package: connector.sharepoint
 Title: Connect to Microsoft SharePoint easily
-Version: 0.0.5
+Version: 0.0.5.9000
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Vladimir", "Obucina", , "vlob@novonordisk.com", role = c("aut"),
@@ -11,26 +11,23 @@ Description: Help users manipulating sharepoint files and folders. Give
     them the same experience as the connector package.
 License: Apache License (>= 2)
 URL: https://github.com/novonordisk-opensource/connector.sharepoint, https://novonordisk-opensource.github.io/connector.sharepoint
-Imports: 
+Imports:
     AzureAuth,
     checkmate,
     cli,
-    connector (>= 0.0.8),
+    connector (>= 1.0.0),
     Microsoft365R,
-    options (>= 0.2.0),
     R6,
     tools,
     zephyr
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
     tibble,
     withr
-VignetteBuilder: 
+VignetteBuilder:
     knitr
-Remotes: 
-    github::NovoNordisk-OpenSource/connector
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

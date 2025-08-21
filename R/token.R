@@ -16,7 +16,7 @@ get_token <- function(hash = get_default_hash()) {
   }
 
   if (is.null(hash)) {
-    cli::cli_alert_info(
+    zephyr::msg_info(
       "No hash provided or found, using the first token found"
     )
     hash <- 1
@@ -33,7 +33,7 @@ get_tk_active_file <- function() {
   if (!file.exists(active_file)) {
     return(NULL)
   }
-  return(active_file)
+  active_file
 }
 
 #' @noRd
@@ -47,16 +47,16 @@ edit_tk_active_file <- function() {
 get_tk_hash_sharepoint <- function() {
   file_ <- get_tk_active_file()
   if (is.null(file_)) {
-    cli::cli_alert_danger("No active hash file found.")
+    zephyr::msg_danger("No active hash file found.")
     return(NULL)
   }
-  cli::cli_alert_info("Active hash file found, using it to get the hash.")
+  zephyr::msg_info("Active hash file found, using it to get the hash.")
 
   hash <- readLines(file_) |>
     grep(pattern = "^SHAREPOINT", value = TRUE)
 
   if (length(hash) == 0) {
-    cli::cli_alert_danger("SHAREPOINT key not found in the active hash file.")
+    zephyr::msg_danger("SHAREPOINT key not found in the active hash file.")
     return(NULL)
   }
 
@@ -66,7 +66,7 @@ get_tk_hash_sharepoint <- function() {
     hash
   )
 
-  return(hash_f)
+  hash_f
 }
 
 #' Get the default hash
@@ -75,17 +75,16 @@ get_tk_hash_sharepoint <- function() {
 #' 1. The user has set the environment variable SHAREPOINT_AZURE_HASH
 #' 2. The user has set the file .active_hash in the AzureR directory
 #'
-#' @importFrom cli cli_alert_danger
 #' @export
 get_default_hash <- function() {
   hash <- Sys.getenv("SHAREPOINT_AZURE_HASH")
   if (hash == "") {
     # try to find a .active_hash file
-    cli::cli_alert_danger(
+    zephyr::msg_danger(
       "No SHAREPOINT_AZURE_HASH env found, trying to find a .active_hash file"
     )
     hash <- get_tk_hash_sharepoint()
   }
 
-  return(hash)
+  hash
 }

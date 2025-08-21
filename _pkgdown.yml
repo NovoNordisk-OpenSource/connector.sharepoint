@@ -6,7 +6,7 @@ reference:
     contents:
     - ConnectorSharepoint
     - connector_sharepoint
-    - options
+    - matches("connector-options*")
   - title: connector.sharepoint functions
     contents:
     - matches(".*_cnt$")
@@ -14,4 +14,6 @@ reference:
     contents:
     - get_default_hash
     - get_token
-    - not_on_ci
+  - title: Logs
+    contents:
+    - matches("log_.*")
