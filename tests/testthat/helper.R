@@ -22,7 +22,7 @@ local_create_directory <- function(
 
   withr::defer(
     {
-      test_sharepoint$remove_cnt(test_dir, confirm = FALSE)
+      test_sharepoint$remove_cnt(test_dir, confirm = FALSE, by_item = TRUE)
       rm(con)
     },
     envir = env

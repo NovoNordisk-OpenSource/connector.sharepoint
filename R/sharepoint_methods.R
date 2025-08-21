@@ -114,6 +114,8 @@ remove_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
 #'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname download_cnt
+#' @param src The name of the file to download from SharePoint
+#' @param dest The local path to save the downloaded file
 #' @param ... [ConnectorSharepoint]: Additional parameters to pass to the
 #' `download()` method of \code{\link[Microsoft365R]{ms_drive}} class.
 #'
@@ -121,14 +123,14 @@ remove_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
 #' @export
 download_cnt.ConnectorSharepoint <- function(
   connector_object,
-  name,
-  file = basename(name),
+  src,
+  dest = basename(src),
   ...
 ) {
-  name <- check_convert_name(connector_object$folder, name)
-  checkmate::assert_string(file)
+  src <- check_convert_name(connector_object$folder, src)
+  checkmate::assert_string(dest)
 
-  connector_object$get_conn()$get_item(name)$download(file, ...)
+  connector_object$get_conn()$get_item(src)$download(dest, ...)
 
   invisible(connector_object)
 }
@@ -138,6 +140,8 @@ download_cnt.ConnectorSharepoint <- function(
 #'  method for [connector.sharepoint::ConnectorSharepoint()]
 #'
 #' @rdname upload_cnt
+#' @param src The local file path to upload
+#' @param dest The destination name/path in SharePoint
 #' @param recursive If `recursive` is TRUE, all subfolders will also be
 #' transferred recursively. Default: `FALSE`
 #' @param ... [ConnectorSharepoint]: Additional parameters to pass to
@@ -148,18 +152,18 @@ download_cnt.ConnectorSharepoint <- function(
 #' @export
 upload_cnt.ConnectorSharepoint <- function(
   connector_object,
-  file,
-  name = basename(file),
+  src,
+  dest = basename(src),
   overwrite = zephyr::get_option("overwrite", "connector.sharepoint"),
   ...,
   recursive = FALSE
 ) {
-  checkmate::assert_file_exists(file)
-  name <- check_convert_name(connector_object$folder, name)
+  checkmate::assert_file_exists(src)
+  dest <- check_convert_name(connector_object$folder, dest)
 
   drive <- connector_object$get_conn()
 
-  drive$upload_file(src = file, dest = name)
+  drive$upload_file(src = src, dest = dest)
 
   invisible(connector_object)
 }
@@ -237,6 +241,8 @@ tbl_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
 #' Upload a directory
 #'
 #' @rdname upload_directory_cnt
+#' @param src The local directory path to upload
+#' @param dest The destination directory name/path in SharePoint
 #' @param ... additional paramaeters passed on to `upload_folder()` method of
 #' \code{\link[Microsoft365R]{ms_drive}} class.
 #' @param recursive  If `recursive` is `TRUE`, all subfolders will also be
@@ -245,19 +251,19 @@ tbl_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
 #' @export
 upload_directory_cnt.ConnectorSharepoint <- function(
   connector_object,
-  dir,
-  name = basename(dir),
+  src,
+  dest = basename(src),
   overwrite = zephyr::get_option("overwrite", "connector.sharepoint"),
   open = FALSE,
   ...,
   recursive = TRUE
 ) {
-  checkmate::assert_directory_exists(dir)
-  name <- check_convert_name(connector_object$folder, name)
+  checkmate::assert_directory_exists(src)
+  dest <- check_convert_name(connector_object$folder, dest)
 
   drive <- connector_object$get_conn()
 
-  drive$upload_folder(dir, name, recursive = recursive, ...)
+  drive$upload_folder(src, dest, recursive = recursive, ...)
 
   # create a new connector object from the new path with persistent extra class
   if (open) {
@@ -266,9 +272,9 @@ upload_directory_cnt.ConnectorSharepoint <- function(
       extra_class,
       which(extra_class == "ConnectorSharepoint") - 1
     )
-    connector_object <- ConnectorSharepoint$new(
+    connector_object <- connector_sharepoint(
       site_url = connector_object$site_url,
-      folder = name
+      folder = dest
     )
   }
 
@@ -278,6 +284,8 @@ upload_directory_cnt.ConnectorSharepoint <- function(
 #' Download a directory
 #'
 #' @rdname download_directory_cnt
+#' @param src The name of the directory to download from SharePoint
+#' @param dest The local directory path to save the downloaded content
 #' @param ... additional paramaeters passed on to `download_folder()` method of
 #' \code{\link[Microsoft365R]{ms_drive}} class.
 #' @param recursive  If `recursive` is `TRUE`, all subfolders will also be
@@ -286,17 +294,17 @@ upload_directory_cnt.ConnectorSharepoint <- function(
 #' @export
 download_directory_cnt.ConnectorSharepoint <- function(
   connector_object,
-  name,
-  dir = basename(name),
+  src,
+  dest = basename(src),
   ...,
   recursive = TRUE
 ) {
-  name <- check_convert_name(connector_object$folder, name)
-  checkmate::assert_string(dir)
+  src <- check_convert_name(connector_object$folder, src)
+  checkmate::assert_string(dest)
 
   drive <- connector_object$get_conn()
 
-  drive$download_folder(src = name, dest = dir, recursive = recursive, ...)
+  drive$download_folder(src = src, dest = dest, recursive = recursive, ...)
 
   invisible(connector_object)
 }

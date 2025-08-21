@@ -7,16 +7,16 @@
 \usage{
 upload_cnt(
   connector_object,
-  file,
-  name = basename(file),
+  src,
+  dest = basename(src),
   overwrite = zephyr::get_option("overwrite", "connector"),
   ...
 )
 
 \method{upload_cnt}{ConnectorSharepoint}(
   connector_object,
-  file,
-  name = basename(file),
+  src,
+  dest = basename(src),
   overwrite = zephyr::get_option("overwrite", "connector.sharepoint"),
   ...,
   recursive = FALSE
@@ -25,11 +25,14 @@ upload_cnt(
 \arguments{
 \item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
-\item{file}{\link{character} Path to the file to download to or upload from}
+\item{src}{The local file path to upload}
 
-\item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+\item{dest}{The destination name/path in SharePoint}
 
-\item{overwrite}{Overwrite existing content if it exists in the connector?. Default: \code{FALSE}.}
+\item{overwrite}{Overwrite existing content if it exists in the connector?
+See \link[connector]{connector-options} for details. Default can be set globally with
+\code{options(connector.overwrite = TRUE/FALSE)} or environment variable
+\code{R_CONNECTOR_OVERWRITE}.. Default: \code{FALSE}.}
 
 \item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to
 the \code{upload_file()} or \code{upload_folder()}

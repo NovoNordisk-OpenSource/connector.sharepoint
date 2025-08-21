@@ -15,7 +15,7 @@ Imports:
     AzureAuth,
     checkmate,
     cli,
-    connector (>= 0.1.1),
+    connector (>= 1.0.0),
     Microsoft365R,
     R6,
     tools,

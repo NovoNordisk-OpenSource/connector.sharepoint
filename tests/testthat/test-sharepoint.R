@@ -94,7 +94,7 @@ test_that("Testing ConnectorSharepoint methods with a specific folder", {
     expect_equal(tbl_iris)
 
   # Remove a file or directory
-  my_drive$remove_cnt(dir_name, confirm = FALSE) |>
+  my_drive$remove_cnt(dir_name, confirm = FALSE, by_item = TRUE) |>
     expect_no_condition()
 })
 
@@ -129,14 +129,14 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
   write.csv(iris, tmp_file, row.names = FALSE)
 
   my_drive$upload_cnt(
-    file = tmp_file,
-    name = paste0(dir_name, "/iris.example")
+    src = tmp_file,
+    dest = paste0(dir_name, "/iris.example")
   ) |>
     expect_no_error()
 
   my_drive$download_cnt(
-    name = paste0(dir_name, "/iris.example"),
-    file = tmp_file_d
+    src = paste0(dir_name, "/iris.example"),
+    dest = tmp_file_d
   ) |>
     expect_no_error()
 
@@ -158,8 +158,8 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
   })
 
   my_drive$upload_directory_cnt(
-    dir = tmp_dir,
-    name = paste0(dir_name, "/dir")
+    src = tmp_dir,
+    dest = paste0(dir_name, "/dir")
   ) |>
     expect_no_error()
 
@@ -167,8 +167,8 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
   dir_d <- tempfile("dir_d")
   dir.create(dir_d)
   my_drive$download_directory_cnt(
-    name = paste0(dir_name, "/dir"),
-    dir = dir_d
+    src = paste0(dir_name, "/dir"),
+    dest = dir_d
   ) |>
     expect_no_error()
 
@@ -187,7 +187,7 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
     expect_no_error()
 
   ### Clean up
-  my_drive$remove_cnt(dir_name, confirm = FALSE)
+  my_drive$remove_cnt(dir_name, confirm = FALSE, by_item = TRUE)
 })
 
 test_that("test when path to a folder is not a folder", {
@@ -207,7 +207,7 @@ test_that("test when path to a folder is not a folder", {
     expect_error()
 
   # clean up
-  my_drive$remove_cnt(dir_name, confirm = FALSE)
+  my_drive$remove_cnt(dir_name, confirm = FALSE, by_item = TRUE)
 })
 
 test_that("test folder upload works", {
@@ -223,22 +223,22 @@ test_that("test folder upload works", {
   })
 
   # Upload directory fails when needed
-  my_drive$upload_directory_cnt(dir = "bad_folder", name = "dir") |>
+  my_drive$upload_directory_cnt(src = "bad_folder", dest = "dir") |>
     expect_error()
-  my_drive$upload_directory_cnt(dir = tmp_dir, name = 2) |>
+  my_drive$upload_directory_cnt(src = tmp_dir, dest = 2) |>
     expect_error()
 
   # Upload directory
   my_drive$upload_directory_cnt(
-    dir = tmp_dir,
-    name = paste0(dir_name, "/dir")
+    src = tmp_dir,
+    dest = paste0(dir_name, "/dir")
   ) |>
     expect_no_error()
 
   # Upload directory OPEN
   new_directory_OPEN <- my_drive$upload_directory_cnt(
-    dir = tmp_dir,
-    name = paste0(dir_name, "/dirOPEN"),
+    src = tmp_dir,
+    dest = paste0(dir_name, "/dirOPEN"),
     open = TRUE
   ) |>
     expect_no_error()
@@ -251,13 +251,13 @@ test_that("test folder upload works", {
   # Upload directory to a directory
   new_directory <- my_drive$create_directory_cnt(name = "test_dir", open = TRUE)
   new_directory$upload_directory_cnt(
-    dir = tmp_dir,
-    name = paste0(dir_name, "/dir")
+    src = tmp_dir,
+    dest = paste0(dir_name, "/dir")
   ) |>
     expect_no_error()
 
   ### Error not existing
-  my_drive$upload_cnt(src = "not_exist", paste0(dir_name, "/dir")) |>
+  my_drive$upload_cnt(src = "not_exist", dest = paste0(dir_name, "/dir")) |>
     expect_error()
 
   dir_ <- my_drive$get_conn()$get_item(paste(

@@ -5,16 +5,16 @@
 \alias{download_cnt.ConnectorSharepoint}
 \title{Download content from the connector}
 \usage{
-download_cnt(connector_object, name, file = basename(name), ...)
+download_cnt(connector_object, src, dest = basename(src), ...)
 
-\method{download_cnt}{ConnectorSharepoint}(connector_object, name, file = basename(name), ...)
+\method{download_cnt}{ConnectorSharepoint}(connector_object, src, dest = basename(src), ...)
 }
 \arguments{
 \item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
-\item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+\item{src}{The name of the file to download from SharePoint}
 
-\item{file}{\link{character} Path to the file to download to or upload from}
+\item{dest}{The local path to save the downloaded file}
 
 \item{...}{\link{ConnectorSharepoint}: Additional parameters to pass to the
 \code{download()} method of \code{\link[Microsoft365R]{ms_drive}} class.}

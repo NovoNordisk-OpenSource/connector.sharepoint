@@ -5,12 +5,12 @@
 \alias{download_directory_cnt.ConnectorSharepoint}
 \title{Download a directory}
 \usage{
-download_directory_cnt(connector_object, name, dir = name, ...)
+download_directory_cnt(connector_object, src, dest = basename(src), ...)
 
 \method{download_directory_cnt}{ConnectorSharepoint}(
   connector_object,
-  name,
-  dir = basename(name),
+  src,
+  dest = basename(src),
   ...,
   recursive = TRUE
 )
@@ -18,9 +18,9 @@ download_directory_cnt(connector_object, name, dir = name, ...)
 \arguments{
 \item{connector_object}{\link[connector]{Connector} The connector object to use.}
 
-\item{name}{\link{character} The name of the directory to download}
+\item{src}{The name of the directory to download from SharePoint}
 
-\item{dir}{\link{character} Path to the directory to download to}
+\item{dest}{The local directory path to save the downloaded content}
 
 \item{...}{additional paramaeters passed on to \code{download_folder()} method of
 \code{\link[Microsoft365R]{ms_drive}} class.}
