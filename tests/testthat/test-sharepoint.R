@@ -7,13 +7,13 @@ test_that("Testing General connector_sharepoint", {
   expect_error(quiet_connect("www.google.com"))
 
   #### Not a expected token
-  expect_error(quiet_connect(my_site, token = "a weird token"))
+  expect_error(quiet_connect(setup_site_url, token = "a weird token"))
 
   skip_on_ci()
 
   expect_true(inherits(setup_connector, "ConnectorSharepoint"))
   ## Extra class
-  extra_class_ <- quiet_connect(my_site, extra_class = "test")
+  extra_class_ <- quiet_connect(setup_site_url, extra_class = "test")
   expect_true(inherits(extra_class_, "test"))
 
   ## Check active bindings
@@ -25,7 +25,9 @@ test_that("Testing General connector_sharepoint", {
 
 test_that("Testing ConnectorSharepoint methods", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
+  my_drive <- suppressMessages(local_create_directory(
+    site_url = setup_site_url
+  ))
 
   # List content
   contents <- my_drive$list_content_cnt() |>
@@ -74,7 +76,9 @@ test_that("Testing ConnectorSharepoint methods", {
 
 test_that("Testing ConnectorSharepoint methods with a specific folder", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
+  my_drive <- suppressMessages(local_create_directory(
+    site_url = setup_site_url
+  ))
 
   #########################
   ### For a specific folder
@@ -100,7 +104,9 @@ test_that("Testing ConnectorSharepoint methods with a specific folder", {
 
 test_that("Testing ConnectorSharepoint specific outputs for methods", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
+  my_drive <- suppressMessages(local_create_directory(
+    site_url = setup_site_url
+  ))
   #########################
   ### Specific to methods
   #########################
@@ -192,7 +198,9 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
 
 test_that("test when path to a folder is not a folder", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
+  my_drive <- suppressMessages(local_create_directory(
+    site_url = setup_site_url
+  ))
 
   ## create a file
   dir_name <- test_directory_name()
@@ -201,7 +209,7 @@ test_that("test when path to a folder is not a folder", {
 
   # Path is not a folder
   quiet_connect(
-    my_site,
+    setup_site_url,
     folder = paste0(dir_name, "/iris.csv")
   ) |>
     expect_error()
@@ -212,7 +220,9 @@ test_that("test when path to a folder is not a folder", {
 
 test_that("test folder upload works", {
   skip_on_ci()
-  my_drive <- suppressMessages(local_create_directory(site_url = my_site))
+  my_drive <- suppressMessages(local_create_directory(
+    site_url = setup_site_url
+  ))
   dir_name <- test_directory_name()
 
   tmp_dir <- tempfile(pattern = "test_dir")
