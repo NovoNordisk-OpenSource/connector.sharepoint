@@ -57,10 +57,10 @@ method for <code><a href="ConnectorSharepoint.html">ConnectorSharepoint()</a></c
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">download_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">download_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">src</span>, dest <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">src</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'ConnectorSharepoint'</span></span>
-<span><span class="fu">download_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">download_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">src</span>, dest <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">src</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,12 +71,12 @@ method for <code><a href="ConnectorSharepoint.html">ConnectorSharepoint()</a></c
 <dd><p><a href="https://novonordisk-opensource.github.io/connector/reference/Connector.html" class="external-link">Connector</a> The connector object to use.</p></dd>
 
 
-<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> Name of the content to read, write, or remove. Typically the table name.</p></dd>
+<dt id="arg-src">src<a class="anchor" aria-label="anchor" href="#arg-src"></a></dt>
+<dd><p>The name of the file to download from SharePoint</p></dd>
 
 
-<dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> Path to the file to download to or upload from</p></dd>
+<dt id="arg-dest">dest<a class="anchor" aria-label="anchor" href="#arg-dest"></a></dt>
+<dd><p>The local path to save the downloaded file</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
