@@ -23,8 +23,8 @@ knitr::opts_chunk$set(
 
 The connector.sharepoint package provides a convenient interface for accessing and interacting with Microsoft SharePoint sites directly from R. This vignette will guide you through the process of connecting to a SharePoint site, retrieving data, and performing various operations using this package.
 
-This package is meant to be used with [connector]("https://github.com/novonordisk-OpenSource/connector") package, which 
-provides a common interface for interacting with various data sources. The connector.sharepoint package extends the connector package to support Microsoft 
+This package is meant to be used with [connector]("https://github.com/novonordisk-OpenSource/connector") package, which
+provides a common interface for interacting with various data sources. The connector.sharepoint package extends the connector package to support Microsoft
 SharePoint sites.
 
 ## Installation
@@ -42,7 +42,7 @@ devtools::install_github("novonordisk-OpenSource/connector.sharepoint")
 
 ## Usage
 
-Package is meant to be used alongside connector package, but it can be used 
+Package is meant to be used alongside connector package, but it can be used
 independently as well. Here is an example of how to connect to a SharePoint site
 and retrieve data:
 
@@ -50,12 +50,12 @@ and retrieve data:
 library(connector.sharepoint)
 
 # Connect to SharePoint
-con <- ConnectorSharepoint(site_url = "sharepoint_url")
+con <- connector_sharepoint(site_url = "sharepoint_url")
 ```
 
-When connecting to SharePoint, you need to provide the URL of the SharePoint 
-site. By default, token is retrieved from the [AzureAuth]("https://github.com/Azure/AzureAuth") package using `get_token()` 
-function, or it can be provided by the user, and it is used to authenticate the 
+When connecting to SharePoint, you need to provide the URL of the SharePoint
+site. By default, token is retrieved from the [AzureAuth]("https://github.com/Azure/AzureAuth") package using `get_token()`
+function, or it can be provided by the user, and it is used to authenticate the
 user to the SharePoint site.
 
 Example of how to use the connector object:
@@ -80,7 +80,7 @@ con |>
 
 ## Usage with connector package
 
-Here is an example how it can be used with connector package and configuration 
+Here is an example how it can be used with connector package and configuration
 YAML file (for more information take a look at the connector package):
 ```{r, eval=FALSE}
 # Connect using configuration file
@@ -106,8 +106,8 @@ connector$test |>
 ```
 
 ## Contributing
-We welcome contributions to the connector.sharepoint package. If you have any 
-suggestions or find any issues, please open an issue or submit a pull request 
+We welcome contributions to the connector.sharepoint package. If you have any
+suggestions or find any issues, please open an issue or submit a pull request
 on GitHub.
 
 ## License

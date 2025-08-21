@@ -47,7 +47,7 @@ SharePoint site and retrieve data:
 library(connector.sharepoint)
 
 # Connect to SharePoint
-con <- ConnectorSharepoint(site_url = "sharepoint_url")
+con <- connector_sharepoint(site_url = "sharepoint_url")
 ```
 
 When connecting to SharePoint, you need to provide the URL of the

@@ -1,5 +1,8 @@
 # connector.sharepoint dev
 
+## Bug Fixes
+* Fix README.md documentation to use correct factory function `connector_sharepoint()` instead of deprecated `ConnectorSharepoint()` constructor
+
 ## Breaking Changes
 
 ### Parameter Renaming for File Transfer Methods
