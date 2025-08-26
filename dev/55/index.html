@@ -83,7 +83,7 @@
 <span></span>
 <span><span class="co"># Connect to SharePoint</span></span>
 <span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connector_sharepoint.html">connector_sharepoint</a></span><span class="op">(</span>site_url <span class="op">=</span> <span class="st">"sharepoint_url"</span><span class="op">)</span></span></code></pre></div>
-<p>When connecting to SharePoint, you need to provide the URL of the SharePoint site. By default, token is retrieved from the <a href="https://github.com/Azure/AzureAuth" class="external-link">AzureAuth</a> package using <code><a href="reference/get_token.html">get_token()</a></code> function, or it can be provided by the user, and it is used to authenticate the user to the SharePoint site.</p>
+<p>When connecting to SharePoint, you need to provide the URL of the SharePoint site. By default, token is retrieved using <code>AzureAuth::get_token()</code> function, or it can be provided by the user, and it is used to authenticate the user to the SharePoint site.</p>
 <p>Example of how to use the connector object:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List content</span></span>
