@@ -37,9 +37,10 @@ devtools::install_github("novonordisk-OpenSource/connector.sharepoint")
 
 ## Usage
 
-Package is meant to be used alongside `{connector}` package, but it can
-be used independently as well. Here is an example of how to connect to a
-SharePoint site and retrieve data:
+Package is meant to be used alongside
+[connector](https://novonordisk-opensource.github.io/connector/)
+package, but it can be used independently as well. Here is an example of
+how to connect to a SharePoint site and retrieve data:
 
 ``` r
 library(connector.sharepoint)
@@ -50,8 +51,9 @@ con <- connector_sharepoint(site_url = "sharepoint_url")
 
 When connecting to SharePoint, you need to provide the URL of the
 SharePoint site. By default, token is retrieved using
-`AzureAuth::get_azure_token()` function, or it can be provided by the
-user, and it is used to authenticate the user to the SharePoint site.
+[AzureAuth::get_azure_token()](https://rdrr.io/cran/AzureAuth/man/get_azure_token.html)
+function, or it can be provided by the user, and it is used to
+authenticate the user to the SharePoint site.
 
 Example of how to use the connector object:
 
