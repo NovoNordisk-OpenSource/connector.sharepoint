@@ -17,7 +17,7 @@ SharePoint site, retrieving data, and performing various operations
 using this package.
 
 This package is meant to be used with
-[connector](https://github.com/novonordisk-OpenSource/connector)
+[connector](https://novonordisk-opensource.github.io/connector/)
 package, which provides a common interface for interacting with various
 data sources. The connector.sharepoint package extends the connector
 package to support Microsoft SharePoint sites.
