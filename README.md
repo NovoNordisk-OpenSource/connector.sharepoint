@@ -16,11 +16,10 @@ R. This vignette will guide you through the process of connecting to a
 SharePoint site, retrieving data, and performing various operations
 using this package.
 
-This package is meant to be used with
-[connector](https://github.com/novonordisk-OpenSource/connector)
-package, which provides a common interface for interacting with various
-data sources. The connector.sharepoint package extends the connector
-package to support Microsoft SharePoint sites.
+This package is meant to be used with {connector} package, which
+provides a common interface for interacting with various data sources.
+The connector.sharepoint package extends the {connector} package to
+support Microsoft SharePoint sites.
 
 ## Installation
 
@@ -37,7 +36,7 @@ devtools::install_github("novonordisk-OpenSource/connector.sharepoint")
 
 ## Usage
 
-Package is meant to be used alongside connector package, but it can be
+Package is meant to be used alongside {connector} package, but it can be
 used independently as well. Here is an example of how to connect to a
 SharePoint site and retrieve data:
 
@@ -49,10 +48,9 @@ con <- connector_sharepoint(site_url = "sharepoint_url")
 ```
 
 When connecting to SharePoint, you need to provide the URL of the
-SharePoint site. By default, token is retrieved from the
-[AzureAuth](https://github.com/Azure/AzureAuth) package using
-`get_token()` function, or it can be provided by the user, and it is
-used to authenticate the user to the SharePoint site.
+SharePoint site. By default, token is retrieved from the using
+`AzureAuth::get_token()` function, or it can be provided by the user,
+and it is used to authenticate the user to the SharePoint site.
 
 Example of how to use the connector object:
 
@@ -77,9 +75,9 @@ con |>
 
 ## Usage with connector package
 
-Here is an example how it can be used with connector package and
+Here is an example how it can be used with {connector} package and
 configuration YAML file (for more information take a look at the
-connector package):
+{connector} package):
 
 ``` r
 # Connect using configuration file
