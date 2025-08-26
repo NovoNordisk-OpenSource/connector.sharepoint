@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   connector_sharepoint: connector_sharepoint.html
-last_built: 2025-08-21T14:15Z
+last_built: 2025-08-26T07:52Z
 urls:
   reference: https://novonordisk-opensource.github.io/connector.sharepoint/reference
   article: https://novonordisk-opensource.github.io/connector.sharepoint/articles
