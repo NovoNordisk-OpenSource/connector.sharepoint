@@ -19,13 +19,17 @@ Imports:
     Microsoft365R,
     R6,
     tools,
-    zephyr
+    zephyr,
+    rlang
 Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
     tibble,
-    withr
+    withr,
+    whirl (>= 0.2.0),
+    glue,
+    mockery
 VignetteBuilder:
     knitr
 Config/testthat/edition: 3
