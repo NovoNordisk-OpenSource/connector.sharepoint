@@ -49,10 +49,9 @@ con <- connector_sharepoint(site_url = "sharepoint_url")
 ```
 
 When connecting to SharePoint, you need to provide the URL of the
-SharePoint site. By default, token is retrieved from the
-[AzureAuth](https://github.com/Azure/AzureAuth) package using
-`get_token()` function, or it can be provided by the user, and it is
-used to authenticate the user to the SharePoint site.
+SharePoint site. By default, token is retrieved using
+`AzureAuth::get_token()` function, or it can be provided by the user,
+and it is used to authenticate the user to the SharePoint site.
 
 Example of how to use the connector object:
 
