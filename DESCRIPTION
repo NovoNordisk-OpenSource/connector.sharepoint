@@ -2,15 +2,17 @@ Package: connector.sharepoint
 Title: Connect to Microsoft SharePoint easily
 Version: 0.0.5.9000
 Authors@R: c(
-    person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
-    person("Vladimir", "Obucina", , "vlob@novonordisk.com", role = c("aut"),
+    person("Vladimir", "Obucina", , "vlob@novonordisk.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0008-2608-2661")),
+    person("Cervan", "Girard", , "cgid@novonordisk.com", role = "aut"),
+    person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
+    person("Steffen Falgreen", "Larsen", , "sffl@novonordisk.com", role = "aut")
     person("Novo Nordisk A/S", role = "cph")
   )
-Description: Help users manipulating sharepoint files and folders. Give
-    them the same experience as the connector package.
+Description: Expands the 'connector' package and provides a convenient
+    interface for accessing and interacting with 'Sharepoint' directly from R.
 License: Apache License (>= 2)
-URL: https://github.com/novonordisk-opensource/connector.sharepoint, https://novonordisk-opensource.github.io/connector.sharepoint
+URL: https://github.com/novonordisk-opensource/connector.sharepoint, https://novonordisk-opensource.github.io/connector.sharepoint https://NovoNordisk-opensource.github.io/connector.sharepoint, https://github-vladimirobucina/NovoNordisk-OpenSource/connector.sharepoint
 Imports:
     AzureAuth,
     checkmate,
@@ -36,3 +38,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+BugReports: https://github-vladimirobucina/NovoNordisk-OpenSource/connector.sharepoint/issues
