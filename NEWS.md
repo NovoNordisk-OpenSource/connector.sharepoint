@@ -7,6 +7,10 @@
   - Add `log_remove_connector.ConnectorSharepoint()` method for logging delete operations
   - Logging functionality uses `whirl` package for structured logging
   - Log messages include file name and SharePoint site path information
+* Add vignette documenting basic connector methods
+  - Add `vignettes/articles/Consistent-API.Rmd` explaining connector package method return values
+  - Provides detailed explanations of each method's purpose and return value
+  - Includes SharePoint-specific considerations for authentication and permissions
 
 ## Breaking Changes
 
