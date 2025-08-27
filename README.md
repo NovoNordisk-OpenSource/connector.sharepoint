@@ -8,8 +8,6 @@
 [![R-CMD-check](https://github.com/novonordisk-OpenSource/connector.sharepoint/actions/workflows/check_and_co.yaml/badge.svg)](https://github.com/novonordisk-OpenSource/connector.sharepoint/actions/workflows/check_and_co.yaml)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/connector.sharepoint)](https://CRAN.R-project.org/package=connector.sharepoint)
 <!-- badges: end -->
 
 The connector.sharepoint package provides a convenient interface for
@@ -19,7 +17,7 @@ SharePoint site, retrieving data, and performing various operations
 using this package.
 
 This package is meant to be used with
-[connector](%22https://github.com/novonordisk-OpenSource/connector%22)
+[connector](https://novonordisk-opensource.github.io/connector/)
 package, which provides a common interface for interacting with various
 data sources. The connector.sharepoint package extends the connector
 package to support Microsoft SharePoint sites.
@@ -39,22 +37,23 @@ devtools::install_github("novonordisk-OpenSource/connector.sharepoint")
 
 ## Usage
 
-Package is meant to be used alongside connector package, but it can be
-used independently as well. Here is an example of how to connect to a
-SharePoint site and retrieve data:
+Package is meant to be used alongside
+[connector](https://novonordisk-opensource.github.io/connector/)
+package, but it can be used independently as well. Here is an example of
+how to connect to a SharePoint site and retrieve data:
 
 ``` r
 library(connector.sharepoint)
 
 # Connect to SharePoint
-con <- ConnectorSharepoint(site_url = "sharepoint_url")
+con <- connector_sharepoint(site_url = "sharepoint_url")
 ```
 
 When connecting to SharePoint, you need to provide the URL of the
-SharePoint site. By default, token is retrieved from the
-[AzureAuth](%22https://github.com/Azure/AzureAuth%22) package using
-`get_token()` function, or it can be provided by the user, and it is
-used to authenticate the user to the SharePoint site.
+SharePoint site. By default, token is retrieved using
+[AzureAuth::get_azure_token()](https://rdrr.io/cran/AzureAuth/man/get_azure_token.html)
+function, or it can be provided by the user, and it is used to
+authenticate the user to the SharePoint site.
 
 Example of how to use the connector object:
 
@@ -85,7 +84,10 @@ connector package):
 
 ``` r
 # Connect using configuration file
-yaml <- yaml::read_yaml(system.file("config", "example_yaml.yaml", package = "connector.sharepoint"), eval.expr = TRUE)
+yaml <- yaml::read_yaml(
+  system.file("config", "example_yaml.yaml", package = "connector.sharepoint"),
+  eval.expr = TRUE
+)
 
 connector <- connector::connect(yaml)
 

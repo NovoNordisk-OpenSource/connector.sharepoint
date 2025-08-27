@@ -1,0 +1,99 @@
+---
+title: "Understanding Connector Package Methods"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Understanding Connector Package Methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This vignette provides best practices for users and developers on what is returned by each method in connector packages. Understanding these methods and their return values is crucial for both users of connector packages and developers who want to create their own connector packages.
+
+We tailored this guide for `connector.sharepoint`, but the same thing applies for all `connector` types of packages.
+You can have a look at original article [here](https://novonordisk-opensource.github.io/connector/articles/Consistent-API.html).
+
+## Why This Vignette?
+
+We realized it might be confusing for users to understand which method returns which value. This vignette explains what each method does and provides an overview of general rules for `ConnectorSharepoint` objects.
+
+## Methods and Return Values
+
+Below is a table summarizing the methods and their return values:
+
+| Method                    | Return Value                                                      |
+|---------------------------|-------------------------------------------------------------------|
+| `read_cnt()`              | Content of the file                                               |
+| `write_cnt()`             | `Connector` object                                                |
+| `list_content_cnt()`      | Vector of items                                                   |
+| `remove_cnt()`            | `Connector` object                                                |
+| `download_cnt()`          | `Connector` object                                                |
+| `upload_cnt()`            | `Connector` object                                                |
+| `create_directory_cnt()`  | `Connector` object, if `open = TRUE`, then new `Connector` object |
+| `remove_directory_cnt()`  | `Connector` object                                                |
+| `upload_directory_cnt()`  | `Connector` object, if `open = TRUE`, then new `Connector` object |
+| `download_directory_cnt()`| `Connector` object                                                |
+| `tbl_cnt()`               | Content of the table. Either `dplyr::tbl()` or from `read_cnt()`  |
+
+## Detailed Explanations
+
+### `read_cnt()`
+Reads the content of a file from SharePoint and returns it directly.
+This allows users to immediately work with the data without additional steps.
+
+### `write_cnt()`
+After writing content to the SharePoint site, this method returns the `Connector` object.
+This enables method chaining and provides confirmation that the write operation was successful.
+
+### `list_content_cnt()`
+Returns a `character` vector of items (files/directories) in the current SharePoint location, allowing users to explore the content structure.
+
+### `remove_cnt()`
+After removing a file or item from SharePoint, this method returns the `Connector` object, allowing for further operations and confirming the removal was successful.
+
+### `download_cnt()`
+This method returns the `Connector` object after downloading a file from SharePoint to allow for method chaining.
+
+### `upload_cnt()`
+Similar to `download_cnt()`, this returns the `Connector` object after uploading a file to SharePoint, allowing for method chaining.
+
+### `create_directory_cnt()`
+This method returns the `Connector` object after creating a directory in SharePoint. If the `open` parameter is set to `TRUE`, it returns a new `Connector` object pointing to the newly created directory.
+
+### `remove_directory_cnt()`
+After removing a directory from SharePoint, this method returns the `Connector` object, allowing for further operations and confirming the removal was successful.
+
+### `upload_directory_cnt()`
+Returns the current `Connector` object or a new one if the directory was opened (`open = TRUE`), allowing for immediate use of the uploaded directory in SharePoint.
+
+### `download_directory_cnt()`
+Returns the `Connector` object after downloading a directory from SharePoint to allow for method chaining.
+
+### `tbl_cnt()`
+This method returns the content of a file in a tabular format from SharePoint.
+It typically uses `read_cnt()` to get the content and convert it to a tabular format suitable for data analysis.
+
+## SharePoint-Specific Considerations
+
+When working with SharePoint through the connector.sharepoint package, keep in mind:
+
+- **Authentication**: All operations require valid SharePoint authentication through the Azure token system
+- **Permissions**: Your access level determines which operations you can perform
+- **File Types**: SharePoint supports various file formats, and the connector handles format detection automatically
+- **Path Structure**: SharePoint uses a hierarchical folder structure that maps to the connector's path system
+
+## Conclusion
+
+Understanding these return values is crucial for effectively using and developing connector packages. By maintaining consistency in what each method returns, we ensure that different connector packages can be used interchangeably, promoting code reusability and a smoother user experience.
+
+For developers creating new connector packages, adhering to these return value conventions will help maintain compatibility with existing tools and workflows that expect certain return types from these methods.
+
+When working specifically with SharePoint, these consistent methods provide a familiar interface regardless of whether you're working with local files, databases, or cloud storage platforms like SharePoint.
