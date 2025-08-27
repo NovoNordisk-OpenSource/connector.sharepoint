@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   connector_sharepoint: connector_sharepoint.html
   articles/Consistent-API: Consistent-API.html
-last_built: 2025-08-27T07:39Z
+last_built: 2025-08-27T07:43Z
 urls:
   reference: https://novonordisk-opensource.github.io/connector.sharepoint/reference
   article: https://novonordisk-opensource.github.io/connector.sharepoint/articles
