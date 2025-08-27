@@ -2,7 +2,7 @@
 metadata:
   trial: "sharepoint_connector_testing"
   extra_class: "test2"
-  url: !!expr Sys.getenv("SHAREPOINT_URL")
+  url: !!expr Sys.getenv("SHAREPOINT_SITE_URL")
 
 datasources:
   - name: "test"
