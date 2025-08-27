@@ -6,7 +6,7 @@
 ## Enhancement
 * Add logging support for SharePoint connector operations
   - Add `log_read_connector.ConnectorSharepoint()` method for logging read operations
-  - Add `log_write_connector.ConnectorSharepoint()` method for logging write operations  
+  - Add `log_write_connector.ConnectorSharepoint()` method for logging write operations
   - Add `log_remove_connector.ConnectorSharepoint()` method for logging delete operations
   - Logging functionality uses `whirl` package for structured logging
   - Log messages include file name and SharePoint site path information
