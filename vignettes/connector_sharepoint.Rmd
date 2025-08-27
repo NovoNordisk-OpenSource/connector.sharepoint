@@ -24,7 +24,7 @@ This vignette will guide you through the process of connecting to a SharePoint s
 ### Without connector package
 
 To get started, you need to establish a connection to your SharePoint site. Use
-the `ConnectorSharepoint()` function to authenticate and connect to your SharePoint site. Here's an example of how to do this:
+the `connector_sharepoint()` function to authenticate and connect to your SharePoint site. Here's an example of how to do this:
 
 ```{r, eval=FALSE}
 library(connector.sharepoint)
@@ -43,6 +43,25 @@ specified datasources (for detailed explanation have a look at connector package
 Configuration file for connecting to SharePoint should look like this:
 
 ```{r, eval=FALSE}
+# An example of configuration file
+metadata:
+  trial: "0001"
+  extra_class: "adam_connector"
+  url: !!expr Sys.getenv("SHAREPOINT_SITE_URL")
+
+datasources:
+  - name: "adam"
+    backend:
+      type: "connector.sharepoint::connector_sharepoint"
+      site_url: "{metadata.url}"
+      folder: "{metadata.trial}/adam"
+      extra_class: "{metadata.extra_class}"
+  - name: "output"
+    backend:
+      type: "connector.sharepoint::connector_sharepoint"
+      site_url: "{metadata.url}"
+      folder: "{metadata.trial}/output"
+
 ```
 
 Save this to `_connector.yml` file and use the `connect()` function to connect
@@ -110,16 +129,16 @@ mean_for_all_mtcars <- mtcars |>
 
 ## Store data
 db$adam |>
-  write_cnt(setosa, "setosa", overwrite = TRUE)
+  write_cnt(x = setosa, name = "setosa.csv", overwrite = TRUE)
 
 db$adam |>
-  write_cnt(mean_for_all_iris, "mean_iris", overwrite = TRUE)
+  write_cnt(mean_for_all_iris, "mean_iris.csv", overwrite = TRUE)
 
 db$adam |>
-  write_cnt(cars, "cars_mpg", overwrite = TRUE)
+  write_cnt(cars, "cars_mpg.csv", overwrite = TRUE)
 
 db$adam |>
-  write_cnt(mean_for_all_mtcars, "mean_mtcars", overwrite = TRUE)
+  write_cnt(mean_for_all_mtcars, "mean_mtcars.csv", overwrite = TRUE)
 ```
 
 Now, let's read the data back manipulate it a bit and write it to the SharePoint.
@@ -135,7 +154,7 @@ db$adam |>
   list_content_cnt()
 
 table <- db$adam |>
-  read_cnt("mean_mtcars")
+  read_cnt("mean_mtcars.csv")
 
 gttable <- table |>
   gt(groupname_col = "gear")
@@ -148,7 +167,7 @@ db$output |>
 
 # Manipulate data
 setosa_fsetosa <- db$adam |>
-  read_cnt("setosa") |>
+  read_cnt("setosa.csv") |>
   filter(Sepal.Length > 5)
 
 fsetosa <- ggplot(setosa) +
@@ -164,7 +183,7 @@ db$output |>
 tmp_file <- tempfile(fileext = ".png")
 ggsave(tmp_file, fsetosa)
 db$output |>
-  upload(tmp_file, "fsetosa.png")
+  upload_cnt(tmp_file, "fsetosa.png")
 ```
 
 ## Conclusion

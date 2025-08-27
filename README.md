@@ -73,7 +73,7 @@ con |>
 
 # Remove a file
 con |>
-  remove_cnt("file_name.csv")
+  remove_cnt("iris.rds")
 ```
 
 ## Usage with connector package
@@ -92,19 +92,18 @@ yaml <- yaml::read_yaml(
 connector <- connector::connect(yaml)
 
 # List content
-connector$test |>
+connector$adam |>
   list_content_cnt()
 
 # Get SharePoint connection object
-connector$test |>
-  get_conn()
+connector$adam$get_conn()
 
 # Write a file
-connector$test |>
+connector$adam |>
   write_cnt(iris, "Test/iris.csv")
 
 # Read a file
-connector$test |>
+connector$adam |>
   read_cnt("Test/iris.csv")
 ```
 

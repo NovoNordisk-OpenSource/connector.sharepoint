@@ -1,12 +1,17 @@
-# A example of the configuration file for FS and Database
 metadata:
-  trial: "sharepoint_connector_testing"
-  extra_class: "test2"
+  trial: "0001"
+  extra_class: "adam_connector"
   url: !!expr Sys.getenv("SHAREPOINT_SITE_URL")
 
 datasources:
-  - name: "test"
+  - name: "adam"
     backend:
       type: "connector.sharepoint::connector_sharepoint"
-      site_url: "{metadata.url}/{metadata.trial}"
+      site_url: "{metadata.url}"
+      folder: "{metadata.trial}/adam"
       extra_class: "{metadata.extra_class}"
+  - name: "output"
+    backend:
+      type: "connector.sharepoint::connector_sharepoint"
+      site_url: "{metadata.url}"
+      folder: "{metadata.trial}/output"
