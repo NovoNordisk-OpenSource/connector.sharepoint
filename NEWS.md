@@ -1,5 +1,8 @@
 # connector.sharepoint dev
 
+## Bug Fixes
+* Fix README.md documentation to use correct factory function `connector_sharepoint()` instead of deprecated `ConnectorSharepoint()` constructor
+
 ## Enhancement
 * Add logging support for SharePoint connector operations
   - Add `log_read_connector.ConnectorSharepoint()` method for logging read operations

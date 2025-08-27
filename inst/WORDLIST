@@ -87,4 +87,6 @@ vm
 withr
 WORDLIST
 YAML
+CRAN
 rlang
+
