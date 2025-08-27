@@ -82,7 +82,7 @@ using this package.</p>
 <h3 id="without-connector-package">Without connector package<a class="anchor" aria-label="anchor" href="#without-connector-package"></a>
 </h3>
 <p>To get started, you need to establish a connection to your SharePoint
-site. Use the <code><a href="../reference/ConnectorSharepoint.html">ConnectorSharepoint()</a></code> function to
+site. Use the <code><a href="../reference/connector_sharepoint.html">connector_sharepoint()</a></code> function to
 authenticate and connect to your SharePoint site. Here’s an example of
 how to do this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -102,16 +102,34 @@ of the specified datasources (for detailed explanation have a look at
 connector package).</p>
 <p>Configuration file for connecting to SharePoint should look like
 this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># An example of configuration file</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>metadata<span class="sc">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  trial<span class="sc">:</span> <span class="st">"0001"</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  extra_class<span class="sc">:</span> <span class="st">"adam_connector"</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  url<span class="sc">:</span> <span class="sc">!!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"SHAREPOINT_SITE_URL"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>datasources<span class="sc">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"adam"</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    backend<span class="sc">:</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector.sharepoint::connector_sharepoint"</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>      site_url<span class="sc">:</span> <span class="st">"{metadata.url}"</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>      folder<span class="sc">:</span> <span class="st">"{metadata.trial}/adam"</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>      extra_class<span class="sc">:</span> <span class="st">"{metadata.extra_class}"</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"output"</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    backend<span class="sc">:</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector.sharepoint::connector_sharepoint"</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>      site_url<span class="sc">:</span> <span class="st">"{metadata.url}"</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>      folder<span class="sc">:</span> <span class="st">"{metadata.trial}/output"</span></span></code></pre></div>
 <p>Save this to <code>_connector.yml</code> file and use the
 <code><a href="https://novonordisk-opensource.github.io/connector/reference/connect.html" class="external-link">connect()</a></code> function to connect to SharePoint:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector/" class="external-link">connector</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create connector object</span></span>
 <span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://novonordisk-opensource.github.io/connector/reference/connect.html" class="external-link">connect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Now you can access the SharePoint site using the <code>db</code>
 object and <code>adam</code> field inside of it.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Connection to SharePoint site. This will print object details</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">adam</span></span></code></pre></div>
 <p>After the setup is done we can use this connection to manipulate
@@ -128,7 +146,7 @@ interface, so it’s easy to switch between them.</p>
 Sharepoint. In these examples we will be using <code>iris</code> and
 <code>mtcars</code> datasets.</p>
 <p>Here is an example of writing data to the ADaM table:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Manipulate data</span></span>
@@ -162,20 +180,20 @@ Sharepoint. In these examples we will be using <code>iris</code> and
 <span></span>
 <span><span class="co">## Store data</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">setosa</span>, <span class="st">"setosa"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">setosa</span>, name <span class="op">=</span> <span class="st">"setosa.csv"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_iris</span>, <span class="st">"mean_iris"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_iris</span>, <span class="st">"mean_iris.csv"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">cars</span>, <span class="st">"cars_mpg"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">cars</span>, <span class="st">"cars_mpg.csv"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_mtcars</span>, <span class="st">"mean_mtcars"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_mtcars</span>, <span class="st">"mean_mtcars.csv"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Now, let’s read the data back manipulate it a bit and write it to the
 SharePoint. This way we can save different types of data in different
 formats.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -185,7 +203,7 @@ formats.</p>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"mean_mtcars"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"mean_mtcars.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">gttable</span> <span class="op">&lt;-</span> <span class="va">table</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gt</span><span class="op">(</span>groupname_col <span class="op">=</span> <span class="st">"gear"</span><span class="op">)</span></span>
@@ -198,7 +216,7 @@ formats.</p>
 <span></span>
 <span><span class="co"># Manipulate data</span></span>
 <span><span class="va">setosa_fsetosa</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"setosa"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"setosa.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fsetosa</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">setosa</span><span class="op">)</span> <span class="op">+</span></span>
@@ -214,7 +232,7 @@ formats.</p>
 <span><span class="va">tmp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span></span>
 <span><span class="fu">ggsave</span><span class="op">(</span><span class="va">tmp_file</span>, <span class="va">fsetosa</span><span class="op">)</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">output</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">upload</span><span class="op">(</span><span class="va">tmp_file</span>, <span class="st">"fsetosa.png"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/upload_cnt.html">upload_cnt</a></span><span class="op">(</span><span class="va">tmp_file</span>, <span class="st">"fsetosa.png"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>

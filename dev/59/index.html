@@ -102,7 +102,7 @@
 <span></span>
 <span><span class="co"># Remove a file</span></span>
 <span><span class="va">con</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/remove_cnt.html">remove_cnt</a></span><span class="op">(</span><span class="st">"file_name.csv"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/remove_cnt.html">remove_cnt</a></span><span class="op">(</span><span class="st">"iris.rds"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage-with-connector-package">Usage with connector package<a class="anchor" aria-label="anchor" href="#usage-with-connector-package"></a>
@@ -118,19 +118,18 @@
 <span><span class="va">connector</span> <span class="op">&lt;-</span> <span class="fu">connector</span><span class="fu">::</span><span class="fu"><a href="https://novonordisk-opensource.github.io/connector/reference/connect.html" class="external-link">connect</a></span><span class="op">(</span><span class="va">yaml</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># List content</span></span>
-<span><span class="va">connector</span><span class="op">$</span><span class="va">test</span> <span class="op">|&gt;</span></span>
+<span><span class="va">connector</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get SharePoint connection object</span></span>
-<span><span class="va">connector</span><span class="op">$</span><span class="va">test</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">get_conn</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">connector</span><span class="op">$</span><span class="va">adam</span><span class="op">$</span><span class="fu">get_conn</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Write a file</span></span>
-<span><span class="va">connector</span><span class="op">$</span><span class="va">test</span> <span class="op">|&gt;</span></span>
+<span><span class="va">connector</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"Test/iris.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Read a file</span></span>
-<span><span class="va">connector</span><span class="op">$</span><span class="va">test</span> <span class="op">|&gt;</span></span>
+<span><span class="va">connector</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"Test/iris.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
