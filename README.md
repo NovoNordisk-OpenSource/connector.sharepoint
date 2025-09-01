@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/novonordisk-OpenSource/connector.sharepoint/actions/workflows/check_and_co.yaml/badge.svg)](https://github.com/novonordisk-OpenSource/connector.sharepoint/actions/workflows/check_and_co.yaml)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test
+coverage](https://codecov.io/gh/NovoNordisk-OpenSource/connector.sharepoint/graph/badge.svg)](https://app.codecov.io/gh/NovoNordisk-OpenSource/connector.sharepoint)
 <!-- badges: end -->
 
 The connector.sharepoint package provides a convenient interface for
