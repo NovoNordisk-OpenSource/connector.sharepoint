@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector.sharepoint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,81 @@
       <small>Source: <a href="https://github.com/novonordisk-opensource/connector.sharepoint/blob/feat/align_connector/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.6" id="connectorsharepoint-006">connector.sharepoint 0.0.6<a class="anchor" aria-label="anchor" href="#connectorsharepoint-006"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-0-6">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-6"></a></h3>
+<ul><li>Fix README.md documentation to use correct factory function <code><a href="../reference/connector_sharepoint.html">connector_sharepoint()</a></code> instead of deprecated <code><a href="../reference/ConnectorSharepoint.html">ConnectorSharepoint()</a></code> constructor</li>
+</ul></div>
+<div class="section level3">
+<h3 id="enhancement-0-0-6">Enhancement<a class="anchor" aria-label="anchor" href="#enhancement-0-0-6"></a></h3>
+<ul><li>Replace <code>options</code> package with <code>zephyr</code> package for configuration management</li>
+<li>Update <code>ConnectorSharepoint</code> class to use <code>""</code> as a default value for folder. Also, add private field called <code>.conn</code>.</li>
+<li>Update sharepoint methods so they use only <code>ms_drive()</code> class from <code>Microsoft365R</code> package.</li>
+<li>Add logging support for SharePoint connector operations
+<ul><li>Add <code><a href="../reference/log_read_connector.html">log_read_connector.ConnectorSharepoint()</a></code> method for logging read operations</li>
+<li>Add <code><a href="../reference/log_write_connector.html">log_write_connector.ConnectorSharepoint()</a></code> method for logging write operations</li>
+<li>Add <code><a href="../reference/log_remove_connector.html">log_remove_connector.ConnectorSharepoint()</a></code> method for logging delete operations</li>
+<li>Logging functionality uses <code>whirl</code> package for structured logging</li>
+<li>Log messages include file name and SharePoint site path information</li>
+</ul></li>
+<li>Add vignette documenting basic connector methods
+<ul><li>Add <code>vignettes/articles/Consistent-API.Rmd</code> explaining connector package method return values</li>
+<li>Provides detailed explanations of each method’s purpose and return value</li>
+<li>Includes SharePoint-specific considerations for authentication and permissions</li>
+</ul></li>
+<li>Update configuration example file in <code>inst/config/example_yaml.yaml</code> to reflect new parameter names and defaults</li>
+<li>Update logo</li>
+</ul></div>
+<div class="section level3">
+<h3 id="breaking-changes-0-0-6">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-0-6"></a></h3>
+<div class="section level4">
+<h4 id="parameter-renaming-for-file-transfer-methods-0-0-6">Parameter Renaming for File Transfer Methods<a class="anchor" aria-label="anchor" href="#parameter-renaming-for-file-transfer-methods-0-0-6"></a></h4>
+<p>The following methods have had their parameters renamed to provide consistent <code>src</code> (source) and <code>dest</code> (destination) naming:</p>
+<ul><li>
+<code><a href="../reference/upload_cnt.html">upload_cnt()</a></code>: <code>file</code> → <code>src</code>, <code>name</code> → <code>dest</code>
+</li>
+<li>
+<code><a href="../reference/download_cnt.html">download_cnt()</a></code>: <code>name</code> → <code>src</code>, <code>file</code> → <code>dest</code>
+</li>
+<li>
+<code><a href="../reference/upload_directory_cnt.html">upload_directory_cnt()</a></code>: <code>dir</code> → <code>src</code>, <code>name</code> → <code>dest</code>
+</li>
+<li>
+<code><a href="../reference/download_directory_cnt.html">download_directory_cnt()</a></code>: <code>name</code> → <code>src</code>, <code>dir</code> → <code>dest</code>
+</li>
+</ul><div class="section level5">
+<h5 id="migration-examples-0-0-6">Migration Examples<a class="anchor" aria-label="anchor" href="#migration-examples-0-0-6"></a></h5>
+<p><strong>Before:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Upload file</span></span>
+<span><span class="va">cs</span><span class="op">$</span><span class="fu">upload_cnt</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"local_file.csv"</span>, name <span class="op">=</span> <span class="st">"remote_file.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Download file</span></span>
+<span><span class="va">cs</span><span class="op">$</span><span class="fu">download_cnt</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"remote_file.csv"</span>, file <span class="op">=</span> <span class="st">"local_file.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Upload directory</span></span>
+<span><span class="va">cs</span><span class="op">$</span><span class="fu">upload_directory_cnt</span><span class="op">(</span>dir <span class="op">=</span> <span class="st">"local_folder"</span>, name <span class="op">=</span> <span class="st">"remote_folder"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Download directory</span></span>
+<span><span class="va">cs</span><span class="op">$</span><span class="fu">download_directory_cnt</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"remote_folder"</span>, dir <span class="op">=</span> <span class="st">"local_folder"</span><span class="op">)</span></span></code></pre></div>
+<p><strong>After:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Upload file</span></span>
+<span><span class="va">cs</span><span class="op">$</span><span class="fu">upload_cnt</span><span class="op">(</span>src <span class="op">=</span> <span class="st">"local_file.csv"</span>, dest <span class="op">=</span> <span class="st">"remote_file.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Download file</span></span>
+<span><span class="va">cs</span><span class="op">$</span><span class="fu">download_cnt</span><span class="op">(</span>src <span class="op">=</span> <span class="st">"remote_file.csv"</span>, dest <span class="op">=</span> <span class="st">"local_file.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Upload directory</span></span>
+<span><span class="va">cs</span><span class="op">$</span><span class="fu">upload_directory_cnt</span><span class="op">(</span>src <span class="op">=</span> <span class="st">"local_folder"</span>, dest <span class="op">=</span> <span class="st">"remote_folder"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Download directory</span></span>
+<span><span class="va">cs</span><span class="op">$</span><span class="fu">download_directory_cnt</span><span class="op">(</span>src <span class="op">=</span> <span class="st">"remote_folder"</span>, dest <span class="op">=</span> <span class="st">"local_folder"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.5" id="connectorsharepoint-005">connector.sharepoint 0.0.5<a class="anchor" aria-label="anchor" href="#connectorsharepoint-005"></a></h2>
 <div class="section level3">
