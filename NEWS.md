@@ -1,9 +1,13 @@
-# connector.sharepoint dev
+# connector.sharepoint 0.0.6
 
 ## Bug Fixes
 * Fix README.md documentation to use correct factory function `connector_sharepoint()` instead of deprecated `ConnectorSharepoint()` constructor
 
 ## Enhancement
+* Replace `options` package with `zephyr` package for configuration management
+* Update `ConnectorSharepoint` class to use `""` as a default value for folder.
+Also, add private field called `.conn`.
+* Update sharepoint methods so they use only `ms_drive()` class from `Microsoft365R` package.
 * Add logging support for SharePoint connector operations
   - Add `log_read_connector.ConnectorSharepoint()` method for logging read operations
   - Add `log_write_connector.ConnectorSharepoint()` method for logging write operations
@@ -14,6 +18,8 @@
   - Add `vignettes/articles/Consistent-API.Rmd` explaining connector package method return values
   - Provides detailed explanations of each method's purpose and return value
   - Includes SharePoint-specific considerations for authentication and permissions
+* Update configuration example file in `inst/config/example_yaml.yaml` to reflect new parameter names and defaults
+* Update logo
 
 ## Breaking Changes
 
@@ -57,12 +63,6 @@ cs$upload_directory_cnt(src = "local_folder", dest = "remote_folder")
 # Download directory
 cs$download_directory_cnt(src = "remote_folder", dest = "local_folder")
 ```
-
-## Enhancement
-* Replace `options` package with `zephyr` package for configuration management
-* Update `ConnectorSharepoint` class to use `""` as a default value for folder.
-Also, add private field called `.conn`.
-* Update sharepoint methods so they use only `ms_drive()` class from `Microsoft365R` package.
 
 # connector.sharepoint 0.0.5
 
