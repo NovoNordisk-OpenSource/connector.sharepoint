@@ -10,7 +10,7 @@ repos:
         -    AzureAuth
         -    checkmate
         -    cli
-        -    connector
+        -    connector@1.0.0
         -    Microsoft365R
         -    R6
         -    tools
