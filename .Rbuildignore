@@ -1,6 +1,8 @@
+^CLAUDE\.md$
 ^LICENSE\.md$
 ^README\.Rmd$
 ^\.Rproj\.user$
+^\.claude$
 ^\.github$
 ^\.httr-oauth$
 ^\.lintr$
@@ -12,5 +14,3 @@
 ^dev$
 ^docs$
 ^pkgdown$
-^\.claude$
-^CLAUDE\.md$
