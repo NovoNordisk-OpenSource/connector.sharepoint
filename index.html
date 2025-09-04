@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Connect to Microsoft SharePoint easily • connector.sharepoint</title>
+<title>Expand Connector Package for Microsoft SharePoint • connector.sharepoint</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Connect to Microsoft SharePoint easily">
-<meta name="description" content="Help users manipulating sharepoint files and folders. Give them the same experience as the connector package.">
-<meta property="og:description" content="Help users manipulating sharepoint files and folders. Give them the same experience as the connector package.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Expand Connector Package for Microsoft SharePoint">
+<meta name="description" content="Expands the connector package and provides a convenient interface for accessing and interacting with SharePoint directly from R.">
+<meta property="og:description" content="Expands the connector package and provides a convenient interface for accessing and interacting with SharePoint directly from R.">
 <meta property="og:image" content="https://novonordisk-opensource.github.io/connector.sharepoint/logo.png">
 </head>
 <body>
@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">connector.sharepoint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/novonordisk-opensource/connector.sharepoint/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/NovoNordisk-OpenSource/connector.sharepoint/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -80,7 +80,7 @@
 </h2>
 <p>Package is meant to be used alongside <a href="https://novonordisk-opensource.github.io/connector/" class="external-link">connector</a> package, but it can be used independently as well. Here is an example of how to connect to a SharePoint site and retrieve data:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/novonordisk-opensource/connector.sharepoint" class="external-link">connector.sharepoint</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector.sharepoint">connector.sharepoint</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Connect to SharePoint</span></span>
 <span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connector_sharepoint.html">connector_sharepoint</a></span><span class="op">(</span>site_url <span class="op">=</span> <span class="st">"sharepoint_url"</span><span class="op">)</span></span></code></pre></div>
@@ -102,7 +102,7 @@
 <span></span>
 <span><span class="co"># Remove a file</span></span>
 <span><span class="va">con</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/remove_cnt.html">remove_cnt</a></span><span class="op">(</span><span class="st">"file_name.csv"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/remove_cnt.html">remove_cnt</a></span><span class="op">(</span><span class="st">"iris.rds"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage-with-connector-package">Usage with connector package<a class="anchor" aria-label="anchor" href="#usage-with-connector-package"></a>
@@ -118,19 +118,18 @@
 <span><span class="va">connector</span> <span class="op">&lt;-</span> <span class="fu">connector</span><span class="fu">::</span><span class="fu"><a href="https://novonordisk-opensource.github.io/connector/reference/connect.html" class="external-link">connect</a></span><span class="op">(</span><span class="va">yaml</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># List content</span></span>
-<span><span class="va">connector</span><span class="op">$</span><span class="va">test</span> <span class="op">|&gt;</span></span>
+<span><span class="va">connector</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get SharePoint connection object</span></span>
-<span><span class="va">connector</span><span class="op">$</span><span class="va">test</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">get_conn</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">connector</span><span class="op">$</span><span class="va">adam</span><span class="op">$</span><span class="fu">get_conn</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Write a file</span></span>
-<span><span class="va">connector</span><span class="op">$</span><span class="va">test</span> <span class="op">|&gt;</span></span>
+<span><span class="va">connector</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"Test/iris.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Read a file</span></span>
-<span><span class="va">connector</span><span class="op">$</span><span class="va">test</span> <span class="op">|&gt;</span></span>
+<span><span class="va">connector</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"Test/iris.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -147,7 +146,8 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/novonordisk-opensource/connector.sharepoint/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/NovoNordisk-OpenSource/connector.sharepoint/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/NovoNordisk-OpenSource/connector.sharepoint/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -170,8 +170,10 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Cervan Girard <br><small class="roles"> Author, maintainer </small>   </li>
-<li>Vladimir Obucina <br><small class="roles"> Author </small> <a href="https://orcid.org/0009-0008-2608-2661" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Vladimir Obucina <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0009-0008-2608-2661" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Cervan Girard <br><small class="roles"> Author </small>   </li>
+<li>Aksel Thomsen <br><small class="roles"> Author </small>   </li>
+<li>Steffen Falgreen Larsen <br><small class="roles"> Author </small>   </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -190,7 +192,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Cervan Girard, Vladimir Obucina.</p>
+  <p>Developed by Vladimir Obucina, Cervan Girard, Aksel Thomsen, Steffen Falgreen Larsen.</p>
 </div>
 
 <div class="pkgdown-footer-right">
