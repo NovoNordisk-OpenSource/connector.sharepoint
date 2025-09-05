@@ -14,33 +14,33 @@ About the token, you can retrieve it by following the guideline in your
 enterprise.
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# Connect to Sharepoint
-cs <- ConnectorSharepoint$new(
-  site_url = Sys.getenv("SHAREPOINT_SITE_URL")
-)
+\dontrun{
+  # Connect to Sharepoint
+  cs <- ConnectorSharepoint$new(
+    site_url = Sys.getenv("SHAREPOINT_SITE_URL")
+  )
 
-cs
+  cs
 
-# List content
-cs$list_content_cnt()
+  # List content
+  cs$list_content_cnt()
 
-# Write to the connector
-cs$write_cnt(iris, "iris.rds")
+  # Write to the connector
+    cs$write_cnt(iris, "iris.rds")
 
-# Check it is there
-cs$list_content_cnt()
+  # Check it is there
+  cs$list_content_cnt()
 
-# Read the result back
-cs$read_cnt("iris.rds") |>
-  head()
+  # Read the result back
+  cs$read_cnt("iris.rds") |>
+    head()
 
-# Remove a file or directory
-cs$remove_cnt("iris.rds")
+  # Remove a file or directory
+  cs$remove_cnt("iris.rds")
 
-# Check it is there
-cs$list_content_cnt()
-\dontshow{\}) # examplesIf}
+  # Check it is there
+  cs$list_content_cnt()
+}
 }
 \section{Super classes}{
 \code{\link[connector:Connector]{connector::Connector}} -> \code{\link[connector:ConnectorFS]{connector::ConnectorFS}} -> \code{ConnectorSharepoint}

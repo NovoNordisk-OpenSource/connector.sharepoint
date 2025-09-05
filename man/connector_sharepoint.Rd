@@ -38,17 +38,18 @@ custom connection object for easier dispatch of new s3 methods,
 while still inheriting the methods from the \link{ConnectorSharepoint} object.
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# Connect
-cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"))
-cs
+\dontrun{
+  # Connect
+  cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"))
+  cs
 
-# Create subclass connection
-cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"),
-  extra_class = "subclass"
-)
+  # Create subclass connection
+  cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"),
+    extra_class = "subclass"
+  )
 
-cs_subclass
-class(cs_subclass)
-\dontshow{\}) # examplesIf}
+  cs_subclass
+  class(cs_subclass)
+
+}
 }

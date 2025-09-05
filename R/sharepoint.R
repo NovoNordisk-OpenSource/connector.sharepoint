@@ -18,19 +18,21 @@
 #' custom connection object for easier dispatch of new s3 methods,
 #' while still inheriting the methods from the [ConnectorSharepoint] object.
 #'
-#' @examplesIf FALSE
-#' # Connect
-#' cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"))
-#' cs
+#' @examples
+#' \dontrun{
+#'   # Connect
+#'   cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"))
+#'   cs
 #'
-#' # Create subclass connection
-#' cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"),
-#'   extra_class = "subclass"
-#' )
+#'   # Create subclass connection
+#'   cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"),
+#'     extra_class = "subclass"
+#'   )
 #'
-#' cs_subclass
-#' class(cs_subclass)
+#'   cs_subclass
+#'   class(cs_subclass)
 #'
+#' }
 #' @export
 connector_sharepoint <- function(
   site_url,
@@ -61,33 +63,34 @@ connector_sharepoint <- function(
 #' About the token, you can retrieve it by following the guideline in your
 #' enterprise.
 #'
-#' @examplesIf FALSE
-#' # Connect to Sharepoint
-#' cs <- ConnectorSharepoint$new(
-#'   site_url = Sys.getenv("SHAREPOINT_SITE_URL")
-#' )
+#' @examples
+#' \dontrun{
+#'   # Connect to Sharepoint
+#'   cs <- ConnectorSharepoint$new(
+#'     site_url = Sys.getenv("SHAREPOINT_SITE_URL")
+#'   )
 #'
-#' cs
+#'   cs
 #'
-#' # List content
-#' cs$list_content_cnt()
+#'   # List content
+#'   cs$list_content_cnt()
 #'
-#' # Write to the connector
-#' cs$write_cnt(iris, "iris.rds")
+#'   # Write to the connector
+#'     cs$write_cnt(iris, "iris.rds")
 #'
-#' # Check it is there
-#' cs$list_content_cnt()
+#'   # Check it is there
+#'   cs$list_content_cnt()
 #'
-#' # Read the result back
-#' cs$read_cnt("iris.rds") |>
-#'   head()
+#'   # Read the result back
+#'   cs$read_cnt("iris.rds") |>
+#'     head()
 #'
-#' # Remove a file or directory
-#' cs$remove_cnt("iris.rds")
+#'   # Remove a file or directory
+#'   cs$remove_cnt("iris.rds")
 #'
-#' # Check it is there
-#' cs$list_content_cnt()
-#'
+#'   # Check it is there
+#'   cs$list_content_cnt()
+#' }
 #' @export
 ConnectorSharepoint <- R6::R6Class(
   classname = "ConnectorSharepoint",
