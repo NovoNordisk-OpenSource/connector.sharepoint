@@ -19,7 +19,12 @@ test_that("log_read_connector for sharepoint sites logs correct message", {
   log_read_connector.ConnectorSharepoint(sharepoint_connector, "test.csv")
 
   # Verify log_read was called with correct message
-  expected_msg <- glue::glue("test.csv @ {setup_site_url}/")
+  expected_msg <- glue::glue(
+    "test.csv @ path: {setup_site_url}/, ",
+    "driveType: {sharepoint_connector$get_conn()$properties$driveType}, ",
+    "id: {sharepoint_connector$get_conn()$properties$id}, ",
+    "description: {sharepoint_connector$get_conn()$properties$description}"
+  )
   mockery::expect_called(log_mock, 1)
   mockery::expect_args(log_mock, 1, expected_msg)
 })
@@ -40,7 +45,13 @@ test_that("log_write_connector for sharepoint sites logs correct message", {
   )
 
   # Verify log_write was called with correct message
-  expected_msg <- glue::glue("test.csv @ {setup_site_url}/")
+  # Verify log_read was called with correct message
+  expected_msg <- glue::glue(
+    "test.csv @ path: {setup_site_url}/, ",
+    "driveType: {sharepoint_connector$get_conn()$properties$driveType}, ",
+    "id: {sharepoint_connector$get_conn()$properties$id}, ",
+    "description: {sharepoint_connector$get_conn()$properties$description}"
+  )
   mockery::expect_called(log_mock, 1)
   mockery::expect_args(log_mock, 1, expected_msg)
 })
@@ -61,7 +72,13 @@ test_that("log_remove_connector for sharepoint sites logs correct message", {
   )
 
   # Verify log_delete was called with correct message
-  expected_msg <- glue::glue("test.csv @ {setup_site_url}/")
+  # Verify log_read was called with correct message
+  expected_msg <- glue::glue(
+    "test.csv @ path: {setup_site_url}/, ",
+    "driveType: {sharepoint_connector$get_conn()$properties$driveType}, ",
+    "id: {sharepoint_connector$get_conn()$properties$id}, ",
+    "description: {sharepoint_connector$get_conn()$properties$description}"
+  )
   mockery::expect_called(log_mock, 1)
   mockery::expect_args(log_mock, 1, expected_msg)
 })
