@@ -26,7 +26,7 @@ enterprise.
   cs$list_content_cnt()
 
   # Write to the connector
-    cs$write_cnt(iris, "iris.rds")
+  cs$write_cnt(iris, "iris.rds")
 
   # Check it is there
   cs$list_content_cnt()
@@ -93,26 +93,26 @@ Initializes the ConnectorSharepoint class
   site_url,
   token = get_token(),
   folder = "",
-  ...,
-  extra_class = NULL
+  extra_class = NULL,
+  ...
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{site_url}}{The URL of the Sharepoint site}
+\item{\code{site_url}}{\link{character} The URL of the Sharepoint site}
 
-\item{\code{token}}{The Azure token. By default, it will be retrieve by
-\link{get_token}}
+\item{\code{token}}{\link{character} The Azure token. By default, it will be retrieve
+by \link{get_token}}
 
-\item{\code{folder}}{The path of the folder to interact with, if you
+\item{\code{folder}}{\link{character} The path of the folder to interact with, if you
 don't want to interact with the root folder "Documents"}
+
+\item{\code{extra_class}}{\link{character} Extra class added to the object.}
 
 \item{\code{...}}{Additional parameters to pass to the
 \code{\link[Microsoft365R]{get_sharepoint_site}} function}
-
-\item{\code{extra_class}}{\link{character} Extra class added to the object.}
 }
 \if{html}{\out{</div>}}
 }

@@ -1,18 +1,34 @@
-test_that("Testing General connector_sharepoint", {
-  ## Errors
-  ##### Not a sharepoint URL
+test_that("ConnectorSharepoint creation fails with invalid parameters", {
+  withr::local_options(list(connector.verbosity_level = "quiet"))
+
+  expect_error(ConnectorSharepoint$new(site_url = 1))
+
+  expect_error(ConnectorSharepoint$new(site_url = "not-a-url"))
+
+  expect_error(ConnectorSharepoint$new(
+    site_url = "https://valid-url.com",
+    token = "invalid"
+  ))
+
+  expect_error(ConnectorSharepoint$new(
+    site_url = "https://valid-url.com",
+    folder = 1
+  ))
+
+  expect_error(ConnectorSharepoint$new(
+    site_url = "https://valid-url.com",
+    extra_class = 1
+  ))
+})
+
+test_that("connector_sharepoint creation fails with invalid parameters", {
   expect_error(quiet_connect("https://www.google.com"))
-
-  #### Expected a http or https URL
   expect_error(quiet_connect("www.google.com"))
-
-  #### Not a expected token
   expect_error(quiet_connect(setup_site_url, token = "a weird token"))
 
   skip_on_ci()
 
   expect_true(inherits(setup_connector, "ConnectorSharepoint"))
-  ## Extra class
   extra_class_ <- quiet_connect(setup_site_url, extra_class = "test")
   expect_true(inherits(extra_class_, "test"))
 
@@ -29,23 +45,18 @@ test_that("Testing ConnectorSharepoint methods", {
     site_url = setup_site_url
   ))
 
-  # List content
   contents <- my_drive$list_content_cnt() |>
     expect_no_condition()
 
-  # Write a file
   my_drive$write_cnt(tbl_iris, "iris.csv") |>
     expect_equal(my_drive)
 
-  # Read a file
   my_drive$read_cnt("iris.csv", show_col_types = FALSE) |>
     expect_equal(tbl_iris)
 
-  # Remove a file or directory
   my_drive$remove_cnt("iris.csv", confirm = FALSE) |>
     expect_no_condition()
 
-  # Create a directory
   new_directory <- my_drive$create_directory_cnt("new_directory", open = FALSE)
 
   checkmate::expect_r6(new_directory, "ConnectorSharepoint")
@@ -69,7 +80,6 @@ test_that("Testing ConnectorSharepoint methods", {
 
   expect_true(length(contents) == 1)
 
-  # Remove a file or directory
   my_drive$remove_directory_cnt("new_directory", confirm = FALSE) |>
     expect_no_condition()
 })

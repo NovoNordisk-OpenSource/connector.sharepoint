@@ -3,12 +3,13 @@
 #' @description Create a new sharepoint connector object. See
 #' [ConnectorSharepoint] for details.
 #'
-#' @param site_url The URL of the Sharepoint site
-#' @param token The Azure token. By default, it will be retrieve by [get_token]
-#' @param folder The path of the folder to interact with, if you don't
-#' want to interact with the root folder "Documents" #nolint
-#' @param ... Additional parameters to pass to the [ConnectorSharepoint] object
+#' @param site_url [character] The URL of the Sharepoint site
+#' @param token [AzureAuth::AzureToken] The Azure token. By default, it will be
+#' retrieved by [get_token]
+#' @param folder [character] The path of the folder to interact with, if you
+#' don't want to interact with the root folder.
 #' @param extra_class [character] Extra class added to the object.
+#' @param ... Additional parameters to pass to the [ConnectorSharepoint] object
 #'
 #' @return A new [ConnectorSharepoint] object
 #'
@@ -17,6 +18,9 @@
 #' [ConnectorSharepoint] object. This can be useful if you want to create a
 #' custom connection object for easier dispatch of new s3 methods,
 #' while still inheriting the methods from the [ConnectorSharepoint] object.
+#'
+#' Authentication is handled through Azure tokens. See [get_token()] for details
+#' on token acquisition and management.
 #'
 #' @examples
 #' \dontrun{
@@ -38,15 +42,15 @@ connector_sharepoint <- function(
   site_url,
   token = get_token(),
   folder = "",
-  ...,
-  extra_class = NULL
+  extra_class = NULL,
+  ...
 ) {
   ConnectorSharepoint$new(
     site_url = site_url,
     token = token,
     folder = folder,
-    ...,
-    extra_class = extra_class
+    extra_class = extra_class,
+    ...
   )
 }
 
@@ -76,7 +80,7 @@ connector_sharepoint <- function(
 #'   cs$list_content_cnt()
 #'
 #'   # Write to the connector
-#'     cs$write_cnt(iris, "iris.rds")
+#'   cs$write_cnt(iris, "iris.rds")
 #'
 #'   # Check it is there
 #'   cs$list_content_cnt()
@@ -97,21 +101,21 @@ ConnectorSharepoint <- R6::R6Class(
   inherit = connector::ConnectorFS,
   public = list(
     #' @description Initializes the ConnectorSharepoint class
-    #' @param site_url The URL of the Sharepoint site
-    #' @param token The Azure token. By default, it will be retrieve by
-    #' [get_token]
-    #' @param folder The path of the folder to interact with, if you
+    #' @param site_url [character] The URL of the Sharepoint site
+    #' @param token [character] The Azure token. By default, it will be retrieve
+    #'  by [get_token]
+    #' @param folder [character] The path of the folder to interact with, if you
     #' don't want to interact with the root folder "Documents"
+    #' @param extra_class [character] Extra class added to the object.
     #' @param ... Additional parameters to pass to the
     #' \code{\link[Microsoft365R]{get_sharepoint_site}} function
-    #' @param extra_class [character] Extra class added to the object.
     #' @return A [ConnectorSharepoint] object
     initialize = function(
       site_url,
       token = get_token(),
       folder = "",
-      ...,
-      extra_class = NULL
+      extra_class = NULL,
+      ...
     ) {
       checkmate::assert_character(site_url)
       if (!grepl(pattern = "^http|^https", x = site_url)) {
