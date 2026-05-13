@@ -1,8 +1,7 @@
-# connector.sharepoint 0.0.6.9000
+# connector.sharepoint 0.0.7
 
 ## Enhancement
 * Improve testing logging functionalities
-* Improve documentation for CRAN submission
 
 # connector.sharepoint 0.0.6
 

@@ -1,6 +1,6 @@
 Package: connector.sharepoint
 Title: 'Microsoft SharePoint' Interface for the 'connector' Package
-Version: 0.0.6.9000
+Version: 0.0.7
 Authors@R: c(
     person("Vladimir", "Obucina", , "vlob@novonordisk.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0008-2608-2661")),
