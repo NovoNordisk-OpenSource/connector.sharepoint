@@ -12,7 +12,7 @@ log_read_connector.ConnectorSharepoint <- function(
   ...
 ) {
   rlang::check_installed("whirl")
-  msg <- paste0(name, " @ ", connector_object$path)
+  msg <- log_connector_message(connector_object, name, ...)
   whirl::log_read(msg)
 }
 
@@ -30,7 +30,7 @@ log_write_connector.ConnectorSharepoint <- function(
   ...
 ) {
   rlang::check_installed("whirl")
-  msg <- paste0(name, " @ ", connector_object$path)
+  msg <- log_connector_message(connector_object, name, ...)
   whirl::log_write(msg)
 }
 
@@ -48,7 +48,7 @@ log_remove_connector.ConnectorSharepoint <- function(
   ...
 ) {
   rlang::check_installed("whirl")
-  msg <- paste0(name, " @ ", connector_object$path)
+  msg <- log_connector_message(connector_object, name, ...)
   whirl::log_delete(msg)
 }
 
@@ -70,7 +70,7 @@ log_connector_message <- function(connector_object, name) {
     connector_object$get_conn()$properties$driveType,
     ", id: ",
     connector_object$get_conn()$properties$id,
-    ", description:",
+    ", description: ",
     connector_object$get_conn()$properties$description
   )
 }

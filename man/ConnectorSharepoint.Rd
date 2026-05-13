@@ -14,33 +14,33 @@ About the token, you can retrieve it by following the guideline in your
 enterprise.
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# Connect to Sharepoint
-cs <- ConnectorSharepoint$new(
-  site_url = Sys.getenv("SHAREPOINT_SITE_URL")
-)
+\dontrun{
+  # Connect to Sharepoint
+  cs <- ConnectorSharepoint$new(
+    site_url = Sys.getenv("SHAREPOINT_SITE_URL")
+  )
 
-cs
+  cs
 
-# List content
-cs$list_content_cnt()
+  # List content
+  cs$list_content_cnt()
 
-# Write to the connector
-cs$write_cnt(iris, "iris.rds")
+  # Write to the connector
+  cs$write_cnt(iris, "iris.rds")
 
-# Check it is there
-cs$list_content_cnt()
+  # Check it is there
+  cs$list_content_cnt()
 
-# Read the result back
-cs$read_cnt("iris.rds") |>
-  head()
+  # Read the result back
+  cs$read_cnt("iris.rds") |>
+    head()
 
-# Remove a file or directory
-cs$remove_cnt("iris.rds")
+  # Remove a file or directory
+  cs$remove_cnt("iris.rds")
 
-# Check it is there
-cs$list_content_cnt()
-\dontshow{\}) # examplesIf}
+  # Check it is there
+  cs$list_content_cnt()
+}
 }
 \section{Super classes}{
 \code{\link[connector:Connector]{connector::Connector}} -> \code{\link[connector:ConnectorFS]{connector::ConnectorFS}} -> \code{ConnectorSharepoint}
@@ -93,26 +93,26 @@ Initializes the ConnectorSharepoint class
   site_url,
   token = get_token(),
   folder = "",
-  ...,
-  extra_class = NULL
+  extra_class = NULL,
+  ...
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{site_url}}{The URL of the Sharepoint site}
+\item{\code{site_url}}{\link{character} The URL of the Sharepoint site}
 
-\item{\code{token}}{The Azure token. By default, it will be retrieve by
-\link{get_token}}
+\item{\code{token}}{\link{character} The Azure token. By default, it will be retrieve
+by \link{get_token}}
 
-\item{\code{folder}}{The path of the folder to interact with, if you
+\item{\code{folder}}{\link{character} The path of the folder to interact with, if you
 don't want to interact with the root folder "Documents"}
+
+\item{\code{extra_class}}{\link{character} Extra class added to the object.}
 
 \item{\code{...}}{Additional parameters to pass to the
 \code{\link[Microsoft365R]{get_sharepoint_site}} function}
-
-\item{\code{extra_class}}{\link{character} Extra class added to the object.}
 }
 \if{html}{\out{</div>}}
 }

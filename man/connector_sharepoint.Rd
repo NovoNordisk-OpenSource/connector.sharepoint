@@ -8,21 +8,22 @@ connector_sharepoint(
   site_url,
   token = get_token(),
   folder = "",
-  ...,
-  extra_class = NULL
+  extra_class = NULL,
+  ...
 )
 }
 \arguments{
-\item{site_url}{The URL of the Sharepoint site}
+\item{site_url}{\link{character} The URL of the Sharepoint site}
 
-\item{token}{The Azure token. By default, it will be retrieve by \link{get_token}}
+\item{token}{\link[AzureAuth:AzureToken]{AzureAuth::AzureToken} The Azure token. By default, it will be
+retrieved by \link{get_token}}
 
-\item{folder}{The path of the folder to interact with, if you don't
-want to interact with the root folder "Documents" #nolint}
-
-\item{...}{Additional parameters to pass to the \link{ConnectorSharepoint} object}
+\item{folder}{\link{character} The path of the folder to interact with, if you
+don't want to interact with the root folder.}
 
 \item{extra_class}{\link{character} Extra class added to the object.}
+
+\item{...}{Additional parameters to pass to the \link{ConnectorSharepoint} object}
 }
 \value{
 A new \link{ConnectorSharepoint} object
@@ -36,19 +37,23 @@ The \code{extra_class} parameter allows you to create a subclass of the
 \link{ConnectorSharepoint} object. This can be useful if you want to create a
 custom connection object for easier dispatch of new s3 methods,
 while still inheriting the methods from the \link{ConnectorSharepoint} object.
+
+Authentication is handled through Azure tokens. See \code{\link[=get_token]{get_token()}} for details
+on token acquisition and management.
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# Connect
-cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"))
-cs
+\dontrun{
+  # Connect
+  cs <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"))
+  cs
 
-# Create subclass connection
-cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"),
-  extra_class = "subclass"
-)
+  # Create subclass connection
+  cs_subclass <- connector_sharepoint(Sys.getenv("SHAREPOINT_SITE_URL"),
+    extra_class = "subclass"
+  )
 
-cs_subclass
-class(cs_subclass)
-\dontshow{\}) # examplesIf}
+  cs_subclass
+  class(cs_subclass)
+
+}
 }
