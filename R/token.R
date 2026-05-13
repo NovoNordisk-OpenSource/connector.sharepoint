@@ -30,7 +30,7 @@ get_token <- function(hash = get_default_hash()) {
 
   token <- tokens[[hash]]
 
-  return(token)
+  token
 }
 
 #' @noRd
