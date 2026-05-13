@@ -48,6 +48,6 @@ transferred recursively. Default: \code{FALSE}}
 \link{ConnectorSharepoint} object
 }
 \description{
-Addition list content methods for databricks connectors implemented for
+Addition list content methods for sharepoint connectors implemented for
 \code{\link[connector:upload_directory_cnt]{connector::upload_directory_cnt()}}:
 }

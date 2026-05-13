@@ -24,7 +24,7 @@ create_directory_cnt(connector_object, name, open = TRUE, ...)
 newly built directory
 }
 \description{
-Addition list content methods for databricks connectors implemented for
+Addition list content methods for sharepoint connectors implemented for
 \code{\link[connector:create_directory_cnt]{connector::create_directory_cnt()}}:
 
 \itemize{

@@ -40,7 +40,7 @@ See \link[connector]{connector-options} for details. Default can be set globally
 \link{invisible} connector_object.
 }
 \description{
-Addition write methods for databricks connectors implemented for
+Addition write methods for sharepoint connectors implemented for
 \code{\link[connector:write_cnt]{connector::write_cnt()}}:
 
 \itemize{

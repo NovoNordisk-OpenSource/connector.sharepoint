@@ -7,11 +7,17 @@
 get_token(hash = get_default_hash())
 }
 \arguments{
-\item{hash}{The hash of the token to use. By default, use this function to retrieve it \link{get_default_hash}. If not found, use the first token found. #nolint}
+\item{hash}{The hash of the token to use. By default, use this function to
+retrieve it \link{get_default_hash}. If not found, use the first token found.}
 }
 \value{
-A token
+An \link[AzureAuth:AzureToken]{AzureAuth::AzureToken} object
 }
 \description{
 Retrieve a token from the AzureAuth package
+}
+\examples{
+\dontrun{
+token <- get_token()
+}
 }

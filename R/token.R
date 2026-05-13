@@ -1,8 +1,14 @@
 #' Retrieve a token from the AzureAuth package
 #'
-#' @param hash The hash of the token to use. By default, use this function to retrieve it [get_default_hash]. If not found, use the first token found. #nolint
+#' @param hash The hash of the token to use. By default, use this function to
+#' retrieve it [get_default_hash]. If not found, use the first token found.
 #'
-#' @return A token
+#' @return An [AzureAuth::AzureToken] object
+#'
+#' @examples
+#' \dontrun{
+#' token <- get_token()
+#' }
 #' @export
 get_token <- function(hash = get_default_hash()) {
   checkmate::assert_character(hash, null.ok = TRUE)
@@ -75,6 +81,12 @@ get_tk_hash_sharepoint <- function() {
 #' 1. The user has set the environment variable SHAREPOINT_AZURE_HASH
 #' 2. The user has set the file .active_hash in the AzureR directory
 #'
+#' @return A character string with the token hash, or `NULL` if not found
+#'
+#' @examples
+#' \dontrun{
+#' hash <- get_default_hash()
+#' }
 #' @export
 get_default_hash <- function() {
   hash <- Sys.getenv("SHAREPOINT_AZURE_HASH")

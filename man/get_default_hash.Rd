@@ -6,10 +6,18 @@
 \usage{
 get_default_hash()
 }
+\value{
+A character string with the token hash, or \code{NULL} if not found
+}
 \description{
 Two solutions are possible:
 \enumerate{
 \item The user has set the environment variable SHAREPOINT_AZURE_HASH
 \item The user has set the file .active_hash in the AzureR directory
+}
+}
+\examples{
+\dontrun{
+hash <- get_default_hash()
 }
 }
