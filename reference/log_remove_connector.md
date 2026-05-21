@@ -4,7 +4,7 @@
   Implementation of the `log_remove_connector` function for the
   ConnectorSharepoint class.
 
-Addition log remove methods for databricks connectors implemented for
+Addition log remove methods for sharepoint connectors implemented for
 [`connector::log_remove_connector()`](https://novonordisk-opensource.github.io/connector/reference/log-functions.html):
 
 ## Usage

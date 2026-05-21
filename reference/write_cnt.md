@@ -1,6 +1,6 @@
 # Write content to the connector
 
-Addition write methods for databricks connectors implemented for
+Addition write methods for sharepoint connectors implemented for
 [`connector::write_cnt()`](https://novonordisk-opensource.github.io/connector/reference/write_cnt.html):
 
 - [ConnectorSharepoint](https://novonordisk-opensource.github.io/connector.sharepoint/reference/ConnectorSharepoint.md):

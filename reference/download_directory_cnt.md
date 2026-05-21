@@ -1,6 +1,6 @@
 # Download a directory
 
-Addition list content methods for databricks connectors implemented for
+Addition list content methods for sharepoint connectors implemented for
 [`connector::download_directory_cnt()`](https://novonordisk-opensource.github.io/connector/reference/download_directory_cnt.html):
 
 ## Usage
@@ -35,7 +35,7 @@ download_directory_cnt(
 
 - ...:
 
-  additional paramaeters passed on to `download_folder()` method of
+  additional parameters passed on to `download_folder()` method of
   [`ms_drive`](https://rdrr.io/pkg/Microsoft365R/man/ms_drive.html)
   class.
 

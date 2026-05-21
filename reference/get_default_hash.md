@@ -11,3 +11,15 @@ Two solutions are possible:
 ``` r
 get_default_hash()
 ```
+
+## Value
+
+A character string with the token hash, or `NULL` if not found
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+hash <- get_default_hash()
+} # }
+```

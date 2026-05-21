@@ -1,6 +1,6 @@
 # List available content from the connector
 
-Addition list content methods for databricks connectors implemented for
+Addition list content methods for sharepoint connectors implemented for
 [`connector::list_content_cnt()`](https://novonordisk-opensource.github.io/connector/reference/list_content_cnt.html):
 
 - [ConnectorSharepoint](https://novonordisk-opensource.github.io/connector.sharepoint/reference/ConnectorSharepoint.md):

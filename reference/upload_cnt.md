@@ -1,6 +1,6 @@
 # Upload content to the connector
 
-Addition list content methods for databricks connectors implemented for
+Addition list content methods for sharepoint connectors implemented for
 [`connector::upload_cnt()`](https://novonordisk-opensource.github.io/connector/reference/upload_cnt.html):
 
 - [ConnectorSharepoint](https://novonordisk-opensource.github.io/connector.sharepoint/reference/ConnectorSharepoint.md):

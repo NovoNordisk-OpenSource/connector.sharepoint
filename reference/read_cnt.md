@@ -1,6 +1,6 @@
 # Read content from the connector
 
-Addition read methods for databricks connectors implemented for
+Addition read methods for sharepoint connectors implemented for
 [`connector::read_cnt()`](https://novonordisk-opensource.github.io/connector/reference/read_cnt.html):
 
 - [ConnectorSharepoint](https://novonordisk-opensource.github.io/connector.sharepoint/reference/ConnectorSharepoint.md):

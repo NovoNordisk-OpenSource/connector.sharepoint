@@ -2,9 +2,8 @@
 
 The connector.sharepoint package provides a convenient interface for
 accessing and interacting with Microsoft SharePoint sites directly from
-R. This vignette will guide you through the process of connecting to a
-SharePoint site, retrieving data, and performing various operations
-using this package.
+R. Below you will find instructions for connecting to a SharePoint site,
+retrieving data, and performing various operations using this package.
 
 This package is meant to be used with
 [connector](https://novonordisk-opensource.github.io/connector/)

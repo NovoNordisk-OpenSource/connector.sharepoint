@@ -4,7 +4,7 @@
   Implementation of the `log_write_connector` function for the
   ConnectorSharepoint class.
 
-Addition log write methods for databricks connectors implemented for
+Addition log write methods for sharepoint connectors implemented for
 [`connector::log_write_connector()`](https://novonordisk-opensource.github.io/connector/reference/log-functions.html):
 
 ## Usage

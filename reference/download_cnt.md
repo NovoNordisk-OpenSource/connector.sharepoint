@@ -1,6 +1,6 @@
 # Download content from the connector
 
-Addition list content methods for databricks connectors implemented for
+Addition list content methods for sharepoint connectors implemented for
 [`connector::download_cnt()`](https://novonordisk-opensource.github.io/connector/reference/download_cnt.html):
 
 - [ConnectorSharepoint](https://novonordisk-opensource.github.io/connector.sharepoint/reference/ConnectorSharepoint.md):

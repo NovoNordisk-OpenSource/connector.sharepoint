@@ -1,6 +1,6 @@
 # Use dplyr verbs to interact with the remote database table
 
-Addition tbl methods for databricks connectors implemented for
+Addition tbl methods for sharepoint connectors implemented for
 [`connector::tbl_cnt()`](https://novonordisk-opensource.github.io/connector/reference/tbl_cnt.html):
 
 - [ConnectorSharepoint](https://novonordisk-opensource.github.io/connector.sharepoint/reference/ConnectorSharepoint.md):

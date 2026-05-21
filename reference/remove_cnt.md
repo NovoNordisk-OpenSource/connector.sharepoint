@@ -1,6 +1,6 @@
 # Remove content from the connector
 
-Addition remove methods for databricks connectors implemented for
+Addition remove methods for sharepoint connectors implemented for
 [`connector::remove_cnt()`](https://novonordisk-opensource.github.io/connector/reference/remove_cnt.html):
 
 - [ConnectorSharepoint](https://novonordisk-opensource.github.io/connector.sharepoint/reference/ConnectorSharepoint.md):

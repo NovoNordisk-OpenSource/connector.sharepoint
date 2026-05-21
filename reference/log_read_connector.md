@@ -4,7 +4,7 @@
   Implementation of the `log_read_connector` function for the
   ConnectorSharepoint class.
 
-Addition log read methods for databricks connectors implemented for
+Addition log read methods for sharepoint connectors implemented for
 [`connector::log_read_connector()`](https://novonordisk-opensource.github.io/connector/reference/log-functions.html):
 
 ## Usage
