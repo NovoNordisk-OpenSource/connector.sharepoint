@@ -49,8 +49,7 @@ test_directory_name <- function(prefix = "test_", length = 10) {
     sample(c(letters, LETTERS, 0:9), length, replace = TRUE),
     collapse = ""
   )
-  result <- paste0(prefix, random_string)
-  return(result)
+  paste0(prefix, random_string)
 }
 
 test_file_name <- function(prefix = "test_", suffix = ".csv", length = 10) {
@@ -58,8 +57,7 @@ test_file_name <- function(prefix = "test_", suffix = ".csv", length = 10) {
     sample(c(letters, LETTERS, 0:9), length, replace = TRUE),
     collapse = ""
   )
-  result <- paste0(prefix, random_string, suffix)
-  return(result)
+  paste0(prefix, random_string, suffix)
 }
 
 # make iris a tbl

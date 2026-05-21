@@ -23,7 +23,7 @@ download_cnt(connector_object, src, dest = basename(src), ...)
 \link{ConnectorSharepoint} object
 }
 \description{
-Addition list content methods for databricks connectors implemented for
+Addition list content methods for sharepoint connectors implemented for
 \code{\link[connector:download_cnt]{connector::download_cnt()}}:
 
 \itemize{

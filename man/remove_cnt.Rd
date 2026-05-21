@@ -21,7 +21,7 @@ remove_cnt(connector_object, name, ...)
 \link{ConnectorSharepoint} object
 }
 \description{
-Addition remove methods for databricks connectors implemented for
+Addition remove methods for sharepoint connectors implemented for
 \code{\link[connector:remove_cnt]{connector::remove_cnt()}}:
 
 \itemize{

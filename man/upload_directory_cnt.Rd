@@ -38,7 +38,7 @@ See \link[connector]{connector-options} for details. Default can be set globally
 
 \item{open}{\link{logical} Open the directory as a new connector object.}
 
-\item{...}{additional paramaeters passed on to \code{upload_folder()} method of
+\item{...}{additional parameters passed on to \code{upload_folder()} method of
 \code{\link[Microsoft365R]{ms_drive}} class.}
 
 \item{recursive}{If \code{recursive} is \code{TRUE}, all subfolders will also be
@@ -48,6 +48,6 @@ transferred recursively. Default: \code{FALSE}}
 \link{ConnectorSharepoint} object
 }
 \description{
-Addition list content methods for databricks connectors implemented for
+Addition list content methods for sharepoint connectors implemented for
 \code{\link[connector:upload_directory_cnt]{connector::upload_directory_cnt()}}:
 }

@@ -35,7 +35,7 @@ return value depends on the specific method implementation, typically:
 function for the ConnectorSharepoint class.
 }
 
-Addition log write methods for databricks connectors implemented for
+Addition log write methods for sharepoint connectors implemented for
 \code{\link[connector:log-functions]{connector::log_write_connector()}}:
 }
 \details{
