@@ -243,7 +243,7 @@ tbl_cnt.ConnectorSharepoint <- function(connector_object, name, ...) {
 #' @rdname upload_directory_cnt
 #' @param src The local directory path to upload
 #' @param dest The destination directory name/path in SharePoint
-#' @param ... additional paramaeters passed on to `upload_folder()` method of
+#' @param ... additional parameters passed on to `upload_folder()` method of
 #' \code{\link[Microsoft365R]{ms_drive}} class.
 #' @param recursive  If `recursive` is `TRUE`, all subfolders will also be
 #' transferred recursively. Default: `FALSE`
@@ -286,7 +286,7 @@ upload_directory_cnt.ConnectorSharepoint <- function(
 #' @rdname download_directory_cnt
 #' @param src The name of the directory to download from SharePoint
 #' @param dest The local directory path to save the downloaded content
-#' @param ... additional paramaeters passed on to `download_folder()` method of
+#' @param ... additional parameters passed on to `download_folder()` method of
 #' \code{\link[Microsoft365R]{ms_drive}} class.
 #' @param recursive  If `recursive` is `TRUE`, all subfolders will also be
 #' transferred recursively. Default: `FALSE`

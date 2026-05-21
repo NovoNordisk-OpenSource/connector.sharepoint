@@ -22,7 +22,7 @@ download_directory_cnt(connector_object, src, dest = basename(src), ...)
 
 \item{dest}{The local directory path to save the downloaded content}
 
-\item{...}{additional paramaeters passed on to \code{download_folder()} method of
+\item{...}{additional parameters passed on to \code{download_folder()} method of
 \code{\link[Microsoft365R]{ms_drive}} class.}
 
 \item{recursive}{If \code{recursive} is \code{TRUE}, all subfolders will also be

@@ -1,4 +1,4 @@
-# connector.sharepoint 0.0.7
+# connector.sharepoint dev
 
 ## Enhancement
 * Improve testing logging functionalities
