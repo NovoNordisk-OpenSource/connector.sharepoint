@@ -1,11 +1,5 @@
 # Changelog
 
-## connector.sharepoint 0.0.7
-
-### Enhancement
-
-- Improve testing logging functionalities
-
 ## connector.sharepoint 0.0.6
 
 ### Bug Fixes

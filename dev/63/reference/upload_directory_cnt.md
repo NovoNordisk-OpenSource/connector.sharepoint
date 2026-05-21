@@ -57,7 +57,7 @@ upload_directory_cnt(
 
 - ...:
 
-  additional paramaeters passed on to `upload_folder()` method of
+  additional parameters passed on to `upload_folder()` method of
   [`ms_drive`](https://rdrr.io/pkg/Microsoft365R/man/ms_drive.html)
   class.
 
