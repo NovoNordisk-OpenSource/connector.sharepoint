@@ -1,0 +1,111 @@
+# connector.sharepoint
+
+The connector.sharepoint package provides a convenient interface for
+accessing and interacting with Microsoft SharePoint sites directly from
+R. Below you will find instructions for connecting to a SharePoint site,
+retrieving data, and performing various operations using this package.
+
+This package is meant to be used with
+[connector](https://novonordisk-opensource.github.io/connector/)
+package, which provides a common interface for interacting with various
+data sources. The connector.sharepoint package extends the connector
+package to support Microsoft SharePoint sites.
+
+## Installation
+
+You can install the connector.sharepoint package using the following
+command:
+
+``` r
+
+# Install from CRAN
+install.packages("connector.sharepoint")
+
+# Alternatively, you can install the development version from GitHub:
+devtools::install_github("novonordisk-OpenSource/connector.sharepoint")
+```
+
+## Usage
+
+Package is meant to be used alongside
+[connector](https://novonordisk-opensource.github.io/connector/)
+package, but it can be used independently as well. Here is an example of
+how to connect to a SharePoint site and retrieve data:
+
+``` r
+
+library(connector.sharepoint)
+
+# Connect to SharePoint
+con <- connector_sharepoint(site_url = "sharepoint_url")
+```
+
+When connecting to SharePoint, you need to provide the URL of the
+SharePoint site. By default, token is retrieved using
+[AzureAuth::get_azure_token()](https://rdrr.io/cran/AzureAuth/man/get_azure_token.html)
+function, or it can be provided by the user, and it is used to
+authenticate the user to the SharePoint site.
+
+Example of how to use the connector object:
+
+``` r
+
+# List content
+con |>
+  list_content_cnt()
+
+# Write a file
+con |>
+  write_cnt(iris, "iris.rds")
+
+# Read a file
+con |>
+  read_cnt("iris.rds") |>
+  head()
+
+# Remove a file
+con |>
+  remove_cnt("iris.rds")
+```
+
+## Usage with connector package
+
+Here is an example how it can be used with connector package and
+configuration YAML file (for more information take a look at the
+connector package):
+
+``` r
+
+# Connect using configuration file
+yaml <- yaml::read_yaml(
+  system.file("config", "example_yaml.yaml", package = "connector.sharepoint"),
+  eval.expr = TRUE
+)
+
+connector <- connector::connect(yaml)
+
+# List content
+connector$adam |>
+  list_content_cnt()
+
+# Get SharePoint connection object
+connector$adam$get_conn()
+
+# Write a file
+connector$adam |>
+  write_cnt(iris, "Test/iris.csv")
+
+# Read a file
+connector$adam |>
+  read_cnt("Test/iris.csv")
+```
+
+## Contributing
+
+We welcome contributions to the connector.sharepoint package. If you
+have any suggestions or find any issues, please open an issue or submit
+a pull request on GitHub.
+
+## License
+
+This package is licensed under the Apache License.
