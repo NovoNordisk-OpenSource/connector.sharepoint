@@ -24,9 +24,10 @@ test_that("ConnectorSharepoint creation fails with invalid parameters", {
 test_that("connector_sharepoint creation fails with invalid parameters", {
   expect_error(quiet_connect("https://www.google.com"))
   expect_error(quiet_connect("www.google.com"))
-  expect_error(quiet_connect(setup_site_url, token = "a weird token"))
 
-  skip_on_ci()
+  skip_offline_test()
+
+  expect_error(quiet_connect(setup_site_url, token = "a weird token"))
 
   expect_true(inherits(setup_connector, "ConnectorSharepoint"))
   extra_class_ <- quiet_connect(setup_site_url, extra_class = "test")
@@ -39,8 +40,9 @@ test_that("connector_sharepoint creation fails with invalid parameters", {
   expect_error(setup_connector$path <- "new_path_name")
 })
 
+skip_offline_test()
+
 test_that("Testing ConnectorSharepoint methods", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(
     site_url = setup_site_url
   ))
@@ -85,7 +87,6 @@ test_that("Testing ConnectorSharepoint methods", {
 })
 
 test_that("Testing ConnectorSharepoint methods with a specific folder", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(
     site_url = setup_site_url
   ))
@@ -113,7 +114,6 @@ test_that("Testing ConnectorSharepoint methods with a specific folder", {
 })
 
 test_that("Testing ConnectorSharepoint specific outputs for methods", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(
     site_url = setup_site_url
   ))
@@ -207,7 +207,6 @@ test_that("Testing ConnectorSharepoint specific outputs for methods", {
 })
 
 test_that("test when path to a folder is not a folder", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(
     site_url = setup_site_url
   ))
@@ -229,7 +228,6 @@ test_that("test when path to a folder is not a folder", {
 })
 
 test_that("test folder upload works", {
-  skip_on_ci()
   my_drive <- suppressMessages(local_create_directory(
     site_url = setup_site_url
   ))
