@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# connector.sharepoint <a href="https://novonordisk-opensource.github.io/connector.sharepoint"><img src="man/figures/logo.png" align="right" height="138" alt="connector.sharepoint website" /></a>
+# connector.sharepoint <a href="https://novonordisk-opensource.github.io/connector.sharepoint/"><img src="man/figures/logo.png" align="right" height="138" alt="connector.sharepoint website" /></a>
 
 <!-- badges: start -->
 

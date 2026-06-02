@@ -1,6 +1,6 @@
-test_that("Test set up of Token", {
-  skip_on_ci()
+skip_offline_test()
 
+test_that("Test set up of Token", {
   withr::local_options(
     .new = list(
       connector.sharepoint.verbosity_level = "verbose",
