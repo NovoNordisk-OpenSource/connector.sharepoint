@@ -1,65 +1,111 @@
-skip_offline_test()
+# Token lookup only reads the local AzureR directory, so these tests run the
+# same on every backend: the directory is a temp dir and the token cache is
+# stubbed at the AzureAuth boundary.
 
-test_that("Test set up of Token", {
-  withr::local_options(
-    .new = list(
-      connector.sharepoint.verbosity_level = "verbose",
-      zephyr.verbosity_level = "verbose"
-    ),
-    .local_envir = teardown_env()
+local_token_cache <- function(tokens = list(), env = parent.frame()) {
+  withr::local_envvar(
+    R_AZURE_DATA_DIR = withr::local_tempdir(.local_envir = env),
+    SHAREPOINT_AZURE_HASH = NA,
+    .local_envir = env
   )
+  testthat::local_mocked_bindings(
+    list_azure_tokens = function(...) tokens,
+    .package = "AzureAuth",
+    .env = env
+  )
+}
 
-  hash <- names(AzureAuth::list_azure_tokens())[1]
+write_active_hash <- function(lines) {
+  writeLines(lines, file.path(AzureAuth::AzureR_dir(), ".active_hash"))
+}
 
-  ## Use the var env
-  withr::with_envvar(c("SHAREPOINT_AZURE_HASH" = hash), {
-    messages <- capture_messages(get_token())
-    expect_false(
-      any(grepl(x = messages, pattern = "No SHAREPOINT_AZURE_HASH env found"))
-    )
+describe("get_token", {
+  it("should error when no token is cached", {
+    # Arrange
+    local_token_cache(list())
+
+    # Act, Assert
+    expect_error(get_token(), "create your token first")
   })
 
-  ## Error if no token
-  withr::with_envvar(c("R_AZURE_DATA_DIR" = "~"), {
-    quiet_token <- function(...) {
-      suppressMessages(get_token(...))
-    }
+  it("should return the token named by SHAREPOINT_AZURE_HASH", {
+    # Arrange
+    local_token_cache(list(aaaaaa = "first", bbbbbb = "second"))
+    withr::local_envvar(SHAREPOINT_AZURE_HASH = "bbbbbb")
 
-    expect_error(quiet_token())
+    # Act
+    result <- get_token()
+
+    # Assert
+    expect_equal(result, "second")
   })
 
-  ## Manipulate .active_file
-  file.rename(
-    from = get_tk_active_file(),
-    to = file.path(AzureAuth::AzureR_dir(), ".old_hash")
-  )
-  messages_a <- capture_messages(get_token())
+  it("should return the first cached token when no hash is configured", {
+    # Arrange
+    local_token_cache(list(aaaaaa = "first", bbbbbb = "second"))
 
-  expect_true(
-    any(
-      grepl(
-        x = messages_a,
-        pattern = "No hash provided or found, using the first token found"
-      )
-    )
-  )
+    # Act
+    result <- get_token()
 
-  ## create one without SHAREPOINT
-  file.create(file.path(AzureAuth::AzureR_dir(), ".active_hash"))
-  messages_s <- capture_messages(get_token())
-  expect_true(
-    any(
-      grepl(
-        x = messages_s,
-        pattern = "SHAREPOINT key not found in the active hash file"
-      )
-    )
-  )
-  file.remove(file.path(AzureAuth::AzureR_dir(), ".active_hash"))
+    # Assert
+    expect_equal(result, "first")
+  })
+})
 
-  ## Restore .active_file
-  file.rename(
-    from = file.path(AzureAuth::AzureR_dir(), ".old_hash"),
-    to = file.path(AzureAuth::AzureR_dir(), ".active_hash")
-  )
+describe("get_default_hash", {
+  it("should prefer SHAREPOINT_AZURE_HASH over the .active_hash file", {
+    # Arrange
+    local_token_cache()
+    write_active_hash('SHAREPOINT="fromfile"')
+    withr::local_envvar(SHAREPOINT_AZURE_HASH = "fromenv")
+
+    # Act
+    result <- get_default_hash()
+
+    # Assert
+    expect_equal(result, "fromenv")
+  })
+
+  it("should read the SHAREPOINT hash from .active_hash if env var is unset", {
+    # Arrange
+    local_token_cache()
+    write_active_hash(c('OTHER="zzzzzz"', 'SHAREPOINT="abc123"'))
+
+    # Act
+    result <- get_default_hash()
+
+    # Assert
+    expect_equal(result, "abc123")
+  })
+
+  it("should return NULL when .active_hash has no SHAREPOINT entry", {
+    # Arrange
+    local_token_cache()
+    write_active_hash('OTHER="zzzzzz"')
+
+    # Act
+    result <- get_default_hash()
+
+    # Assert
+    expect_null(result)
+  })
+
+  it("should return NULL when there is no .active_hash file", {
+    # Arrange
+    local_token_cache()
+
+    # Act
+    result <- get_default_hash()
+
+    # Assert
+    expect_null(result)
+  })
+
+  it("should reject a SHAREPOINT hash shorter than 6 characters", {
+    testthat::skip(paste(
+      "TODO: the hash regex requires 6+ alphanumerics. A shorter",
+      "value does not match, so the whole line 'SHAREPOINT=\"abc12\"' is",
+      "returned as the hash. Should that error, return NULL, or be accepted?"
+    ))
+  })
 })
