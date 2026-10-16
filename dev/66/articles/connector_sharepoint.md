@@ -1,0 +1,200 @@
+# ConnectorSharepoint
+
+The connector.sharepoint package provides a convenient interface for
+accessing and interacting with Microsoft SharePoint sites directly from
+R.
+
+## Introduction
+
+This vignette will guide you through the process of connecting to a
+SharePoint site, retrieving data, and performing various operations
+using this package.
+
+## Connecting to a SharePoint Site
+
+### Without connector package
+
+To get started, you need to establish a connection to your SharePoint
+site. Use the
+[`connector_sharepoint()`](https://novonordisk-opensource.github.io/connector.sharepoint/reference/connector_sharepoint.md)
+function to authenticate and connect to your SharePoint site. Here’s an
+example of how to do this:
+
+``` r
+
+library(connector.sharepoint)
+
+# Connect to SharePoint
+con <- connector_sharepoint(site_url = "sharepoint_url")
+```
+
+### With connector package (recommended)
+
+If you are using the connector package, you can connect to a SharePoint
+site using the
+[`connect()`](https://novonordisk-opensource.github.io/connector/reference/connect.html)
+function. This function based on a configuration file or a list creates
+a
+[`connectors()`](https://novonordisk-opensource.github.io/connector/reference/connectors.html)
+object with a `connector`for each of the specified datasources (for
+detailed explanation have a look at connector package).
+
+Configuration file for connecting to SharePoint should look like this:
+
+``` r
+# An example of configuration file
+metadata:
+  trial: "0001"
+  extra_class: "adam_connector"
+  url: !!expr Sys.getenv("SHAREPOINT_SITE_URL")
+
+datasources:
+  - name: "adam"
+    backend:
+      type: "connector.sharepoint::connector_sharepoint"
+      site_url: "{metadata.url}"
+      folder: "{metadata.trial}/adam"
+      extra_class: "{metadata.extra_class}"
+  - name: "output"
+    backend:
+      type: "connector.sharepoint::connector_sharepoint"
+      site_url: "{metadata.url}"
+      folder: "{metadata.trial}/output"
+```
+
+Save this to `_connector.yml` file and use the
+[`connect()`](https://novonordisk-opensource.github.io/connector/reference/connect.html)
+function to connect to SharePoint:
+
+``` r
+
+library(connector)
+
+# Create connector object
+db <- connect()
+```
+
+Now you can access the SharePoint site using the `db` object and `adam`
+field inside of it.
+
+``` r
+
+# Connection to SharePoint site. This will print object details
+db$adam
+```
+
+After the setup is done we can use this connection to manipulate
+Sharepoint data.
+
+## Reading and writing data
+
+The `connector` packages provide a set of functions to read and write
+data from the datasources. They all have similar interface, so it’s easy
+to switch between them.
+
+Now, we will show how to read and write different types data from/to
+Sharepoint. In these examples we will be using `iris` and `mtcars`
+datasets.
+
+Here is an example of writing data to the ADaM table:
+
+``` r
+
+library(dplyr)
+
+# Manipulate data
+
+## Iris data
+setosa <- iris |>
+  filter(Species == "setosa")
+
+mean_for_all_iris <- iris |>
+  group_by(Species) |>
+  summarise_all(list(mean, median, sd, min, max))
+
+## mtcars data
+cars <- mtcars |>
+  filter(mpg > 22)
+
+mean_for_all_mtcars <- mtcars |>
+  group_by(gear) |>
+  summarise(
+    across(
+      everything(),
+      list("mean" = mean, "median" = median, "sd" = sd, "min" = min, "max" = max),
+      .names = "{.col}_{.fn}"
+    )
+  ) |>
+  tidyr::pivot_longer(
+    cols = -gear,
+    names_to = c(".value", "stat"),
+    names_sep = "_"
+  )
+
+## Store data
+db$adam |>
+  write_cnt(x = setosa, name = "setosa.csv", overwrite = TRUE)
+
+db$adam |>
+  write_cnt(mean_for_all_iris, "mean_iris.csv", overwrite = TRUE)
+
+db$adam |>
+  write_cnt(cars, "cars_mpg.csv", overwrite = TRUE)
+
+db$adam |>
+  write_cnt(mean_for_all_mtcars, "mean_mtcars.csv", overwrite = TRUE)
+```
+
+Now, let’s read the data back manipulate it a bit and write it to the
+SharePoint. This way we can save different types of data in different
+formats.
+
+``` r
+
+library(gt)
+library(tidyr)
+library(ggplot2)
+
+# List and load data
+db$adam |>
+  list_content_cnt()
+
+table <- db$adam |>
+  read_cnt("mean_mtcars.csv")
+
+gttable <- table |>
+  gt(groupname_col = "gear")
+
+# Save nontabular data to sharepoint
+tmp_file <- tempfile(fileext = ".docx")
+gtsave(gttable, tmp_file)
+db$output |>
+  upload_cnt(tmp_file, "tmeanallmtcars.docx")
+
+# Manipulate data
+setosa_fsetosa <- db$adam |>
+  read_cnt("setosa.csv") |>
+  filter(Sepal.Length > 5)
+
+fsetosa <- ggplot(setosa) +
+  aes(x = Sepal.Length, y = Sepal.Width) +
+  geom_point()
+
+## Store data into output location
+db$output |>
+  write_cnt(fsetosa$data, "fsetosa.csv")
+db$output |>
+  write_cnt(fsetosa, "fsetosa.rds")
+
+tmp_file <- tempfile(fileext = ".png")
+ggsave(tmp_file, fsetosa)
+db$output |>
+  upload_cnt(tmp_file, "fsetosa.png")
+```
+
+## Conclusion
+
+In this vignette we showed how to connect to SharePoint site, read and
+write data from it. We also showed how to use the connector package to
+connect to SharePoint and how to manipulate data using the connector
+package.
