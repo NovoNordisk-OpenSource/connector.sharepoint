@@ -103,7 +103,7 @@ describe("get_default_hash", {
 
   it("should reject a SHAREPOINT hash shorter than 6 characters", {
     testthat::skip(paste(
-      "TODO: the hash regex requires 6+ alphanumerics. A shorter",
+      "Open question: the hash regex requires 6+ alphanumerics. A shorter",
       "value does not match, so the whole line 'SHAREPOINT=\"abc12\"' is",
       "returned as the hash. Should that error, return NULL, or be accepted?"
     ))

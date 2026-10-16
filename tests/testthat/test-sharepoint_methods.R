@@ -96,7 +96,7 @@ describe("write_cnt", {
 
   it("should error when the file exists and overwrite is FALSE", {
     testthat::skip(paste(
-      "TODO: `overwrite` is accepted but never used, and Graph",
+      "Open question: `overwrite` is accepted but never used, and Graph",
       "replaces existing files. Should overwrite = FALSE error on an existing",
       "file?"
     ))
@@ -240,7 +240,7 @@ describe("create_directory_cnt", {
 
   it("should reuse the connector's token when open is TRUE", {
     testthat::skip(paste(
-      "TODO: (bug) the reopened connector calls get_token() instead of reusing",
+      "Known bug: the reopened connector calls get_token() instead of reusing",
       "con$token, so a connector built with a custom token loses it."
     ))
   })
@@ -262,13 +262,19 @@ describe("remove_directory_cnt", {
 })
 
 describe("upload_directory_cnt", {
-  it("should upload nested files when recursive is TRUE", {
-    # Arrange
-    con <- local_test_connector()
-    src <- withr::local_tempdir()
+  # a.txt at the top level and b.txt in a nested/ subfolder
+  local_nested_dir <- function(env = parent.frame()) {
+    src <- withr::local_tempdir(.local_envir = env)
     writeLines("a", file.path(src, "a.txt"))
     dir.create(file.path(src, "nested"))
     writeLines("b", file.path(src, "nested", "b.txt"))
+    src
+  }
+
+  it("should upload nested files when recursive is TRUE", {
+    # Arrange
+    con <- local_test_connector()
+    src <- local_nested_dir()
 
     # Act
     con$upload_directory_cnt(src, "up", recursive = TRUE)
@@ -280,10 +286,7 @@ describe("upload_directory_cnt", {
   it("should skip subfolders when recursive is FALSE", {
     # Arrange
     con <- local_test_connector()
-    src <- withr::local_tempdir()
-    writeLines("a", file.path(src, "a.txt"))
-    dir.create(file.path(src, "nested"))
-    writeLines("b", file.path(src, "nested", "b.txt"))
+    src <- local_nested_dir()
 
     # Act
     con$upload_directory_cnt(src, "up", recursive = FALSE)
@@ -315,7 +318,7 @@ describe("upload_directory_cnt", {
 
   it("should keep extra_class on the connector returned when open is TRUE", {
     testthat::skip(paste(
-      "TODO: (bug) extra_class is computed but never passed to",
+      "Known bug: extra_class is computed but never passed to",
       "connector_sharepoint(), so the reopened connector drops it."
     ))
   })

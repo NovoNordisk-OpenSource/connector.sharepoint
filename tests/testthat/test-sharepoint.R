@@ -94,7 +94,7 @@ describe("connector path", {
 
   it("should join site_url and folder with a slash", {
     testthat::skip(paste(
-      "TODO: (bug) site_url '.../sites/team' with folder 'data' gives",
+      "Known bug: site_url '.../sites/team' with folder 'data' gives",
       "con$path '.../sites/teamdata/' instead of '.../sites/team/data'.",
       "Decide whether path ends with '/', then test it."
     ))
