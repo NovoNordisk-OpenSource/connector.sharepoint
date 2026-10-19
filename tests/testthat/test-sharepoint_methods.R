@@ -339,6 +339,21 @@ describe("upload_directory_cnt", {
     expect_error(con$upload_directory_cnt("no/such/dir"), "does not exist")
   })
 
+  it("should reuse the connector's token when open is TRUE", {
+    # Arrange
+    con <- local_test_connector()
+    src <- local_nested_dir()
+    testthat::local_mocked_bindings(
+      get_token = function(...) stop("get_token() should not be called")
+    )
+
+    # Act
+    result <- con$upload_directory_cnt(src, "up", open = TRUE)
+
+    # Assert
+    expect_identical(result$token, con$token)
+  })
+
   it("should keep extra_class on the connector returned when open is TRUE", {
     testthat::skip(paste(
       "Known bug: extra_class is computed but never passed to",
