@@ -255,10 +255,17 @@ describe("create_directory_cnt", {
   })
 
   it("should reuse the connector's token when open is TRUE", {
-    testthat::skip(paste(
-      "Known bug: the reopened connector calls get_token() instead of reusing",
-      "con$token, so a connector built with a custom token loses it."
-    ))
+    # Arrange
+    con <- local_test_connector()
+    testthat::local_mocked_bindings(
+      get_token = function(...) stop("get_token() should not be called")
+    )
+
+    # Act
+    result <- con$create_directory_cnt("sub", open = TRUE)
+
+    # Assert
+    expect_identical(result$token, con$token)
   })
 })
 

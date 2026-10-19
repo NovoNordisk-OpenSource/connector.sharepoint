@@ -203,6 +203,7 @@ create_directory_cnt.ConnectorSharepoint <- function(
   if (open) {
     connector_object <- connector_sharepoint(
       site_url = connector_object$site_url,
+      token = connector_object$token,
       folder = name
     )
   }
