@@ -1,0 +1,8 @@
+# Dead irrelevant path in pkgdown/favicon
+http://svgjs.dev/svgjs
+# Path to RSPM yet to be derived
+https://packagemanager.posit.co/cran/\$
+# Placeholder URLs used in tests
+https://example\.sharepoint\.com
+https://graph\.microsoft\.com/\.default
+https://valid-url\.com

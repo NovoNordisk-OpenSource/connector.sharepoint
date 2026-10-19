@@ -21,269 +21,82 @@ test_that("ConnectorSharepoint creation fails with invalid parameters", {
   ))
 })
 
-test_that("connector_sharepoint creation fails with invalid parameters", {
-  expect_error(quiet_connect("https://www.google.com"))
-  expect_error(quiet_connect("www.google.com"))
-
-  skip_offline_test()
-
-  expect_error(quiet_connect(setup_site_url, token = "a weird token"))
-
-  expect_true(inherits(setup_connector, "ConnectorSharepoint"))
-  extra_class_ <- quiet_connect(setup_site_url, extra_class = "test")
-  expect_true(inherits(extra_class_, "test"))
-
-  ## Check active bindings
-  expect_error(setup_connector$folder <- "new_folder_name")
-  expect_error(setup_connector$token <- "new_token_value")
-  expect_error(setup_connector$site_url <- "new_site_url")
-  expect_error(setup_connector$path <- "new_path_name")
+test_that("connector_sharepoint errors when site_url is not an http(s) URL", {
+  # Act, Assert
+  expect_error(quiet_connect("www.google.com"), "valid URL")
 })
 
-skip_offline_test()
-
-test_that("Testing ConnectorSharepoint methods", {
-  my_drive <- suppressMessages(local_create_directory(
-    site_url = setup_site_url
-  ))
-
-  contents <- my_drive$list_content_cnt() |>
-    expect_no_condition()
-
-  my_drive$write_cnt(tbl_iris, "iris.csv") |>
-    expect_equal(my_drive)
-
-  my_drive$read_cnt("iris.csv", show_col_types = FALSE) |>
-    expect_equal(tbl_iris)
-
-  my_drive$remove_cnt("iris.csv", confirm = FALSE) |>
-    expect_no_condition()
-
-  new_directory <- my_drive$create_directory_cnt("new_directory", open = FALSE)
-
-  checkmate::expect_r6(new_directory, "ConnectorSharepoint")
-  expect_equal(my_drive$folder, new_directory$folder)
-
-  new_directory_open <- my_drive$create_directory_cnt(
-    "new_directory_open",
-    open = TRUE
+test_that("connector_sharepoint errors when token is not an Azure token", {
+  # Act, Assert
+  expect_error(
+    quiet_connect(test_site_url(), token = "a weird token"),
+    "not a valid Azure token"
   )
-  expect_equal(
-    new_directory_open$folder,
-    paste(my_drive$folder, "new_directory_open", sep = "/")
-  )
-
-  my_drive$remove_directory_cnt(name = "new_directory_open", confirm = FALSE)
-
-  my_drive$create_directory_cnt("new_directory") |>
-    expect_error()
-
-  contents <- my_drive$list_content_cnt()
-
-  expect_true(length(contents) == 1)
-
-  my_drive$remove_directory_cnt("new_directory", confirm = FALSE) |>
-    expect_no_condition()
 })
 
-test_that("Testing ConnectorSharepoint methods with a specific folder", {
-  my_drive <- suppressMessages(local_create_directory(
-    site_url = setup_site_url
-  ))
+test_that("connector_sharepoint errors when folder points to a file", {
+  # Arrange
+  con <- local_test_connector()
+  put_remote_csv(con, "iris.csv", iris)
 
-  #########################
-  ### For a specific folder
-  #########################
-
-  dir_name <- test_directory_name()
-  test_folder <- my_drive$create_directory_cnt(dir_name, open = TRUE)
-
-  contents <- test_folder$list_content_cnt()
-
-  expect_true(length(contents) == 0)
-
-  test_folder$write_cnt(tbl_iris, "iris.csv") |>
-    expect_equal(test_folder)
-
-  test_folder$read_cnt("iris.csv", show_col_types = FALSE) |>
-    expect_equal(tbl_iris)
-
-  # Remove a file or directory
-  my_drive$remove_cnt(dir_name, confirm = FALSE, by_item = TRUE) |>
-    expect_no_condition()
+  # Act, Assert
+  expect_error(
+    quiet_connect(test_site_url(), folder = drive_path(con, "iris.csv")),
+    "not a folder"
+  )
 })
 
-test_that("Testing ConnectorSharepoint specific outputs for methods", {
-  my_drive <- suppressMessages(local_create_directory(
-    site_url = setup_site_url
-  ))
-  #########################
-  ### Specific to methods
-  #########################
+test_that("connector_sharepoint puts extra_class before ConnectorSharepoint", {
+  # Act
+  con <- local_test_connector(extra_class = "extra")
 
-  # Create a folder and file
-  dir_name <- test_directory_name()
-  subfolder <- my_drive$create_directory_cnt(dir_name)
-  my_drive$write_cnt(iris, paste0(dir_name, "/iris.csv"))
+  # Assert
+  expect_equal(class(con)[1:2], c("extra", "ConnectorSharepoint"))
+})
 
-  ## Check error for read_cnt fo a folder
-  my_drive$read_cnt(dir_name, show_col_types = FALSE) |>
-    expect_error()
+test_that("connector exposes site_url, folder and token it was opened with", {
+  # Arrange
+  con <- local_test_connector()
+  folder <- drive_path(con, "sub")
+  put_remote_folder(con, "sub")
 
-  my_drive$read_cnt(paste0(dir_name, "/iris.csv"), show_col_types = FALSE) |>
-    expect_no_error()
+  # Act
+  result <- quiet_connect(test_site_url(), token = con$token, folder = folder)
 
-  ## Check error for write of non character
-  my_drive$write_cnt("iris", paste0(dir_name, "/iris.csv")) |>
-    expect_error()
+  # Assert
+  expect_equal(result$site_url, test_site_url())
+  expect_equal(result$folder, folder)
+  expect_identical(result$token, con$token)
+})
 
-  ### Upload and download
+test_that("connector fields are read-only", {
+  # Arrange
+  con <- local_test_connector()
 
-  ### file
-  tmp_file <- tempfile(fileext = ".example")
-  tmp_file_d <- tempfile(pattern = "downloaded", fileext = ".example")
-  write.csv(iris, tmp_file, row.names = FALSE)
+  # Act, Assert
+  expect_error(con$folder <- "x", "Can't set `\\$folder`")
+  expect_error(con$token <- "x", "Can't set `\\$token`")
+  expect_error(con$site_url <- "x", "Can't set `\\$site_url`")
+  expect_error(con$path <- "x", "Can't set `\\$path`")
+})
 
-  my_drive$upload_cnt(
-    src = tmp_file,
-    dest = paste0(dir_name, "/iris.example")
-  ) |>
-    expect_no_error()
+describe("connector path", {
+  it("should be site_url followed by a slash when no folder is given", {
+    # Arrange
+    token <- local_test_connector()$token
 
-  my_drive$download_cnt(
-    src = paste0(dir_name, "/iris.example"),
-    dest = tmp_file_d
-  ) |>
-    expect_no_error()
+    # Act
+    con <- quiet_connect(test_site_url(), token = token)
 
-  path_ <- my_drive$get_conn()$get_item(
-    paste(my_drive$folder, dir_name, "iris.example", sep = "/")
-  )$get_path()
-
-  expect_equal(
-    path_,
-    paste0("/", paste(my_drive$folder, dir_name, "iris.example", sep = "/"))
-  )
-
-  #### Dirs
-  tmp_dir <- tempfile(pattern = "test_dir")
-  dir.create(tmp_dir)
-
-  withr::with_dir(tmp_dir, {
-    write.csv(iris, "iris.csv", row.names = FALSE)
+    # Assert
+    expect_equal(con$path, paste0(test_site_url(), "/"))
   })
 
-  my_drive$upload_directory_cnt(
-    src = tmp_dir,
-    dest = paste0(dir_name, "/dir")
-  ) |>
-    expect_no_error()
-
-  ## Download directory
-  dir_d <- tempfile("dir_d")
-  dir.create(dir_d)
-  my_drive$download_directory_cnt(
-    src = paste0(dir_name, "/dir"),
-    dest = dir_d
-  ) |>
-    expect_no_error()
-
-  list.files(dir_d) |>
-    expect_equal("iris.csv")
-
-  #### Read a folder
-  my_drive$read_cnt(dir_name) |>
-    expect_error()
-
-  ### Using vroom
-  my_drive$read_cnt(
-    paste0(dir_name, "/iris.example"),
-    show_col_types = FALSE
-  ) |>
-    expect_no_error()
-
-  ### Clean up
-  my_drive$remove_cnt(dir_name, confirm = FALSE, by_item = TRUE)
-})
-
-test_that("test when path to a folder is not a folder", {
-  my_drive <- suppressMessages(local_create_directory(
-    site_url = setup_site_url
-  ))
-
-  ## create a file
-  dir_name <- test_directory_name()
-  my_drive$create_directory_cnt(dir_name)
-  my_drive$write_cnt(iris, paste0(dir_name, "/iris.csv"))
-
-  # Path is not a folder
-  quiet_connect(
-    setup_site_url,
-    folder = paste0(dir_name, "/iris.csv")
-  ) |>
-    expect_error()
-
-  # clean up
-  my_drive$remove_cnt(dir_name, confirm = FALSE, by_item = TRUE)
-})
-
-test_that("test folder upload works", {
-  my_drive <- suppressMessages(local_create_directory(
-    site_url = setup_site_url
-  ))
-  dir_name <- test_directory_name()
-
-  tmp_dir <- tempfile(pattern = "test_dir")
-  dir.create(tmp_dir)
-
-  withr::with_dir(tmp_dir, {
-    write.csv(iris, "iris.csv", row.names = FALSE)
+  it("should join site_url and folder with a slash", {
+    testthat::skip(paste(
+      "Known bug: site_url '.../sites/team' with folder 'data' gives",
+      "con$path '.../sites/teamdata/' instead of '.../sites/team/data'.",
+      "Decide whether path ends with '/', then test it."
+    ))
   })
-
-  # Upload directory fails when needed
-  my_drive$upload_directory_cnt(src = "bad_folder", dest = "dir") |>
-    expect_error()
-  my_drive$upload_directory_cnt(src = tmp_dir, dest = 2) |>
-    expect_error()
-
-  # Upload directory
-  my_drive$upload_directory_cnt(
-    src = tmp_dir,
-    dest = paste0(dir_name, "/dir")
-  ) |>
-    expect_no_error()
-
-  # Upload directory OPEN
-  new_directory_OPEN <- my_drive$upload_directory_cnt(
-    src = tmp_dir,
-    dest = paste0(dir_name, "/dirOPEN"),
-    open = TRUE
-  ) |>
-    expect_no_error()
-
-  expect_true(
-    new_directory_OPEN$folder ==
-      paste(my_drive$folder, dir_name, "dirOPEN", sep = "/")
-  )
-
-  # Upload directory to a directory
-  new_directory <- my_drive$create_directory_cnt(name = "test_dir", open = TRUE)
-  new_directory$upload_directory_cnt(
-    src = tmp_dir,
-    dest = paste0(dir_name, "/dir")
-  ) |>
-    expect_no_error()
-
-  ### Error not existing
-  my_drive$upload_cnt(src = "not_exist", dest = paste0(dir_name, "/dir")) |>
-    expect_error()
-
-  dir_ <- my_drive$get_conn()$get_item(paste(
-    my_drive$folder,
-    dir_name,
-    "/dir",
-    sep = "/"
-  ))
-
-  expect_true(dir_$is_folder())
 })

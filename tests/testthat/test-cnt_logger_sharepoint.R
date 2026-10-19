@@ -1,84 +1,73 @@
-skip_offline_test()
 skip_if_not_installed("whirl")
 
-sharepoint_connector <- connector.sharepoint::ConnectorSharepoint$new(
-  site_url = setup_site_url,
-  extra_class = "connector_logger"
-)
+local_whirl_log <- function(env = parent.frame()) {
+  log <- withr::local_tempfile(.local_envir = env)
+  withr::local_envvar(WHIRL_LOG_MSG = log, .local_envir = env)
+  log
+}
 
-test_that("log_read_connector for sharepoint sites logs correct message", {
-  # Create mock for whirl::log_read
-  log_mock <- mockery::mock()
-  mockery::stub(
-    log_read_connector.ConnectorSharepoint,
-    "whirl::log_read",
-    log_mock
+# `time` changes on every run, so only `type` and `file` are compared
+expect_whirl_logged <- function(log, type, file) {
+  entries <- jsonlite::stream_in(base::file(log), verbose = FALSE)
+  expect_equal(entries[c("type", "file")], data.frame(type = type, file = file))
+}
+
+test_that("log_read_connector logs a read of the file with drive details", {
+  # Arrange
+  con <- local_test_connector()
+  log <- local_whirl_log()
+
+  # Act
+  log_read_connector(con, "test.csv")
+
+  # Assert
+  drive <- con$get_conn()$properties
+  expected <- sprintf(
+    "test.csv @ path: %s, driveType: %s, id: %s, description: %s",
+    con$path,
+    drive$driveType,
+    drive$id,
+    drive$description
   )
-
-  # Test the function
-  log_read_connector.ConnectorSharepoint(sharepoint_connector, "test.csv")
-
-  # Verify log_read was called with correct message
-  expected_msg <- glue::glue(
-    "test.csv @ path: {setup_site_url}/, ",
-    "driveType: {sharepoint_connector$get_conn()$properties$driveType}, ",
-    "id: {sharepoint_connector$get_conn()$properties$id}, ",
-    "description: {sharepoint_connector$get_conn()$properties$description}"
-  )
-  mockery::expect_called(log_mock, 1)
-  mockery::expect_args(log_mock, 1, expected_msg)
+  expect_whirl_logged(log, type = "read", file = expected)
 })
 
-test_that("log_write_connector for sharepoint sites logs correct message", {
-  # Create mock for whirl::log_write
-  log_mock <- mockery::mock()
-  mockery::stub(
-    log_write_connector.ConnectorSharepoint,
-    "whirl::log_write",
-    log_mock
-  )
+test_that("log_write_connector logs a write of the file with drive details", {
+  # Arrange
+  con <- local_test_connector()
+  log <- local_whirl_log()
 
-  # Test the function
-  log_write_connector.ConnectorSharepoint(
-    sharepoint_connector,
-    "test.csv"
-  )
+  # Act
+  log_write_connector(con, "test.csv")
 
-  # Verify log_write was called with correct message
-  # Verify log_read was called with correct message
-  expected_msg <- glue::glue(
-    "test.csv @ path: {setup_site_url}/, ",
-    "driveType: {sharepoint_connector$get_conn()$properties$driveType}, ",
-    "id: {sharepoint_connector$get_conn()$properties$id}, ",
-    "description: {sharepoint_connector$get_conn()$properties$description}"
+  # Assert
+  drive <- con$get_conn()$properties
+  expected <- sprintf(
+    "test.csv @ path: %s, driveType: %s, id: %s, description: %s",
+    con$path,
+    drive$driveType,
+    drive$id,
+    drive$description
   )
-  mockery::expect_called(log_mock, 1)
-  mockery::expect_args(log_mock, 1, expected_msg)
+  expect_whirl_logged(log, type = "write", file = expected)
 })
 
-test_that("log_remove_connector for sharepoint sites logs correct message", {
-  # Create mock for whirl::log_delete
-  log_mock <- mockery::mock()
-  mockery::stub(
-    log_remove_connector.ConnectorSharepoint,
-    "whirl::log_delete",
-    log_mock
-  )
+test_that("log_remove_connector logs a delete of the file with drive details", {
+  # Arrange
+  con <- local_test_connector()
+  log <- local_whirl_log()
 
-  # Test the function
-  log_remove_connector.ConnectorSharepoint(
-    sharepoint_connector,
-    "test.csv"
-  )
+  # Act
+  log_remove_connector(con, "test.csv")
 
-  # Verify log_delete was called with correct message
-  # Verify log_read was called with correct message
-  expected_msg <- glue::glue(
-    "test.csv @ path: {setup_site_url}/, ",
-    "driveType: {sharepoint_connector$get_conn()$properties$driveType}, ",
-    "id: {sharepoint_connector$get_conn()$properties$id}, ",
-    "description: {sharepoint_connector$get_conn()$properties$description}"
+  # Assert
+  drive <- con$get_conn()$properties
+  expected <- sprintf(
+    "test.csv @ path: %s, driveType: %s, id: %s, description: %s",
+    con$path,
+    drive$driveType,
+    drive$id,
+    drive$description
   )
-  mockery::expect_called(log_mock, 1)
-  mockery::expect_args(log_mock, 1, expected_msg)
+  expect_whirl_logged(log, type = "delete", file = expected)
 })

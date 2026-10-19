@@ -5,6 +5,8 @@ Aksel
 aut
 AzureAuth
 AzureR
+behaviour
+blocksize
 BugReports
 Cervan
 cgid
@@ -31,6 +33,8 @@ dplyr
 envir
 expr
 Falgreen
+fromenv
+fromfile
 FS
 fsetosa
 getenv
@@ -42,10 +46,13 @@ groupname
 gtsave
 gttable
 https
+httr
 ignorePaths
 ignoreRegExpList
 io
+isdir
 IssueNumber
+jsonlite
 knitr
 Larsen
 licensable
@@ -61,6 +68,7 @@ nn
 nolint
 nontabular
 Nordisk
+normalisation
 Novo
 novonordisk
 NovoNordisk
@@ -88,12 +96,15 @@ setosa
 sffl
 sharepoint
 Sharepoint
+srcid
 Steffen
+subdirs
 subfolders
 sublicense
 summarise
 Sys
 tbl
+teamdata
 testthat
 Thomsen
 tibble

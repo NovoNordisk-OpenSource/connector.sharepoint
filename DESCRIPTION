@@ -33,12 +33,11 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0),
+    testthat (>= 3.2.0),
     tibble,
     withr,
     whirl (>= 0.2.0),
-    glue,
-    mockery
+    jsonlite
 VignetteBuilder:
     knitr,
     rmarkdown
