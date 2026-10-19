@@ -80,6 +80,41 @@ test_that("connector fields are read-only", {
   expect_error(con$path <- "x", "Can't set `\\$path`")
 })
 
+describe("folder argument", {
+  it("should accept a folder with a trailing slash", {
+    # Arrange
+    con <- local_test_connector()
+    put_remote_csv(con, "iris.csv", iris)
+    con_slash <- quiet_connect(
+      test_site_url(),
+      token = con$token,
+      folder = paste0(con$folder, "/")
+    )
+
+    # Act
+    result <- con_slash$list_content_cnt()
+
+    # Assert
+    expect_equal(result, "iris.csv")
+  })
+
+  it("should accept a folder with a leading slash", {
+    # Arrange
+    con <- local_test_connector()
+    con_slash <- quiet_connect(
+      test_site_url(),
+      token = con$token,
+      folder = paste0("/", con$folder)
+    )
+
+    # Act
+    con_slash$write_cnt(iris, "iris.csv")
+
+    # Assert
+    expect_equal(list_remote(con), "iris.csv")
+  })
+})
+
 describe("connector path", {
   it("should be site_url followed by a slash when no folder is given", {
     # Arrange

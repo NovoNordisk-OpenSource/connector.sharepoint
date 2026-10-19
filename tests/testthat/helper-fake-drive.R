@@ -23,9 +23,23 @@ fake_http_404 <- function(path) {
   ))
 }
 
-# Same normalisation as ms_drive$get_item(): drop leading/trailing slashes
+# Same normalisation as ms_drive$get_item(): drop one leading and one
+# trailing slash
 fake_clean_path <- function(path) {
-  gsub("^/+|/+$", "", if (is.null(path)) "" else path)
+  gsub("^/|/$", "", if (is.null(path)) "" else path)
+}
+
+# Paths given to ms_drive_item methods, and to the ms_drive methods that
+# delegate to the root item, are appended to the item ID
+# (microsoft365r_use_itemid_in_path = TRUE), which rejects a leading slash
+fake_check_relative <- function(path) {
+  if (startsWith(path, "/")) {
+    stop(
+      "Absolute path incompatible with path starting from item ID",
+      call. = FALSE
+    )
+  }
+  invisible(path)
 }
 
 # The package only reads $name; the columns match info = "partial"
@@ -60,9 +74,18 @@ FakeMicrosoft365RItem <- R6::R6Class(
       dir.exists(private$local())
     },
     list_items = function(path = "", ...) {
+      if (path == "/") {
+        path <- ""
+      }
+      fake_check_relative(path)
+      # Graph is called on "<path>:/children", so "<dir>/:/children" is a 404
+      if (endsWith(path, "/")) {
+        fake_http_404(path)
+      }
       fake_list_items(private$local(path))
     },
     get_item = function(path) {
+      fake_check_relative(path)
       FakeMicrosoft365RItem$new(private$root, file.path(private$path, path))
     },
     download = function(
@@ -126,9 +149,10 @@ FakeMicrosoft365RDrive <- R6::R6Class(
       FakeMicrosoft365RItem$new(self$root, if (is.null(path)) itemid else path)
     },
     list_items = function(path = "/", ...) {
-      self$get_item(path)$list_items(...)
+      self$get_item("/")$list_items(path, ...)
     },
     upload_file = function(src, dest, blocksize = 32768000) {
+      fake_check_relative(dest)
       # Graph PUT replaces existing files and creates missing parent folders
       target <- file.path(self$root, fake_clean_path(dest))
       dir.create(dirname(target), recursive = TRUE, showWarnings = FALSE)
@@ -142,6 +166,7 @@ FakeMicrosoft365RDrive <- R6::R6Class(
       recursive = FALSE,
       parallel = FALSE
     ) {
+      fake_check_relative(dest)
       files <- dir(src, all.files = TRUE, no.. = TRUE, recursive = recursive)
       if (!recursive) {
         subdirs <- list.dirs(src, recursive = FALSE, full.names = FALSE)
@@ -153,6 +178,7 @@ FakeMicrosoft365RDrive <- R6::R6Class(
       invisible(self$get_item(dest))
     },
     create_folder = function(path) {
+      fake_check_relative(path)
       # Microsoft365R sends conflictBehavior = "fail"
       target <- file.path(self$root, fake_clean_path(path))
       if (file.exists(target)) {

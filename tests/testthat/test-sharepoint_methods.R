@@ -229,20 +229,43 @@ describe("create_directory_cnt", {
     expect_equal(list_remote(con), "sub")
   })
 
-  it("should error when the folder already exists", {
+  it("should open the folder when it already exists", {
     # Arrange
     con <- local_test_connector()
-    put_remote_folder(con, "sub")
+    put_remote_csv(con, "sub/x.csv", iris)
+
+    # Act
+    result <- con$create_directory_cnt("sub", open = TRUE)
+
+    # Assert
+    expect_equal(result$folder, drive_path(con, "sub"))
+    expect_equal(result$list_content_cnt(), "x.csv")
+  })
+
+  it("should error when a file with that name exists", {
+    # Arrange
+    con <- local_test_connector()
+    put_remote_csv(con, "sub", iris)
 
     # Act, Assert
-    expect_error(con$create_directory_cnt("sub"), "409")
+    expect_error(
+      con$create_directory_cnt("sub", open = FALSE),
+      "already exists and is a file"
+    )
   })
 
   it("should reuse the connector's token when open is TRUE", {
-    testthat::skip(paste(
-      "Known bug: the reopened connector calls get_token() instead of reusing",
-      "con$token, so a connector built with a custom token loses it."
-    ))
+    # Arrange
+    con <- local_test_connector()
+    testthat::local_mocked_bindings(
+      get_token = function(...) stop("get_token() should not be called")
+    )
+
+    # Act
+    result <- con$create_directory_cnt("sub", open = TRUE)
+
+    # Assert
+    expect_identical(result$token, con$token)
   })
 })
 
@@ -314,6 +337,21 @@ describe("upload_directory_cnt", {
 
     # Act, Assert
     expect_error(con$upload_directory_cnt("no/such/dir"), "does not exist")
+  })
+
+  it("should reuse the connector's token when open is TRUE", {
+    # Arrange
+    con <- local_test_connector()
+    src <- local_nested_dir()
+    testthat::local_mocked_bindings(
+      get_token = function(...) stop("get_token() should not be called")
+    )
+
+    # Act
+    result <- con$upload_directory_cnt(src, "up", open = TRUE)
+
+    # Assert
+    expect_identical(result$token, con$token)
   })
 
   it("should keep extra_class on the connector returned when open is TRUE", {
