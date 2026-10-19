@@ -192,7 +192,13 @@ create_directory_cnt.ConnectorSharepoint <- function(
     name <- paste(connector_object$folder, name, sep = "/")
   }
 
-  connector_object$get_conn()$create_folder(name, ...)
+  conn <- connector_object$get_conn()
+  existing <- tryCatch(conn$get_item(name), http_404 = function(e) NULL)
+  if (is.null(existing)) {
+    conn$create_folder(name, ...)
+  } else if (!existing$is_folder()) {
+    cli::cli_abort("{.val {name}} already exists and is a file")
+  }
 
   if (open) {
     connector_object <- connector_sharepoint(

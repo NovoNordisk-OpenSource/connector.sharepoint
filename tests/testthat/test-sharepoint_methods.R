@@ -229,13 +229,29 @@ describe("create_directory_cnt", {
     expect_equal(list_remote(con), "sub")
   })
 
-  it("should error when the folder already exists", {
+  it("should open the folder when it already exists", {
     # Arrange
     con <- local_test_connector()
-    put_remote_folder(con, "sub")
+    put_remote_csv(con, "sub/x.csv", iris)
+
+    # Act
+    result <- con$create_directory_cnt("sub", open = TRUE)
+
+    # Assert
+    expect_equal(result$folder, drive_path(con, "sub"))
+    expect_equal(result$list_content_cnt(), "x.csv")
+  })
+
+  it("should error when a file with that name exists", {
+    # Arrange
+    con <- local_test_connector()
+    put_remote_csv(con, "sub", iris)
 
     # Act, Assert
-    expect_error(con$create_directory_cnt("sub"), "409")
+    expect_error(
+      con$create_directory_cnt("sub", open = FALSE),
+      "already exists and is a file"
+    )
   })
 
   it("should reuse the connector's token when open is TRUE", {
