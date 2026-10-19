@@ -129,6 +129,10 @@ ConnectorSharepoint <- R6::R6Class(
       checkmate::assert_character(folder)
       checkmate::assert_character(extra_class, null.ok = TRUE)
 
+      # Paths are built as "<folder>/<name>", which Microsoft365R rejects
+      # with a leading slash and Graph rejects with a trailing one
+      folder <- gsub("^/+|/+$", "", folder)
+
       zephyr::msg_debug("Define the path of the folder")
       conn <- Microsoft365R::get_sharepoint_site(
         site_url = site_url,
