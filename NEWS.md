@@ -1,3 +1,5 @@
+# connector.sharepoint (development version)
+
 # connector.sharepoint 0.1.0
 
 ## Enhancement
